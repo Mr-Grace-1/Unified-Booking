@@ -70,6 +70,7 @@ export default function Dashboard() {
     <div className="p-4 sm:p-6 space-y-6">
       {/* Stats Grid */}
       <motion.div
+        data-tour="dashboard-stats"
         variants={container}
         initial="hidden"
         animate="show"
@@ -118,6 +119,7 @@ export default function Dashboard() {
 
       {/* Quick Actions - Role Based */}
       <motion.div
+        data-tour="quick-actions"
         variants={container}
         initial="hidden"
         animate="show"

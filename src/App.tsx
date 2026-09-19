@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { AppProvider, useApp } from './store/AppContext';
 import { AuthProvider, useAuth } from './store/AuthContext';
+import { ThemeProvider } from './store/ThemeContext';
+import { NotificationProvider } from './store/NotificationContext';
 import { ToastProvider } from './components/Toast';
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
@@ -19,6 +21,8 @@ import AnimatedBackground from './components/AnimatedBackground';
 import AuthPage from './components/AuthPage';
 import OnboardingFlow from './components/OnboardingFlow';
 import AccessDenied from './components/AccessDenied';
+import KeyboardShortcuts from './components/KeyboardShortcuts';
+import OnboardingTour from './components/OnboardingTour';
 import { motion, AnimatePresence } from 'framer-motion';
 import { canAccessView } from './utils/permissions';
 
@@ -118,18 +122,24 @@ function AppContent() {
         </main>
       </div>
       <CommandPalette isOpen={commandPaletteOpen} onClose={() => setCommandPaletteOpen(false)} />
+      <KeyboardShortcuts />
+      <OnboardingTour />
     </div>
   );
 }
 
 export default function App() {
   return (
-    <AuthProvider>
-      <AppProvider>
-        <ToastProvider>
-          <AppContent />
-        </ToastProvider>
-      </AppProvider>
-    </AuthProvider>
+    <ThemeProvider>
+      <NotificationProvider>
+        <AuthProvider>
+          <AppProvider>
+            <ToastProvider>
+              <AppContent />
+            </ToastProvider>
+          </AppProvider>
+        </AuthProvider>
+      </NotificationProvider>
+    </ThemeProvider>
   );
 }

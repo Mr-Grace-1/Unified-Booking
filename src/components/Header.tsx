@@ -1,9 +1,11 @@
 import { useApp } from '../store/AppContext';
 import { useAuth } from '../store/AuthContext';
-import { Menu, Bell, Search, Plus, LogOut, User, Lock } from 'lucide-react';
+import { useTheme } from '../store/ThemeContext';
+import { Menu, Search, Plus, LogOut, Sun, Moon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { getRoleInfo } from '../utils/permissions';
+import NotificationPanel from './NotificationPanel';
 
 const viewTitles: Record<string, string> = {
   'dashboard': 'Dashboard',
@@ -21,6 +23,7 @@ const viewTitles: Record<string, string> = {
 export default function Header() {
   const { currentView, setSidebarOpen, setCurrentView } = useApp();
   const { user, logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const [showUserMenu, setShowUserMenu] = useState(false);
 
   const roleInfo = user ? getRoleInfo(user.role) : null;
@@ -57,20 +60,32 @@ export default function Header() {
           <span className="flex-1">Search or type command...</span>
           <kbd className="px-1.5 py-0.5 text-xs bg-white/10 rounded text-slate-500">⌘K</kbd>
         </div>
-        <motion.button 
-          whileHover={{ scale: 1.1 }}
+        <NotificationPanel />
+        
+        {/* Theme Toggle */}
+        <motion.button
+          whileHover={{ scale: 1.1, rotate: 180 }}
           whileTap={{ scale: 0.95 }}
-          className="relative p-2 text-slate-400 hover:text-white hover:bg-white/10 rounded-lg"
+          onClick={toggleTheme}
+          className="p-2 text-slate-400 hover:text-white hover:bg-white/10 rounded-lg transition-all"
+          title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
         >
-          <Bell size={20} />
-          <motion.span 
-            animate={{ scale: [1, 1.3, 1] }}
-            transition={{ repeat: Infinity, duration: 2 }}
-            className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full" 
-          />
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={theme}
+              initial={{ rotate: -90, opacity: 0 }}
+              animate={{ rotate: 0, opacity: 1 }}
+              exit={{ rotate: 90, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+            </motion.div>
+          </AnimatePresence>
         </motion.button>
+
         {canCreateBooking && (
           <motion.button
+            data-tour="new-booking"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => setCurrentView('new-booking')}
@@ -88,7 +103,7 @@ export default function Header() {
 
         {/* User Menu */}
         {user && (
-          <div className="relative">
+          <div data-tour="user-menu" className="relative">
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}

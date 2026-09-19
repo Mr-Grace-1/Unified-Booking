@@ -55,6 +55,7 @@ export default function Sidebar() {
       </AnimatePresence>
 
       <motion.aside
+        data-tour="sidebar"
         initial={false}
         animate={{ x: sidebarOpen ? 0 : '-100%' }}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
