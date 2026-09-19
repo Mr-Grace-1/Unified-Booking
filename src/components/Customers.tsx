@@ -1,6 +1,7 @@
 import { useApp, customers, services } from '../store/AppContext';
 import { Mail, Phone, Calendar, DollarSign, Tag } from 'lucide-react';
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Customers() {
   const { bookings } = useApp();
@@ -30,9 +31,13 @@ export default function Customers() {
             />
           </div>
           <div className="space-y-2 max-h-[600px] overflow-y-auto">
-            {filtered.map(customer => (
-              <button
+            {filtered.map((customer, i) => (
+              <motion.button
                 key={customer.id}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.05 }}
+                whileHover={{ x: 5, transition: { duration: 0.2 } }}
                 onClick={() => setSelectedCustomer(customer.id)}
                 className={`w-full p-4 rounded-xl border text-left transition-all ${
                   selectedCustomer === customer.id
@@ -51,15 +56,23 @@ export default function Customers() {
                     <div className="text-xs text-slate-500">{customer.totalBookings} bookings</div>
                   </div>
                 </div>
-              </button>
+              </motion.button>
             ))}
           </div>
         </div>
 
         {/* Customer Detail */}
         <div className="lg:col-span-2">
+          <AnimatePresence mode="wait">
           {selected ? (
-            <div className="space-y-6">
+            <motion.div
+              key={selected.id}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.3 }}
+              className="space-y-6"
+            >
               {/* Profile Card */}
               <div className="p-6 rounded-xl bg-slate-900/50 border border-white/10">
                 <div className="flex items-start gap-4 mb-4">
@@ -131,15 +144,22 @@ export default function Customers() {
                   )}
                 </div>
               </div>
-            </div>
+            </motion.div>
           ) : (
-            <div className="flex items-center justify-center h-96 text-slate-500">
+            <motion.div
+              key="empty"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="flex items-center justify-center h-96 text-slate-500"
+            >
               <div className="text-center">
                 <div className="text-5xl mb-3">👤</div>
                 <p className="text-lg">Select a customer to view details</p>
               </div>
-            </div>
+            </motion.div>
           )}
+          </AnimatePresence>
         </div>
       </div>
     </div>

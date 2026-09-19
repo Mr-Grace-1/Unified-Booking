@@ -1,5 +1,6 @@
 import { useApp, services, customers, staff } from '../store/AppContext';
 import { CalendarDays, DollarSign, Users, TrendingUp, Clock, CheckCircle, AlertCircle } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function Dashboard() {
   const { bookings, setCurrentView } = useApp();
@@ -25,6 +26,21 @@ export default function Dashboard() {
     { label: 'Staff Members', value: staff.length, icon: <TrendingUp size={20} />, color: 'from-amber-500 to-orange-500', change: '0%' },
   ];
 
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0 }
+  };
+
   const getStatusColor = (status: string) => {
     const colors: Record<string, string> = {
       pending: 'bg-yellow-500/20 text-yellow-400',
@@ -43,9 +59,19 @@ export default function Dashboard() {
   return (
     <div className="p-4 sm:p-6 space-y-6">
       {/* Stats Grid */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <motion.div
+        variants={container}
+        initial="hidden"
+        animate="show"
+        className="grid grid-cols-2 lg:grid-cols-4 gap-4"
+      >
         {stats.map((stat, i) => (
-          <div key={i} className="p-4 rounded-xl bg-slate-900/50 border border-white/10 hover:border-white/20 transition-colors">
+          <motion.div
+            key={i}
+            variants={item}
+            whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
+            className="p-4 rounded-xl bg-slate-900/50 border border-white/10 hover:border-white/20 transition-colors"
+          >
             <div className="flex items-center justify-between mb-3">
               <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${stat.color} flex items-center justify-center text-white`}>
                 {stat.icon}
@@ -54,13 +80,21 @@ export default function Dashboard() {
             </div>
             <div className="text-2xl font-bold text-white mb-1">{stat.value}</div>
             <div className="text-sm text-slate-400">{stat.label}</div>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
 
       {/* Quick Actions */}
-      <div className="grid sm:grid-cols-3 gap-4">
-        <button
+      <motion.div
+        variants={container}
+        initial="hidden"
+        animate="show"
+        className="grid sm:grid-cols-3 gap-4"
+      >
+        <motion.button
+          variants={item}
+          whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
+          whileTap={{ scale: 0.98 }}
           onClick={() => setCurrentView('new-booking')}
           className="p-4 rounded-xl bg-gradient-to-br from-indigo-600/20 to-purple-600/20 border border-indigo-500/30 hover:border-indigo-500/50 transition-all text-left"
         >
@@ -73,8 +107,11 @@ export default function Dashboard() {
               <div className="text-xs text-slate-400">Schedule a new service</div>
             </div>
           </div>
-        </button>
-        <button
+        </motion.button>
+        <motion.button
+          variants={item}
+          whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
+          whileTap={{ scale: 0.98 }}
           onClick={() => setCurrentView('calendar')}
           className="p-4 rounded-xl bg-gradient-to-br from-emerald-600/20 to-teal-600/20 border border-emerald-500/30 hover:border-emerald-500/50 transition-all text-left"
         >
@@ -87,8 +124,11 @@ export default function Dashboard() {
               <div className="text-xs text-slate-400">Check today's calendar</div>
             </div>
           </div>
-        </button>
-        <button
+        </motion.button>
+        <motion.button
+          variants={item}
+          whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
+          whileTap={{ scale: 0.98 }}
           onClick={() => setCurrentView('customers')}
           className="p-4 rounded-xl bg-gradient-to-br from-amber-600/20 to-orange-600/20 border border-amber-500/30 hover:border-amber-500/50 transition-all text-left"
         >
@@ -101,13 +141,18 @@ export default function Dashboard() {
               <div className="text-xs text-slate-400">Manage client profiles</div>
             </div>
           </div>
-        </button>
-      </div>
+        </motion.button>
+      </motion.div>
 
       {/* Today's Schedule & Recent Bookings */}
       <div className="grid lg:grid-cols-2 gap-6">
         {/* Today's Schedule */}
-        <div className="rounded-xl bg-slate-900/50 border border-white/10 p-5">
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.3, duration: 0.5 }}
+          className="rounded-xl bg-slate-900/50 border border-white/10 p-5"
+        >
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-bold text-white flex items-center gap-2">
               <Clock size={18} className="text-blue-400" />
@@ -122,12 +167,19 @@ export default function Dashboard() {
                 <p>No bookings today</p>
               </div>
             ) : (
-              todayBookings.map(booking => {
+              todayBookings.map((booking, i) => {
                 const service = services.find(s => s.id === booking.serviceId);
                 const customer = customers.find(c => c.id === booking.customerId);
                 const staffMember = staff.find(s => s.id === booking.staffId);
                 return (
-                  <div key={booking.id} className="flex items-center gap-3 p-3 rounded-lg bg-slate-800/50 hover:bg-slate-800 transition-colors">
+                  <motion.div
+                    key={booking.id}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.4 + i * 0.1 }}
+                    whileHover={{ x: 5, transition: { duration: 0.2 } }}
+                    className="flex items-center gap-3 p-3 rounded-lg bg-slate-800/50 hover:bg-slate-800 transition-colors"
+                  >
                     <div className="text-2xl">{service?.icon}</div>
                     <div className="flex-1 min-w-0">
                       <div className="font-medium text-white text-sm truncate">{service?.name}</div>
@@ -139,15 +191,20 @@ export default function Dashboard() {
                         {booking.status}
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                 );
               })
             )}
           </div>
-        </div>
+        </motion.div>
 
         {/* Recent Activity */}
-        <div className="rounded-xl bg-slate-900/50 border border-white/10 p-5">
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.3, duration: 0.5 }}
+          className="rounded-xl bg-slate-900/50 border border-white/10 p-5"
+        >
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-bold text-white flex items-center gap-2">
               <TrendingUp size={18} className="text-emerald-400" />
@@ -158,11 +215,18 @@ export default function Dashboard() {
             </button>
           </div>
           <div className="space-y-3">
-            {bookings.slice(0, 5).map(booking => {
+            {bookings.slice(0, 5).map((booking, i) => {
               const service = services.find(s => s.id === booking.serviceId);
               const customer = customers.find(c => c.id === booking.customerId);
               return (
-                <div key={booking.id} className="flex items-center gap-3 p-3 rounded-lg bg-slate-800/50">
+                <motion.div
+                  key={booking.id}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.4 + i * 0.1 }}
+                  whileHover={{ x: 5, transition: { duration: 0.2 } }}
+                  className="flex items-center gap-3 p-3 rounded-lg bg-slate-800/50"
+                >
                   <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-sm">
                     {customer?.avatar}
                   </div>
@@ -176,40 +240,57 @@ export default function Dashboard() {
                       {booking.status}
                     </div>
                   </div>
-                </div>
+                </motion.div>
               );
             })}
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Status Summary */}
-      <div className="grid sm:grid-cols-3 gap-4">
-        <div className="p-4 rounded-xl bg-yellow-500/10 border border-yellow-500/20">
+      <motion.div
+        variants={container}
+        initial="hidden"
+        animate="show"
+        className="grid sm:grid-cols-3 gap-4"
+      >
+        <motion.div
+          variants={item}
+          whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
+          className="p-4 rounded-xl bg-yellow-500/10 border border-yellow-500/20"
+        >
           <div className="flex items-center gap-2 mb-2">
             <AlertCircle size={18} className="text-yellow-400" />
             <span className="font-semibold text-yellow-400">Pending</span>
           </div>
           <div className="text-2xl font-bold text-white">{pendingCount}</div>
           <div className="text-xs text-slate-400">Awaiting confirmation</div>
-        </div>
-        <div className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/20">
+        </motion.div>
+        <motion.div
+          variants={item}
+          whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
+          className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/20"
+        >
           <div className="flex items-center gap-2 mb-2">
             <CheckCircle size={18} className="text-blue-400" />
             <span className="font-semibold text-blue-400">Confirmed</span>
           </div>
           <div className="text-2xl font-bold text-white">{confirmedCount}</div>
           <div className="text-xs text-slate-400">Ready to go</div>
-        </div>
-        <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
+        </motion.div>
+        <motion.div
+          variants={item}
+          whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
+          className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20"
+        >
           <div className="flex items-center gap-2 mb-2">
             <TrendingUp size={18} className="text-emerald-400" />
             <span className="font-semibold text-emerald-400">Completion Rate</span>
           </div>
           <div className="text-2xl font-bold text-white">94%</div>
           <div className="text-xs text-slate-400">Last 30 days</div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </div>
   );
 }

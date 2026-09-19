@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useApp, services, customers, staff, locations } from '../store/AppContext';
 import { ServiceCategory } from '../types';
 import { ArrowRight, ArrowLeft, Check, Calendar, User, MapPin, CreditCard } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const categoryLabels: Record<ServiceCategory, { label: string; icon: string }> = {
   appointment: { label: 'Appointments', icon: '📅' },
@@ -357,28 +358,34 @@ export default function NewBooking() {
 
       {/* Navigation Buttons */}
       <div className="flex items-center justify-between mt-8 pt-6 border-t border-white/10">
-        <button
+        <motion.button
+          whileHover={{ scale: step === 0 ? 1 : 1.05 }}
+          whileTap={{ scale: step === 0 ? 1 : 0.95 }}
           onClick={() => setStep(s => s - 1)}
           disabled={step === 0}
           className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-white/5 text-slate-400 hover:text-white hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
         >
           <ArrowLeft size={16} /> Back
-        </button>
+        </motion.button>
         {step < 5 ? (
-          <button
+          <motion.button
+            whileHover={{ scale: canProceed() ? 1.05 : 1 }}
+            whileTap={{ scale: canProceed() ? 0.95 : 1 }}
             onClick={() => setStep(s => s + 1)}
             disabled={!canProceed()}
             className="flex items-center gap-2 px-6 py-2.5 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium hover:shadow-lg hover:shadow-indigo-500/25 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
           >
             Next <ArrowRight size={16} />
-          </button>
+          </motion.button>
         ) : (
-          <button
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={handleConfirm}
             className="flex items-center gap-2 px-6 py-2.5 rounded-lg bg-gradient-to-r from-emerald-600 to-green-600 text-white font-medium hover:shadow-lg hover:shadow-emerald-500/25 transition-all"
           >
             <Check size={16} /> Confirm Booking
-          </button>
+          </motion.button>
         )}
       </div>
     </div>

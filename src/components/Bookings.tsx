@@ -2,6 +2,7 @@ import { useApp, services, customers, staff, locations } from '../store/AppConte
 import { Filter, Search, MoreVertical, CheckCircle, XCircle, Clock, PlayCircle } from 'lucide-react';
 import { useState } from 'react';
 import { BookingStatus } from '../types';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Bookings() {
   const { bookings, updateBookingStatus } = useApp();
@@ -80,13 +81,18 @@ export default function Bookings() {
       {/* Bookings List */}
       <div className="space-y-3">
         {filtered.length === 0 ? (
-          <div className="text-center py-16 text-slate-500">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="text-center py-16 text-slate-500"
+          >
             <Clock size={48} className="mx-auto mb-3 opacity-50" />
             <p className="text-lg">No bookings found</p>
             <p className="text-sm">Try adjusting your filters</p>
-          </div>
+          </motion.div>
         ) : (
-          filtered.map(booking => {
+          <AnimatePresence mode="popLayout">
+            {filtered.map((booking, i) => {
             const service = services.find(s => s.id === booking.serviceId);
             const customer = customers.find(c => c.id === booking.customerId);
             const staffMember = staff.find(s => s.id === booking.staffId);
@@ -94,7 +100,16 @@ export default function Bookings() {
             const statusConfig = getStatusConfig(booking.status);
 
             return (
-              <div key={booking.id} className="p-4 rounded-xl bg-slate-900/50 border border-white/10 hover:border-white/20 transition-all">
+              <motion.div
+                key={booking.id}
+                layout
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.3, delay: i * 0.05 }}
+                whileHover={{ scale: 1.01, transition: { duration: 0.2 } }}
+                className="p-4 rounded-xl bg-slate-900/50 border border-white/10 hover:border-white/20 transition-all"
+              >
                 <div className="flex items-start gap-4">
                   <div className="text-3xl flex-shrink-0">{service?.icon}</div>
                   <div className="flex-1 min-w-0">
@@ -157,9 +172,10 @@ export default function Bookings() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             );
-          })
+          })}
+          </AnimatePresence>
         )}
       </div>
     </div>

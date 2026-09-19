@@ -11,6 +11,7 @@ import Staff from './components/Staff';
 import Locations from './components/Locations';
 import Integrations from './components/Integrations';
 import Analytics from './components/Analytics';
+import { motion, AnimatePresence } from 'framer-motion';
 
 function AppContent() {
   const { currentView } = useApp();
@@ -37,7 +38,17 @@ function AppContent() {
       <div className="lg:ml-64">
         <Header />
         <main className="min-h-[calc(100vh-4rem)]">
-          {renderView()}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentView}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              {renderView()}
+            </motion.div>
+          </AnimatePresence>
         </main>
       </div>
     </div>

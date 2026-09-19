@@ -1,6 +1,7 @@
 import { integrations } from '../store/AppContext';
 import { CheckCircle, XCircle, Clock, RefreshCw } from 'lucide-react';
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 
 export default function Integrations() {
   const [filter, setFilter] = useState<'all' | 'connected' | 'disconnected' | 'pending'>('all');
@@ -52,11 +53,27 @@ export default function Integrations() {
       </div>
 
       {/* Integrations Grid */}
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <motion.div
+        initial="hidden"
+        animate="show"
+        variants={{
+          hidden: { opacity: 0 },
+          show: { opacity: 1, transition: { staggerChildren: 0.08 } }
+        }}
+        className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"
+      >
         {filtered.map(integration => {
           const config = statusConfig[integration.status];
           return (
-            <div key={integration.id} className="p-5 rounded-xl bg-slate-900/50 border border-white/10 hover:border-white/20 transition-all">
+            <motion.div
+              key={integration.id}
+              variants={{
+                hidden: { opacity: 0, scale: 0.9 },
+                show: { opacity: 1, scale: 1 }
+              }}
+              whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
+              className="p-5 rounded-xl bg-slate-900/50 border border-white/10 hover:border-white/20 transition-all"
+            >
               <div className="flex items-start justify-between mb-3">
                 <div className="flex items-center gap-3">
                   <div className="text-3xl">{integration.icon}</div>
@@ -91,10 +108,10 @@ export default function Integrations() {
                   Configure
                 </button>
               )}
-            </div>
+            </motion.div>
           );
         })}
-      </div>
+      </motion.div>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import { useApp, locations, staff, services } from '../store/AppContext';
 import { MapPin, Phone, Users, Calendar, Building } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const typeLabels: Record<string, { label: string; icon: string }> = {
   studio: { label: 'Studio', icon: '🏢' },
@@ -13,7 +14,15 @@ export default function Locations() {
 
   return (
     <div className="p-4 sm:p-6 space-y-6">
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <motion.div
+        initial="hidden"
+        animate="show"
+        variants={{
+          hidden: { opacity: 0 },
+          show: { opacity: 1, transition: { staggerChildren: 0.1 } }
+        }}
+        className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"
+      >
         {locations.map(location => {
           const locStaff = staff.filter(s => s.locationIds.includes(location.id));
           const locServices = services.filter(s => s.locationIds.includes(location.id));
@@ -21,7 +30,15 @@ export default function Locations() {
           const typeInfo = typeLabels[location.type];
 
           return (
-            <div key={location.id} className="p-5 rounded-xl bg-slate-900/50 border border-white/10 hover:border-white/20 transition-all">
+            <motion.div
+              key={location.id}
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                show: { opacity: 1, y: 0 }
+              }}
+              whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
+              className="p-5 rounded-xl bg-slate-900/50 border border-white/10 hover:border-white/20 transition-all"
+            >
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 rounded-xl bg-indigo-500/20 flex items-center justify-center text-2xl">

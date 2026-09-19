@@ -1,6 +1,7 @@
 import { useApp } from '../store/AppContext';
 import { ViewType } from '../types';
 import { LayoutDashboard, CalendarDays, PlusCircle, List, Users, UserCog, MapPin, Plug, BarChart3, X, ChevronRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const navItems: { id: ViewType; label: string; icon: React.ReactNode; section?: string }[] = [
   { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard size={20} /> },
@@ -28,11 +29,25 @@ export default function Sidebar() {
   return (
     <>
       {/* Mobile overlay */}
-      {sidebarOpen && (
-        <div className="fixed inset-0 bg-black/60 z-40 lg:hidden" onClick={() => setSidebarOpen(false)} />
-      )}
+      <AnimatePresence>
+        {sidebarOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 bg-black/60 z-40 lg:hidden"
+            onClick={() => setSidebarOpen(false)}
+          />
+        )}
+      </AnimatePresence>
 
-      <aside className={`fixed top-0 left-0 h-full w-64 bg-slate-950 border-r border-white/10 z-50 transform transition-transform duration-300 lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+      <motion.aside
+        initial={false}
+        animate={{ x: sidebarOpen ? 0 : '-100%' }}
+        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+        className="fixed top-0 left-0 h-full w-64 bg-slate-950 border-r border-white/10 z-50 lg:translate-x-0"
+      >
         {/* Logo */}
         <div className="flex items-center justify-between h-16 px-4 border-b border-white/10">
           <div className="flex items-center gap-2">
@@ -92,7 +107,7 @@ export default function Sidebar() {
             </div>
           </div>
         </div>
-      </aside>
+      </motion.aside>
     </>
   );
 }

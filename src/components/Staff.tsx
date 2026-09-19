@@ -1,11 +1,20 @@
 import { useApp, staff, services, locations } from '../store/AppContext';
 import { Mail, Phone, MapPin, Calendar, Star } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function Staff() {
   const { bookings } = useApp();
   return (
     <div className="p-4 sm:p-6 space-y-6">
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <motion.div
+        initial="hidden"
+        animate="show"
+        variants={{
+          hidden: { opacity: 0 },
+          show: { opacity: 1, transition: { staggerChildren: 0.1 } }
+        }}
+        className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"
+      >
         {staff.map(member => {
           const memberServices = services.filter(s => member.serviceIds.includes(s.id));
           const memberLocations = locations.filter(l => member.locationIds.includes(l.id));
@@ -13,7 +22,15 @@ export default function Staff() {
           const completedBookings = memberBookings.filter(b => b.status === 'completed').length;
 
           return (
-            <div key={member.id} className="p-5 rounded-xl bg-slate-900/50 border border-white/10 hover:border-white/20 transition-all">
+            <motion.div
+              key={member.id}
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                show: { opacity: 1, y: 0 }
+              }}
+              whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
+              className="p-5 rounded-xl bg-slate-900/50 border border-white/10 hover:border-white/20 transition-all"
+            >
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-14 h-14 rounded-full flex items-center justify-center text-3xl" style={{ backgroundColor: `${member.color}20` }}>
                   {member.avatar}
@@ -53,10 +70,10 @@ export default function Staff() {
                   <span className="text-emerald-400 flex items-center gap-1"><Star size={14} /> {completedBookings} completed</span>
                 </div>
               </div>
-            </div>
+            </motion.div>
           );
         })}
-      </div>
+      </motion.div>
     </div>
   );
 }

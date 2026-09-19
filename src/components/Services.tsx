@@ -2,6 +2,7 @@ import { services, staff, locations } from '../store/AppContext';
 import { ServiceCategory } from '../types';
 import { Clock, DollarSign, Users, MapPin } from 'lucide-react';
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 
 const categoryLabels: Record<ServiceCategory, string> = {
   appointment: 'Appointments',
@@ -37,12 +38,28 @@ export default function Services() {
       </div>
 
       {/* Services Grid */}
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <motion.div
+        initial="hidden"
+        animate="show"
+        variants={{
+          hidden: { opacity: 0 },
+          show: { opacity: 1, transition: { staggerChildren: 0.1 } }
+        }}
+        className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"
+      >
         {filtered.map(service => {
           const assignedStaff = staff.filter(s => service.staffIds.includes(s.id));
           const assignedLocations = locations.filter(l => service.locationIds.includes(l.id));
           return (
-            <div key={service.id} className="p-5 rounded-xl bg-slate-900/50 border border-white/10 hover:border-white/20 transition-all">
+            <motion.div
+              key={service.id}
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                show: { opacity: 1, y: 0 }
+              }}
+              whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
+              className="p-5 rounded-xl bg-slate-900/50 border border-white/10 hover:border-white/20 transition-all"
+            >
               <div className="flex items-start justify-between mb-3">
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl" style={{ backgroundColor: `${service.color}20` }}>
@@ -85,10 +102,10 @@ export default function Services() {
                   Max capacity: {service.maxCapacity} people
                 </div>
               )}
-            </div>
+            </motion.div>
           );
         })}
-      </div>
+      </motion.div>
     </div>
   );
 }

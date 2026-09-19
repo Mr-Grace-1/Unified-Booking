@@ -1,5 +1,6 @@
 import { useApp, services, customers, staff, locations } from '../store/AppContext';
 import { TrendingUp, DollarSign, Users, Calendar, BarChart3, PieChart } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function Analytics() {
   const { bookings } = useApp();
@@ -66,28 +67,52 @@ export default function Analytics() {
   return (
     <div className="p-4 sm:p-6 space-y-6">
       {/* KPIs */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="p-5 rounded-xl bg-gradient-to-br from-emerald-500/10 to-green-500/10 border border-emerald-500/20">
+      <motion.div
+        initial="hidden"
+        animate="show"
+        variants={{
+          hidden: { opacity: 0 },
+          show: { opacity: 1, transition: { staggerChildren: 0.1 } }
+        }}
+        className="grid grid-cols-2 lg:grid-cols-4 gap-4"
+      >
+        <motion.div
+          variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } }}
+          whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
+          className="p-5 rounded-xl bg-gradient-to-br from-emerald-500/10 to-green-500/10 border border-emerald-500/20"
+        >
           <DollarSign size={20} className="text-emerald-400 mb-2" />
           <div className="text-2xl font-bold text-white">${totalRevenue.toLocaleString()}</div>
           <div className="text-xs text-slate-400">Total Revenue</div>
-        </div>
-        <div className="p-5 rounded-xl bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border border-blue-500/20">
+        </motion.div>
+        <motion.div
+          variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } }}
+          whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
+          className="p-5 rounded-xl bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border border-blue-500/20"
+        >
           <Calendar size={20} className="text-blue-400 mb-2" />
           <div className="text-2xl font-bold text-white">{totalBookings}</div>
           <div className="text-xs text-slate-400">Total Bookings</div>
-        </div>
-        <div className="p-5 rounded-xl bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/20">
+        </motion.div>
+        <motion.div
+          variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } }}
+          whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
+          className="p-5 rounded-xl bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/20"
+        >
           <TrendingUp size={20} className="text-purple-400 mb-2" />
           <div className="text-2xl font-bold text-white">{completionRate}%</div>
           <div className="text-xs text-slate-400">Completion Rate</div>
-        </div>
-        <div className="p-5 rounded-xl bg-gradient-to-br from-amber-500/10 to-orange-500/10 border border-amber-500/20">
+        </motion.div>
+        <motion.div
+          variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } }}
+          whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
+          className="p-5 rounded-xl bg-gradient-to-br from-amber-500/10 to-orange-500/10 border border-amber-500/20"
+        >
           <BarChart3 size={20} className="text-amber-400 mb-2" />
           <div className="text-2xl font-bold text-white">${avgBookingValue}</div>
           <div className="text-xs text-slate-400">Avg. Booking Value</div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       <div className="grid lg:grid-cols-2 gap-6">
         {/* Revenue by Category */}
