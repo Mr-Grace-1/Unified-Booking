@@ -63,9 +63,9 @@ export default function Bookings() {
   ];
 
   return (
-    <div className="p-4 sm:p-6 space-y-6">
+    <div className="h-full flex flex-col p-3 sm:p-4 lg:p-5 gap-3 overflow-hidden">
       {/* Filters */}
-      <div className="flex flex-col sm:flex-row gap-4">
+      <div className="flex flex-col sm:flex-row gap-2 flex-shrink-0">
         <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-900/50 border border-white/10 flex-1">
           <Search size={16} className="text-slate-400" />
           <input
@@ -95,7 +95,7 @@ export default function Bookings() {
       </div>
 
       {/* Bookings List */}
-      <div className="space-y-3">
+      <div className="space-y-2 flex-1 min-h-0 overflow-y-auto">
         {filtered.length === 0 ? (
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}

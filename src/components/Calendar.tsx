@@ -40,12 +40,12 @@ export default function Calendar() {
   if (viewMode === 'day') {
     const dayBookings = getBookingsForDate(currentDate);
     return (
-      <div className="p-4 sm:p-6">
+      <div className="h-full flex flex-col p-3 sm:p-4 lg:p-5 gap-3 overflow-hidden">
         {/* Header */}
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex items-center justify-between mb-6"
+          className="flex items-center justify-between flex-shrink-0"
         >
           <div className="flex items-center gap-4">
             <motion.button 
@@ -81,8 +81,8 @@ export default function Calendar() {
         </motion.div>
 
         {/* Day Timeline */}
-        <div className="rounded-xl bg-slate-900/50 border border-white/10 overflow-hidden">
-          <div className="max-h-[600px] overflow-y-auto">
+        <div className="rounded-xl bg-slate-900/50 border border-white/10 overflow-hidden flex-1 min-h-0">
+          <div className="h-full overflow-y-auto">
             {hours.map(hour => {
               const hourBookings = dayBookings.filter(b => new Date(b.startTime).getHours() === hour);
               return (
@@ -141,12 +141,12 @@ export default function Calendar() {
   for (let i = 1; i <= daysInMonth; i++) calendarDays.push(new Date(year, month, i));
 
   return (
-    <div className="p-4 sm:p-6">
+    <div className="h-full flex flex-col p-3 sm:p-4 lg:p-5 gap-3 overflow-hidden">
       {/* Header */}
       <motion.div 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="flex items-center justify-between mb-6"
+        className="flex items-center justify-between flex-shrink-0"
       >
         <div className="flex items-center gap-4">
           <motion.button 
@@ -182,8 +182,8 @@ export default function Calendar() {
       </motion.div>
 
       {/* Month Grid */}
-      <div className="rounded-xl bg-slate-900/50 border border-white/10 overflow-hidden">
-        <div className="grid grid-cols-7">
+      <div className="rounded-xl bg-slate-900/50 border border-white/10 overflow-hidden flex-1 min-h-0">
+        <div className="grid grid-cols-7 h-full">
           {dayNames.map(d => (
             <div key={d} className="p-3 text-center text-xs font-semibold text-slate-500 uppercase border-b border-white/5">{d}</div>
           ))}

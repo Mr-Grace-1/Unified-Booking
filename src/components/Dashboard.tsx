@@ -67,29 +67,29 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="p-4 sm:p-6 space-y-6">
+    <div className="h-full flex flex-col p-3 sm:p-4 lg:p-5 gap-2 sm:gap-3 overflow-hidden">
       {/* Stats Grid */}
       <motion.div
         variants={container}
         initial="hidden"
         animate="show"
-        className="grid grid-cols-2 lg:grid-cols-4 gap-4"
+        className="grid grid-cols-2 lg:grid-cols-4 gap-2 flex-shrink-0"
       >
         {stats.map((stat, i) => (
           <motion.div
             key={i}
             variants={item}
-            whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
-            className="p-4 rounded-xl bg-slate-900/50 border border-white/10 hover:border-white/20 transition-colors"
+            whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
+            className="p-2 sm:p-3 rounded-xl bg-slate-900/50 border border-white/10 hover:border-white/20 transition-colors"
           >
-            <div className="flex items-center justify-between mb-3">
-              <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${stat.color} flex items-center justify-center text-white`}>
+            <div className="flex items-center justify-between mb-1 sm:mb-2">
+              <div className={`w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-gradient-to-br ${stat.color} flex items-center justify-center text-white`}>
                 {stat.icon}
               </div>
               <span className="text-xs text-emerald-400 font-medium">{stat.change}</span>
             </div>
-            <div className="text-2xl font-bold text-white mb-1">{stat.value}</div>
-            <div className="text-sm text-slate-400">{stat.label}</div>
+            <div className="text-lg sm:text-xl font-bold text-white">{stat.value}</div>
+            <div className="text-xs text-slate-400 truncate">{stat.label}</div>
           </motion.div>
         ))}
       </motion.div>
@@ -100,15 +100,15 @@ export default function Dashboard() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="p-3 sm:p-4 rounded-xl bg-gradient-to-r from-indigo-500/10 to-purple-500/10 border border-indigo-500/20"
+          className="p-2 sm:p-3 rounded-xl bg-gradient-to-r from-indigo-500/10 to-purple-500/10 border border-indigo-500/20 flex-shrink-0"
         >
-          <div className="flex items-center gap-3">
-            <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br ${roleInfo.color} flex items-center justify-center text-xl sm:text-2xl flex-shrink-0`}>
+          <div className="flex items-center gap-2 sm:gap-3">
+            <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br ${roleInfo.color} flex items-center justify-center text-lg sm:text-xl flex-shrink-0`}>
               {roleInfo.icon}
             </div>
             <div className="min-w-0 flex-1">
-              <h2 className="text-base sm:text-lg font-bold text-white truncate">Welcome back, {user.name}!</h2>
-              <p className="text-xs sm:text-sm text-slate-400 truncate">
+              <h2 className="text-sm sm:text-base font-bold text-white truncate">Welcome back, {user.name}!</h2>
+              <p className="text-xs text-slate-400 truncate">
                 Logged in as <span className={`font-semibold bg-gradient-to-r ${roleInfo.color} bg-clip-text text-transparent`}>{roleInfo.label}</span>
               </p>
             </div>
@@ -121,7 +121,7 @@ export default function Dashboard() {
         variants={container}
         initial="hidden"
         animate="show"
-        className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3"
+        className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 flex-shrink-0"
       >
         {roleInfo?.canCreateBooking && (
           <motion.button
@@ -200,22 +200,22 @@ export default function Dashboard() {
       </motion.div>
 
       {/* Today's Schedule & Recent Bookings */}
-      <div className="grid lg:grid-cols-2 gap-6">
+      <div className="grid lg:grid-cols-2 gap-3 flex-1 min-h-0">
         {/* Today's Schedule */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.3, duration: 0.5 }}
-          className="rounded-xl bg-slate-900/50 border border-white/10 p-5"
+          className="rounded-xl bg-slate-900/50 border border-white/10 p-3 sm:p-4 flex flex-col min-h-0"
         >
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="font-bold text-white flex items-center gap-2">
-              <Clock size={18} className="text-blue-400" />
+          <div className="flex items-center justify-between mb-2 sm:mb-3 flex-shrink-0">
+            <h3 className="font-bold text-white flex items-center gap-2 text-sm sm:text-base">
+              <Clock size={16} className="text-blue-400" />
               Today's Schedule
             </h3>
-            <span className="text-sm text-slate-400">{todayBookings.length} bookings</span>
+            <span className="text-xs text-slate-400">{todayBookings.length} bookings</span>
           </div>
-          <div className="space-y-3">
+          <div className="space-y-2 flex-1 min-h-0 overflow-y-auto">
             {todayBookings.length === 0 ? (
               <div className="text-center py-8 text-slate-500">
                 <CalendarDays size={40} className="mx-auto mb-2 opacity-50" />
@@ -233,16 +233,16 @@ export default function Dashboard() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.4 + i * 0.1 }}
                     whileHover={{ x: 5, transition: { duration: 0.2 } }}
-                    className="flex items-center gap-3 p-3 rounded-lg bg-slate-800/50 hover:bg-slate-800 transition-colors"
+                    className="flex items-center gap-2 p-2 rounded-lg bg-slate-800/50 hover:bg-slate-800 transition-colors"
                   >
-                    <ServiceIcon icon={service?.icon || 'calendar'} iconUrl={service?.iconUrl} size={24} />
+                    <ServiceIcon icon={service?.icon || 'calendar'} iconUrl={service?.iconUrl} size={20} />
                     <div className="flex-1 min-w-0">
-                      <div className="font-medium text-white text-sm truncate">{service?.name}</div>
-                      <div className="text-xs text-slate-400">{customer?.name} • {staffMember?.name}</div>
+                      <div className="font-medium text-white text-xs sm:text-sm truncate">{service?.name}</div>
+                      <div className="text-xs text-slate-400 truncate">{customer?.name} • {staffMember?.name}</div>
                     </div>
-                    <div className="text-right">
-                      <div className="text-sm font-medium text-white">{formatTime(booking.startTime)}</div>
-                      <div className={`text-xs px-2 py-0.5 rounded-full ${getStatusColor(booking.status)}`}>
+                    <div className="text-right flex-shrink-0">
+                      <div className="text-xs sm:text-sm font-medium text-white">{formatTime(booking.startTime)}</div>
+                      <div className={`text-xs px-1.5 py-0.5 rounded-full ${getStatusColor(booking.status)}`}>
                         {booking.status}
                       </div>
                     </div>
@@ -258,18 +258,18 @@ export default function Dashboard() {
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.3, duration: 0.5 }}
-          className="rounded-xl bg-slate-900/50 border border-white/10 p-5"
+          className="rounded-xl bg-slate-900/50 border border-white/10 p-3 sm:p-4 flex flex-col min-h-0"
         >
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="font-bold text-white flex items-center gap-2">
-              <TrendingUp size={18} className="text-emerald-400" />
+          <div className="flex items-center justify-between mb-2 sm:mb-3 flex-shrink-0">
+            <h3 className="font-bold text-white flex items-center gap-2 text-sm sm:text-base">
+              <TrendingUp size={16} className="text-emerald-400" />
               Recent Activity
             </h3>
-            <button onClick={() => setCurrentView('bookings')} className="text-sm text-indigo-400 hover:text-indigo-300">
+            <button onClick={() => setCurrentView('bookings')} className="text-xs text-indigo-400 hover:text-indigo-300">
               View all →
             </button>
           </div>
-          <div className="space-y-3">
+          <div className="space-y-2 flex-1 min-h-0 overflow-y-auto">
             {bookings.slice(0, 5).map((booking, i) => {
               const service = services.find(s => s.id === booking.serviceId);
               const customer = customers.find(c => c.id === booking.customerId);
@@ -280,18 +280,18 @@ export default function Dashboard() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.4 + i * 0.1 }}
                   whileHover={{ x: 5, transition: { duration: 0.2 } }}
-                  className="flex items-center gap-3 p-3 rounded-lg bg-slate-800/50"
+                  className="flex items-center gap-2 p-2 rounded-lg bg-slate-800/50"
                 >
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-sm">
-                    <img src={customer?.avatar} alt={customer?.name} className="w-8 h-8 rounded-full" />
+                  <div className="w-7 h-7 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center flex-shrink-0">
+                    <img src={customer?.avatar} alt={customer?.name} className="w-7 h-7 rounded-full" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="text-sm text-white truncate">{customer?.name}</div>
-                    <div className="text-xs text-slate-400">{service?.name}</div>
+                    <div className="text-xs sm:text-sm text-white truncate">{customer?.name}</div>
+                    <div className="text-xs text-slate-400 truncate">{service?.name}</div>
                   </div>
-                  <div className="text-right">
-                    <div className="text-sm font-medium text-white">${booking.amount}</div>
-                    <div className={`text-xs px-2 py-0.5 rounded-full ${getStatusColor(booking.status)}`}>
+                  <div className="text-right flex-shrink-0">
+                    <div className="text-xs sm:text-sm font-medium text-white">${booking.amount}</div>
+                    <div className={`text-xs px-1.5 py-0.5 rounded-full ${getStatusColor(booking.status)}`}>
                       {booking.status}
                     </div>
                   </div>
@@ -307,48 +307,50 @@ export default function Dashboard() {
         variants={container}
         initial="hidden"
         animate="show"
-        className="grid sm:grid-cols-3 gap-4"
+        className="grid sm:grid-cols-3 gap-2 flex-shrink-0"
       >
         <motion.div
           variants={item}
           whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
-          className="p-4 rounded-xl bg-yellow-500/10 border border-yellow-500/20"
+          className="p-2 sm:p-3 rounded-xl bg-yellow-500/10 border border-yellow-500/20"
         >
-          <div className="flex items-center gap-2 mb-2">
-            <AlertCircle size={18} className="text-yellow-400" />
-            <span className="font-semibold text-yellow-400">Pending</span>
+          <div className="flex items-center gap-2 mb-1">
+            <AlertCircle size={14} className="text-yellow-400" />
+            <span className="font-semibold text-yellow-400 text-xs sm:text-sm">Pending</span>
           </div>
-          <div className="text-2xl font-bold text-white">{pendingCount}</div>
+          <div className="text-lg sm:text-xl font-bold text-white">{pendingCount}</div>
           <div className="text-xs text-slate-400">Awaiting confirmation</div>
         </motion.div>
         <motion.div
           variants={item}
           whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
-          className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/20"
+          className="p-2 sm:p-3 rounded-xl bg-blue-500/10 border border-blue-500/20"
         >
-          <div className="flex items-center gap-2 mb-2">
-            <CheckCircle size={18} className="text-blue-400" />
-            <span className="font-semibold text-blue-400">Confirmed</span>
+          <div className="flex items-center gap-2 mb-1">
+            <CheckCircle size={14} className="text-blue-400" />
+            <span className="font-semibold text-blue-400 text-xs sm:text-sm">Confirmed</span>
           </div>
-          <div className="text-2xl font-bold text-white">{confirmedCount}</div>
+          <div className="text-lg sm:text-xl font-bold text-white">{confirmedCount}</div>
           <div className="text-xs text-slate-400">Ready to go</div>
         </motion.div>
         <motion.div
           variants={item}
           whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
-          className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20"
+          className="p-2 sm:p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20"
         >
-          <div className="flex items-center gap-2 mb-2">
-            <TrendingUp size={18} className="text-emerald-400" />
-            <span className="font-semibold text-emerald-400">Completion Rate</span>
+          <div className="flex items-center gap-2 mb-1">
+            <TrendingUp size={14} className="text-emerald-400" />
+            <span className="font-semibold text-emerald-400 text-xs sm:text-sm">Completion Rate</span>
           </div>
-          <div className="text-2xl font-bold text-white">94%</div>
+          <div className="text-lg sm:text-xl font-bold text-white">94%</div>
           <div className="text-xs text-slate-400">Last 30 days</div>
         </motion.div>
       </motion.div>
 
       {/* Tenant Information */}
-      <TenantInfo />
+      <div className="flex-shrink-0">
+        <TenantInfo />
+      </div>
     </div>
   );
 }

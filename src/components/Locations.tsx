@@ -14,7 +14,7 @@ export default function Locations() {
   const { bookings } = useApp();
 
   return (
-    <div className="p-4 sm:p-6 space-y-6">
+    <div className="h-full flex flex-col p-3 sm:p-4 lg:p-5 overflow-hidden">
       <motion.div
         initial="hidden"
         animate="show"
@@ -22,7 +22,7 @@ export default function Locations() {
           hidden: { opacity: 0 },
           show: { opacity: 1, transition: { staggerChildren: 0.1 } }
         }}
-        className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"
+        className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 flex-1 min-h-0 overflow-y-auto"
       >
         {locations.map(location => {
           const locStaff = staff.filter(s => s.locationIds.includes(location.id));

@@ -20,9 +20,9 @@ export default function Services() {
   const categories: (ServiceCategory | 'all')[] = ['all', ...Object.keys(categoryLabels) as ServiceCategory[]];
 
   return (
-    <div className="p-4 sm:p-6 space-y-6">
+    <div className="h-full flex flex-col p-3 sm:p-4 lg:p-5 gap-3 overflow-hidden">
       {/* Category Filter */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-2">
+      <div className="flex items-center gap-2 overflow-x-auto pb-1 flex-shrink-0">
         {categories.map(cat => (
           <button
             key={cat}
@@ -46,7 +46,7 @@ export default function Services() {
           hidden: { opacity: 0 },
           show: { opacity: 1, transition: { staggerChildren: 0.1 } }
         }}
-        className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"
+        className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 flex-1 min-h-0 overflow-y-auto"
       >
         {filtered.map(service => {
           const assignedStaff = staff.filter(s => service.staffIds.includes(s.id));
