@@ -1,32 +1,53 @@
-import { useState } from 'react';
-import Hero from './components/Hero';
-import ArchitectureOverview from './components/ArchitectureOverview';
-import ServiceTypes from './components/ServiceTypes';
-import TechStack from './components/TechStack';
-import FeatureMatrix from './components/FeatureMatrix';
-import IntegrationMap from './components/IntegrationMap';
-import DataFlow from './components/DataFlow';
-import Roadmap from './components/Roadmap';
-import Navigation from './components/Navigation';
+import { AppProvider, useApp } from './store/AppContext';
+import Sidebar from './components/Sidebar';
+import Header from './components/Header';
+import Dashboard from './components/Dashboard';
+import Bookings from './components/Bookings';
+import NewBooking from './components/NewBooking';
+import Calendar from './components/Calendar';
+import Services from './components/Services';
+import Customers from './components/Customers';
+import Staff from './components/Staff';
+import Locations from './components/Locations';
+import Integrations from './components/Integrations';
+import Analytics from './components/Analytics';
 
-export default function App() {
-  const [activeSection, setActiveSection] = useState('hero');
+function AppContent() {
+  const { currentView } = useApp();
+
+  const renderView = () => {
+    switch (currentView) {
+      case 'dashboard': return <Dashboard />;
+      case 'bookings': return <Bookings />;
+      case 'new-booking': return <NewBooking />;
+      case 'calendar': return <Calendar />;
+      case 'services': return <Services />;
+      case 'customers': return <Customers />;
+      case 'staff': return <Staff />;
+      case 'locations': return <Locations />;
+      case 'integrations': return <Integrations />;
+      case 'analytics': return <Analytics />;
+      default: return <Dashboard />;
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white">
-      <Navigation activeSection={activeSection} setActiveSection={setActiveSection} />
-      <Hero />
-      <ArchitectureOverview />
-      <ServiceTypes />
-      <TechStack />
-      <FeatureMatrix />
-      <DataFlow />
-      <IntegrationMap />
-      <Roadmap />
-      <footer className="border-t border-white/10 py-12 text-center text-slate-400">
-        <p className="text-sm">UnifiedBook Ecosystem Architecture Plan © 2026</p>
-        <p className="text-xs mt-2 text-slate-500">Cross-platform booking system for all kinds of work</p>
-      </footer>
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950">
+      <Sidebar />
+      <div className="lg:ml-64">
+        <Header />
+        <main className="min-h-[calc(100vh-4rem)]">
+          {renderView()}
+        </main>
+      </div>
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <AppProvider>
+      <AppContent />
+    </AppProvider>
   );
 }

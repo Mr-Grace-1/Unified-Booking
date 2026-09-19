@@ -1,0 +1,85 @@
+export type ServiceCategory = 'appointment' | 'field' | 'hospitality' | 'class' | 'tour';
+export type BookingStatus = 'pending' | 'confirmed' | 'in_progress' | 'completed' | 'cancelled' | 'no_show';
+export type PaymentStatus = 'unpaid' | 'deposit_paid' | 'paid' | 'refunded';
+export type UserRole = 'admin' | 'manager' | 'staff' | 'client';
+
+export interface Location {
+  id: string;
+  name: string;
+  address: string;
+  city: string;
+  phone: string;
+  timezone: string;
+  type: 'studio' | 'field_hub' | 'property' | 'venue';
+  isActive: boolean;
+}
+
+export interface Staff {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  avatar: string;
+  role: UserRole;
+  locationIds: string[];
+  serviceIds: string[];
+  color: string;
+  isActive: boolean;
+}
+
+export interface Service {
+  id: string;
+  name: string;
+  category: ServiceCategory;
+  description: string;
+  duration: number; // minutes
+  price: number;
+  deposit?: number;
+  currency: string;
+  staffIds: string[];
+  locationIds: string[];
+  maxCapacity?: number;
+  bufferTime: number;
+  icon: string;
+  color: string;
+}
+
+export interface Customer {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  avatar: string;
+  notes: string;
+  totalBookings: number;
+  totalSpent: number;
+  createdAt: string;
+  tags: string[];
+}
+
+export interface Booking {
+  id: string;
+  serviceId: string;
+  customerId: string;
+  staffId: string;
+  locationId: string;
+  startTime: string;
+  endTime: string;
+  status: BookingStatus;
+  paymentStatus: PaymentStatus;
+  amount: number;
+  depositPaid: number;
+  notes: string;
+  createdAt: string;
+}
+
+export interface Integration {
+  id: string;
+  name: string;
+  category: string;
+  icon: string;
+  status: 'connected' | 'disconnected' | 'pending';
+  lastSync?: string;
+}
+
+export type ViewType = 'dashboard' | 'bookings' | 'new-booking' | 'calendar' | 'services' | 'customers' | 'staff' | 'locations' | 'integrations' | 'analytics';
