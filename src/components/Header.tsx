@@ -44,9 +44,10 @@ export default function Header() {
       </div>
 
       <div className="flex items-center gap-2">
-        <div className="hidden md:flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-slate-400 w-64">
+        <div className="hidden md:flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-slate-400 w-64 cursor-pointer hover:bg-white/10 transition-colors" onClick={() => window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true }))}>
           <Search size={16} />
-          <input type="text" placeholder="Search bookings, customers..." className="bg-transparent outline-none flex-1 text-white placeholder:text-slate-500" />
+          <span className="flex-1">Search or type command...</span>
+          <kbd className="px-1.5 py-0.5 text-xs bg-white/10 rounded text-slate-500">⌘K</kbd>
         </div>
         <motion.button 
           whileHover={{ scale: 1.1 }}

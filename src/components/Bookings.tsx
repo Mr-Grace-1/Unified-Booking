@@ -3,11 +3,25 @@ import { Filter, Search, MoreVertical, CheckCircle, XCircle, Clock, PlayCircle }
 import { useState } from 'react';
 import { BookingStatus } from '../types';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useToast } from './Toast';
 
 export default function Bookings() {
   const { bookings, updateBookingStatus } = useApp();
+  const { addToast } = useToast();
   const [filterStatus, setFilterStatus] = useState<BookingStatus | 'all'>('all');
   const [searchQuery, setSearchQuery] = useState('');
+
+  const handleStatusUpdate = (id: string, status: BookingStatus) => {
+    updateBookingStatus(id, status);
+    const messages: Record<string, { title: string; type: 'success' | 'info' | 'warning' }> = {
+      confirmed: { title: 'Booking Confirmed', type: 'success' },
+      in_progress: { title: 'Booking Started', type: 'info' },
+      completed: { title: 'Booking Completed', type: 'success' },
+      cancelled: { title: 'Booking Cancelled', type: 'warning' },
+    };
+    const msg = messages[status];
+    if (msg) addToast(msg.type, msg.title);
+  };
 
   const filtered = bookings.filter(b => {
     if (filterStatus !== 'all' && b.status !== filterStatus) return false;
@@ -139,7 +153,7 @@ export default function Bookings() {
                     <div className="flex items-center gap-2 mt-3">
                       {booking.status === 'pending' && (
                         <button
-                          onClick={() => updateBookingStatus(booking.id, 'confirmed')}
+                          onClick={() => handleStatusUpdate(booking.id, 'confirmed')}
                           className="px-3 py-1.5 rounded-lg bg-blue-500/20 text-blue-400 text-xs font-medium hover:bg-blue-500/30 transition-colors"
                         >
                           Confirm
@@ -147,7 +161,7 @@ export default function Bookings() {
                       )}
                       {booking.status === 'confirmed' && (
                         <button
-                          onClick={() => updateBookingStatus(booking.id, 'in_progress')}
+                          onClick={() => handleStatusUpdate(booking.id, 'in_progress')}
                           className="px-3 py-1.5 rounded-lg bg-purple-500/20 text-purple-400 text-xs font-medium hover:bg-purple-500/30 transition-colors"
                         >
                           Start
@@ -155,7 +169,7 @@ export default function Bookings() {
                       )}
                       {booking.status === 'in_progress' && (
                         <button
-                          onClick={() => updateBookingStatus(booking.id, 'completed')}
+                          onClick={() => handleStatusUpdate(booking.id, 'completed')}
                           className="px-3 py-1.5 rounded-lg bg-green-500/20 text-green-400 text-xs font-medium hover:bg-green-500/30 transition-colors"
                         >
                           Complete
@@ -163,7 +177,7 @@ export default function Bookings() {
                       )}
                       {(booking.status === 'pending' || booking.status === 'confirmed') && (
                         <button
-                          onClick={() => updateBookingStatus(booking.id, 'cancelled')}
+                          onClick={() => handleStatusUpdate(booking.id, 'cancelled')}
                           className="px-3 py-1.5 rounded-lg bg-red-500/20 text-red-400 text-xs font-medium hover:bg-red-500/30 transition-colors"
                         >
                           Cancel

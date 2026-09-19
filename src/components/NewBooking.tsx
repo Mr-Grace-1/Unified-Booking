@@ -3,6 +3,7 @@ import { useApp, services, customers, staff, locations } from '../store/AppConte
 import { ServiceCategory } from '../types';
 import { ArrowRight, ArrowLeft, Check, Calendar, User, MapPin, CreditCard } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useToast } from './Toast';
 
 const categoryLabels: Record<ServiceCategory, { label: string; icon: string }> = {
   appointment: { label: 'Appointments', icon: '📅' },
@@ -14,6 +15,7 @@ const categoryLabels: Record<ServiceCategory, { label: string; icon: string }> =
 
 export default function NewBooking() {
   const { addBooking, setCurrentView } = useApp();
+  const { addToast } = useToast();
   const [step, setStep] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState<ServiceCategory | null>(null);
   const [selectedService, setSelectedService] = useState<string | null>(null);
@@ -56,6 +58,7 @@ export default function NewBooking() {
       createdAt: new Date().toISOString(),
     });
 
+    addToast('success', 'Booking Created!', `${service?.name} for ${customers.find(c => c.id === selectedCustomer)?.name}`);
     setConfirmed(true);
   };
 

@@ -1,4 +1,6 @@
+import { useState, useEffect } from 'react';
 import { AppProvider, useApp } from './store/AppContext';
+import { ToastProvider } from './components/Toast';
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import Dashboard from './components/Dashboard';
@@ -11,10 +13,24 @@ import Staff from './components/Staff';
 import Locations from './components/Locations';
 import Integrations from './components/Integrations';
 import Analytics from './components/Analytics';
+import CommandPalette from './components/CommandPalette';
+import AnimatedBackground from './components/AnimatedBackground';
 import { motion, AnimatePresence } from 'framer-motion';
 
 function AppContent() {
   const { currentView } = useApp();
+  const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setCommandPaletteOpen(prev => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   const renderView = () => {
     switch (currentView) {
@@ -33,9 +49,10 @@ function AppContent() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 relative">
+      <AnimatedBackground />
       <Sidebar />
-      <div className="lg:ml-64">
+      <div className="lg:ml-64 relative z-10">
         <Header />
         <main className="min-h-[calc(100vh-4rem)]">
           <AnimatePresence mode="wait">
@@ -51,6 +68,7 @@ function AppContent() {
           </AnimatePresence>
         </main>
       </div>
+      <CommandPalette isOpen={commandPaletteOpen} onClose={() => setCommandPaletteOpen(false)} />
     </div>
   );
 }
@@ -58,7 +76,9 @@ function AppContent() {
 export default function App() {
   return (
     <AppProvider>
-      <AppContent />
+      <ToastProvider>
+        <AppContent />
+      </ToastProvider>
     </AppProvider>
   );
 }

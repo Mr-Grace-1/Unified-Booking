@@ -1,6 +1,7 @@
 import { useApp, services, customers, staff, locations } from '../store/AppContext';
 import { TrendingUp, DollarSign, Users, Calendar, BarChart3, PieChart } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { AnimatedBarChart, AnimatedDonutChart } from './Charts';
 
 export default function Analytics() {
   const { bookings } = useApp();
@@ -121,24 +122,38 @@ export default function Analytics() {
             <PieChart size={18} className="text-indigo-400" />
             Revenue by Category
           </h3>
-          <div className="space-y-4">
-            {Object.entries(revenueByCategory).map(([category, revenue]) => (
-              <div key={category}>
-                <div className="flex items-center justify-between text-sm mb-1">
-                  <span className="text-slate-300 capitalize">{category}</span>
-                  <span className="text-white font-medium">${revenue.toLocaleString()}</span>
+          <div className="flex items-center gap-6">
+            <div className="flex-1 space-y-4">
+              {Object.entries(revenueByCategory).map(([category, revenue]) => (
+                <div key={category}>
+                  <div className="flex items-center justify-between text-sm mb-1">
+                    <span className="text-slate-300 capitalize">{category}</span>
+                    <span className="text-white font-medium">${revenue.toLocaleString()}</span>
+                  </div>
+                  <motion.div className="h-3 bg-slate-800 rounded-full overflow-hidden">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      animate={{ width: `${(revenue / maxCategoryRevenue) * 100}%` }}
+                      transition={{ duration: 1, ease: 'easeOut' }}
+                      className="h-full rounded-full"
+                      style={{
+                        backgroundColor: categoryColors[category] || '#6366f1',
+                      }}
+                    />
+                  </motion.div>
                 </div>
-                <div className="h-3 bg-slate-800 rounded-full overflow-hidden">
-                  <div
-                    className="h-full rounded-full transition-all"
-                    style={{
-                      width: `${(revenue / maxCategoryRevenue) * 100}%`,
-                      backgroundColor: categoryColors[category] || '#6366f1',
-                    }}
-                  />
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
+            <div className="flex-shrink-0">
+              <AnimatedDonutChart
+                data={Object.entries(revenueByCategory).map(([category, revenue]) => ({
+                  label: category,
+                  value: revenue,
+                  color: categoryColors[category] || '#6366f1',
+                }))}
+                size={140}
+              />
+            </div>
           </div>
         </div>
 
