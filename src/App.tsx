@@ -3,6 +3,8 @@ import { AppProvider, useApp } from './store/AppContext';
 import { AuthProvider, useAuth } from './store/AuthContext';
 import { ThemeProvider } from './store/ThemeContext';
 import { NotificationProvider } from './store/NotificationContext';
+import { NotificationProvider as NotificationSystemProvider } from './store/NotificationSystemContext';
+import { InvoiceProvider } from './store/InvoiceContext';
 import { I18nProvider } from './store/I18nContext';
 import { RecurringBookingsProvider } from './store/RecurringBookingsContext';
 import { WaitlistProvider } from './store/WaitlistContext';
@@ -21,6 +23,10 @@ import StaffSchedule from './components/StaffSchedule';
 import Locations from './components/Locations';
 import Integrations from './components/Integrations';
 import Analytics from './components/Analytics';
+import NotificationManager from './components/NotificationManager';
+import InvoiceManager from './components/InvoiceManager';
+import CustomerPortal from './components/CustomerPortal';
+import AdvancedAnalytics from './components/AdvancedAnalytics';
 import CommandPalette from './components/CommandPalette';
 import AnimatedBackground from './components/AnimatedBackground';
 import AuthPage from './components/AuthPage';
@@ -89,6 +95,10 @@ function AppContent() {
         'locations': 'Locations',
         'integrations': 'Integrations',
         'analytics': 'Analytics',
+        'notifications': 'Notification Templates',
+        'invoices': 'Invoices',
+        'customer-portal': 'Customer Portal',
+        'advanced-analytics': 'Advanced Analytics',
       };
       return <AccessDenied viewName={viewNames[currentView] || currentView} />;
     }
@@ -105,6 +115,10 @@ function AppContent() {
       case 'locations': return <Locations />;
       case 'integrations': return <Integrations />;
       case 'analytics': return <Analytics />;
+      case 'notifications': return <NotificationManager />;
+      case 'invoices': return <InvoiceManager />;
+      case 'customer-portal': return <CustomerPortal />;
+      case 'advanced-analytics': return <AdvancedAnalytics />;
       default: return <Dashboard />;
     }
   };
@@ -142,19 +156,23 @@ export default function App() {
     <ThemeProvider>
       <I18nProvider>
         <NotificationProvider>
-          <RecurringBookingsProvider>
-            <WaitlistProvider>
-              <AuditLogProvider>
-                <AuthProvider>
-                  <AppProvider>
-                    <ToastProvider>
-                      <AppContent />
-                    </ToastProvider>
-                  </AppProvider>
-                </AuthProvider>
-              </AuditLogProvider>
-            </WaitlistProvider>
-          </RecurringBookingsProvider>
+          <NotificationSystemProvider>
+            <InvoiceProvider>
+              <RecurringBookingsProvider>
+                <WaitlistProvider>
+                  <AuditLogProvider>
+                    <AuthProvider>
+                      <AppProvider>
+                        <ToastProvider>
+                          <AppContent />
+                        </ToastProvider>
+                      </AppProvider>
+                    </AuthProvider>
+                  </AuditLogProvider>
+                </WaitlistProvider>
+              </RecurringBookingsProvider>
+            </InvoiceProvider>
+          </NotificationSystemProvider>
         </NotificationProvider>
       </I18nProvider>
     </ThemeProvider>

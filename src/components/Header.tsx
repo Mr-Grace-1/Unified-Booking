@@ -20,6 +20,10 @@ const viewTitles: Record<string, string> = {
   'locations': 'Locations',
   'integrations': 'Integrations',
   'analytics': 'Analytics',
+  'notifications': 'Notification Templates',
+  'invoices': 'Invoices',
+  'customer-portal': 'Customer Portal',
+  'advanced-analytics': 'Advanced Analytics',
 };
 
 export default function Header() {

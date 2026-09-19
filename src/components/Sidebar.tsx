@@ -16,8 +16,12 @@ const navItems: { id: ViewType; label: string; icon: React.ReactNode; section?: 
   { id: 'staff', label: 'Staff', icon: <UserCog size={20} />, roles: ['admin', 'super_admin', 'manager'] },
   { id: 'staff-schedule', label: 'Staff Schedule', icon: <CalendarDays size={20} />, roles: ['admin', 'super_admin', 'manager', 'staff'] },
   { id: 'locations', label: 'Locations', icon: <MapPin size={20} />, roles: ['admin', 'super_admin', 'staff'] },
-  { id: 'integrations', label: 'Integrations', icon: <Plug size={20} />, section: 'System', roles: ['admin', 'super_admin'] },
+  { id: 'invoices', label: 'Invoices', icon: <List size={20} />, section: 'Finance', roles: ['admin', 'super_admin'] },
+  { id: 'notifications', label: 'Notifications', icon: <Plug size={20} />, section: 'System', roles: ['admin', 'super_admin'] },
+  { id: 'integrations', label: 'Integrations', icon: <Plug size={20} />, roles: ['admin', 'super_admin'] },
   { id: 'analytics', label: 'Analytics', icon: <BarChart3 size={20} />, roles: ['admin', 'super_admin', 'manager'] },
+  { id: 'advanced-analytics', label: 'Advanced Analytics', icon: <BarChart3 size={20} />, roles: ['admin', 'super_admin'] },
+  { id: 'customer-portal', label: 'Customer Portal', icon: <Users size={20} />, roles: ['admin', 'super_admin', 'manager', 'staff', 'client'] },
 ];
 
 export default function Sidebar() {

@@ -16,7 +16,7 @@ export const ROLE_PERMISSIONS: Record<UserRole, {
   icon: string;
 }> = {
   super_admin: {
-    views: ['dashboard', 'new-booking', 'bookings', 'calendar', 'services', 'customers', 'staff', 'staff-schedule', 'locations', 'integrations', 'analytics'],
+    views: ['dashboard', 'new-booking', 'bookings', 'calendar', 'services', 'customers', 'staff', 'staff-schedule', 'locations', 'invoices', 'notifications', 'integrations', 'analytics', 'advanced-analytics', 'customer-portal'],
     canCreateBooking: true,
     canViewAllBookings: true,
     canManageServices: true,
@@ -30,7 +30,7 @@ export const ROLE_PERMISSIONS: Record<UserRole, {
     icon: '👑',
   },
   admin: {
-    views: ['dashboard', 'new-booking', 'bookings', 'calendar', 'services', 'customers', 'staff', 'staff-schedule', 'locations', 'integrations', 'analytics'],
+    views: ['dashboard', 'new-booking', 'bookings', 'calendar', 'services', 'customers', 'staff', 'staff-schedule', 'locations', 'invoices', 'notifications', 'integrations', 'analytics', 'advanced-analytics', 'customer-portal'],
     canCreateBooking: true,
     canViewAllBookings: true,
     canManageServices: true,
@@ -44,7 +44,7 @@ export const ROLE_PERMISSIONS: Record<UserRole, {
     icon: '🛡️',
   },
   manager: {
-    views: ['dashboard', 'new-booking', 'bookings', 'calendar', 'services', 'customers', 'staff', 'staff-schedule', 'analytics'],
+    views: ['dashboard', 'new-booking', 'bookings', 'calendar', 'services', 'customers', 'staff', 'staff-schedule', 'analytics', 'customer-portal'],
     canCreateBooking: true,
     canViewAllBookings: true,
     canManageServices: true,
@@ -58,7 +58,7 @@ export const ROLE_PERMISSIONS: Record<UserRole, {
     icon: '💼',
   },
   staff: {
-    views: ['dashboard', 'new-booking', 'bookings', 'calendar', 'services', 'staff-schedule', 'locations'],
+    views: ['dashboard', 'new-booking', 'bookings', 'calendar', 'services', 'staff-schedule', 'locations', 'customer-portal'],
     canCreateBooking: true,
     canViewAllBookings: false,
     canManageServices: false,
