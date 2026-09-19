@@ -3,6 +3,10 @@ import { AppProvider, useApp } from './store/AppContext';
 import { AuthProvider, useAuth } from './store/AuthContext';
 import { ThemeProvider } from './store/ThemeContext';
 import { NotificationProvider } from './store/NotificationContext';
+import { I18nProvider } from './store/I18nContext';
+import { RecurringBookingsProvider } from './store/RecurringBookingsContext';
+import { WaitlistProvider } from './store/WaitlistContext';
+import { AuditLogProvider } from './store/AuditLogContext';
 import { ToastProvider } from './components/Toast';
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
@@ -131,15 +135,23 @@ function AppContent() {
 export default function App() {
   return (
     <ThemeProvider>
-      <NotificationProvider>
-        <AuthProvider>
-          <AppProvider>
-            <ToastProvider>
-              <AppContent />
-            </ToastProvider>
-          </AppProvider>
-        </AuthProvider>
-      </NotificationProvider>
+      <I18nProvider>
+        <NotificationProvider>
+          <RecurringBookingsProvider>
+            <WaitlistProvider>
+              <AuditLogProvider>
+                <AuthProvider>
+                  <AppProvider>
+                    <ToastProvider>
+                      <AppContent />
+                    </ToastProvider>
+                  </AppProvider>
+                </AuthProvider>
+              </AuditLogProvider>
+            </WaitlistProvider>
+          </RecurringBookingsProvider>
+        </NotificationProvider>
+      </I18nProvider>
     </ThemeProvider>
   );
 }

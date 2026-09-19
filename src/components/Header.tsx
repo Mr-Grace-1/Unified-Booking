@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { getRoleInfo } from '../utils/permissions';
 import NotificationPanel from './NotificationPanel';
+import LanguageSelector from './LanguageSelector';
 
 const viewTitles: Record<string, string> = {
   'dashboard': 'Dashboard',
@@ -82,6 +83,8 @@ export default function Header() {
             </motion.div>
           </AnimatePresence>
         </motion.button>
+
+        <LanguageSelector />
 
         {canCreateBooking && (
           <motion.button
