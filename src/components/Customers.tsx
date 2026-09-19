@@ -130,7 +130,7 @@ export default function Customers() {
                       const service = services.find(s => s.id === booking.serviceId);
                       return (
                         <div key={booking.id} className="flex items-center gap-3 p-3 rounded-lg bg-slate-800/50">
-                          <ServiceIcon icon={service?.icon || 'calendar'} size={24} />
+                          <ServiceIcon icon={service?.icon || 'calendar'} iconUrl={service?.iconUrl} size={24} />
                           <div className="flex-1">
                             <div className="text-sm font-medium text-white">{service?.name}</div>
                             <div className="text-xs text-slate-400">{new Date(booking.startTime).toLocaleDateString()}</div>

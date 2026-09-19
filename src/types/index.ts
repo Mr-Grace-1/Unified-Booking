@@ -20,6 +20,7 @@ export interface Staff {
   email: string;
   phone: string;
   avatar: string;
+  avatarUrl?: string;
   role: UserRole;
   locationIds: string[];
   serviceIds: string[];
@@ -41,6 +42,7 @@ export interface Service {
   maxCapacity?: number;
   bufferTime: number;
   icon: string;
+  iconUrl?: string;
   color: string;
 }
 

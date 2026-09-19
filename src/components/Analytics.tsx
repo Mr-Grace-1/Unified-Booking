@@ -167,9 +167,7 @@ export default function Analytics() {
           <div className="space-y-3">
             {topServices.map((item, i) => (
               <div key={i} className="flex items-center gap-3 p-3 rounded-lg bg-slate-800/50">
-                <div className="w-8 h-8 rounded-lg flex items-center justify-center text-lg" style={{ backgroundColor: `${item.service?.color}20` }}>
-                  <ServiceIcon icon={item.service?.icon || 'calendar'} size={20} />
-                </div>
+                <ServiceIcon icon={item.service?.icon || 'calendar'} iconUrl={item.service?.iconUrl} size={20} />
                 <div className="flex-1">
                   <div className="text-sm font-medium text-white">{item.service?.name}</div>
                   <div className="text-xs text-slate-400">{item.service?.category}</div>
@@ -192,7 +190,7 @@ export default function Analytics() {
           <div className="space-y-3">
             {topCustomers.map((item, i) => (
               <div key={i} className="flex items-center gap-3 p-3 rounded-lg bg-slate-800/50">
-                <div className="text-2xl">{item.customer?.avatar}</div>
+                <img src={item.customer?.avatar} alt={item.customer?.name} className="w-10 h-10 rounded-full object-cover" />
                 <div className="flex-1">
                   <div className="text-sm font-medium text-white">{item.customer?.name}</div>
                   <div className="text-xs text-slate-400">{item.customer?.totalBookings} bookings</div>

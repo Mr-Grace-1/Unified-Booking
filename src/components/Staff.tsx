@@ -32,9 +32,7 @@ export default function Staff() {
               className="p-5 rounded-xl bg-slate-900/50 border border-white/10 hover:border-white/20 transition-all"
             >
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-14 h-14 rounded-full flex items-center justify-center text-3xl" style={{ backgroundColor: `${member.color}20` }}>
-                  <img src={member.avatar} alt={member.name} className="w-14 h-14 rounded-full" />
-                </div>
+                <img src={member.avatar} alt={member.name} className="w-14 h-14 rounded-full object-cover ring-2 ring-offset-2 ring-offset-slate-900" />
                 <div className="flex-1">
                   <h4 className="font-semibold text-white">{member.name}</h4>
                   <span className="text-xs px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 capitalize">{member.role}</span>

@@ -181,7 +181,7 @@ export default function Dashboard() {
                     whileHover={{ x: 5, transition: { duration: 0.2 } }}
                     className="flex items-center gap-3 p-3 rounded-lg bg-slate-800/50 hover:bg-slate-800 transition-colors"
                   >
-                    <ServiceIcon icon={service?.icon || 'calendar'} size={24} />
+                    <ServiceIcon icon={service?.icon || 'calendar'} iconUrl={service?.iconUrl} size={24} />
                     <div className="flex-1 min-w-0">
                       <div className="font-medium text-white text-sm truncate">{service?.name}</div>
                       <div className="text-xs text-slate-400">{customer?.name} • {staffMember?.name}</div>

@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { 
   Scissors, Briefcase, Brain, Sparkles, 
   Wrench, Hand, Flower2, Dumbbell, 
@@ -8,6 +9,7 @@ import {
 
 interface ServiceIconProps {
   icon: string;
+  iconUrl?: string;
   className?: string;
   size?: number;
 }
@@ -27,7 +29,21 @@ const iconMap: Record<string, React.ComponentType<any>> = {
   'heart-pulse': HeartPulse,
 };
 
-export function ServiceIcon({ icon, className = '', size = 24 }: ServiceIconProps) {
+export function ServiceIcon({ icon, iconUrl, className = '', size = 24 }: ServiceIconProps) {
+  // If we have a real image URL, use it
+  if (iconUrl) {
+    return (
+      <motion.img
+        src={iconUrl}
+        alt={icon}
+        className={`w-12 h-12 rounded-xl object-cover ${className}`}
+        whileHover={{ scale: 1.1, rotate: 5 }}
+        transition={{ type: 'spring', stiffness: 300 }}
+      />
+    );
+  }
+
+  // Fallback to lucide icon
   const Icon = iconMap[icon];
   
   if (!Icon) {

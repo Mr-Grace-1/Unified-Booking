@@ -107,7 +107,7 @@ export default function Calendar() {
                         >
                           <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
-                              <ServiceIcon icon={service?.icon || 'calendar'} size={20} />
+                              <ServiceIcon icon={service?.icon || 'calendar'} iconUrl={service?.iconUrl} size={20} />
                               <span className="font-medium text-white text-sm">{service?.name}</span>
                             </div>
                             <span className="text-xs text-slate-400">{formatTime(booking.startTime)} - {formatTime(booking.endTime)}</span>
@@ -216,7 +216,7 @@ export default function Calendar() {
                         className="text-xs px-1.5 py-0.5 rounded truncate" 
                         style={{ backgroundColor: `${service?.color}20`, color: service?.color }}
                       >
-                        <ServiceIcon icon={service?.icon || 'calendar'} size={16} className="inline-block mr-1" /> {formatTime(b.startTime)}
+                        <ServiceIcon icon={service?.icon || 'calendar'} iconUrl={service?.iconUrl} size={16} className="inline-block mr-1" /> {formatTime(b.startTime)}
                       </motion.div>
                     );
                   })}

@@ -126,7 +126,7 @@ export default function Bookings() {
                 className="p-4 rounded-xl bg-slate-900/50 border border-white/10 hover:border-white/20 transition-all"
               >
                 <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0"><ServiceIcon icon={service?.icon || 'calendar'} size={32} /></div>
+                  <div className="flex-shrink-0"><ServiceIcon icon={service?.icon || 'calendar'} iconUrl={service?.iconUrl} size={32} /></div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-2">
                       <div>

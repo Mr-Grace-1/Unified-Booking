@@ -63,9 +63,7 @@ export default function Services() {
             >
               <div className="flex items-start justify-between mb-3">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl" style={{ backgroundColor: `${service.color}20` }}>
-                    <ServiceIcon icon={service.icon} size={24} />
-                  </div>
+                  <ServiceIcon icon={service.icon} iconUrl={service.iconUrl} size={24} />
                   <div>
                     <h4 className="font-semibold text-white">{service.name}</h4>
                     <span className="text-xs px-2 py-0.5 rounded-full" style={{ backgroundColor: `${service.color}20`, color: service.color }}>
