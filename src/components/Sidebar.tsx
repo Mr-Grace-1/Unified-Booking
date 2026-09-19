@@ -1,28 +1,40 @@
 import { useApp } from '../store/AppContext';
+import { useAuth } from '../store/AuthContext';
 import { ViewType } from '../types';
+import { UserRole } from '../types/auth';
 import { LayoutDashboard, CalendarDays, PlusCircle, List, Users, UserCog, MapPin, Plug, BarChart3, X, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { canAccessView, getRoleInfo } from '../utils/permissions';
 
-const navItems: { id: ViewType; label: string; icon: React.ReactNode; section?: string }[] = [
+const navItems: { id: ViewType; label: string; icon: React.ReactNode; section?: string; roles?: UserRole[] }[] = [
   { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard size={20} /> },
   { id: 'new-booking', label: 'New Booking', icon: <PlusCircle size={20} />, section: 'Bookings' },
   { id: 'bookings', label: 'All Bookings', icon: <List size={20} /> },
   { id: 'calendar', label: 'Calendar', icon: <CalendarDays size={20} /> },
   { id: 'services', label: 'Services', icon: <List size={20} />, section: 'Manage' },
-  { id: 'customers', label: 'Customers', icon: <Users size={20} /> },
-  { id: 'staff', label: 'Staff', icon: <UserCog size={20} /> },
-  { id: 'locations', label: 'Locations', icon: <MapPin size={20} /> },
-  { id: 'integrations', label: 'Integrations', icon: <Plug size={20} />, section: 'System' },
-  { id: 'analytics', label: 'Analytics', icon: <BarChart3 size={20} /> },
+  { id: 'customers', label: 'Customers', icon: <Users size={20} />, roles: ['admin', 'super_admin', 'manager'] },
+  { id: 'staff', label: 'Staff', icon: <UserCog size={20} />, roles: ['admin', 'super_admin', 'manager'] },
+  { id: 'locations', label: 'Locations', icon: <MapPin size={20} />, roles: ['admin', 'super_admin', 'staff'] },
+  { id: 'integrations', label: 'Integrations', icon: <Plug size={20} />, section: 'System', roles: ['admin', 'super_admin'] },
+  { id: 'analytics', label: 'Analytics', icon: <BarChart3 size={20} />, roles: ['admin', 'super_admin', 'manager'] },
 ];
 
 export default function Sidebar() {
   const { currentView, setCurrentView, sidebarOpen, setSidebarOpen } = useApp();
+  const { user } = useAuth();
 
   const handleNav = (id: ViewType) => {
     setCurrentView(id);
     setSidebarOpen(false);
   };
+
+  // Filter nav items based on user role
+  const filteredNavItems = user
+    ? navItems.filter(item => {
+        if (!item.roles) return true; // No role restriction
+        return item.roles.includes(user.role);
+      })
+    : [];
 
   let lastSection = '';
 
@@ -65,7 +77,7 @@ export default function Sidebar() {
 
         {/* Navigation */}
         <nav className="p-3 space-y-1 overflow-y-auto h-[calc(100vh-4rem)]">
-          {navItems.map((item, i) => {
+          {filteredNavItems.map((item, i) => {
             let sectionHeader = null;
             if (item.section && item.section !== lastSection) {
               lastSection = item.section;
@@ -105,10 +117,14 @@ export default function Sidebar() {
         {/* User */}
         <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-white/10 bg-slate-950">
           <div className="flex items-center gap-3">
-            <img src="/icons/ui/avatar.png" alt="User" className="w-9 h-9 rounded-full object-cover" />
+            <div className={`w-9 h-9 rounded-full bg-gradient-to-br ${user ? getRoleInfo(user.role).color : 'from-indigo-500 to-purple-600'} flex items-center justify-center text-white text-sm font-medium`}>
+              {user ? user.name.charAt(0).toUpperCase() : 'U'}
+            </div>
             <div className="flex-1 min-w-0">
-              <div className="text-sm font-medium text-white truncate">Sarah Chen</div>
-              <div className="text-xs text-slate-500">Admin • All Locations</div>
+              <div className="text-sm font-medium text-white truncate">{user?.name || 'User'}</div>
+              <div className="text-xs text-slate-500">
+                {user ? getRoleInfo(user.role).icon : ''} {user ? getRoleInfo(user.role).label : 'Unknown'}
+              </div>
             </div>
           </div>
         </div>

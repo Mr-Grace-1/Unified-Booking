@@ -1,11 +1,16 @@
 import { useApp, services, customers, staff } from '../store/AppContext';
+import { useAuth } from '../store/AuthContext';
 import { CalendarDays, DollarSign, Users, TrendingUp, Clock, CheckCircle, AlertCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { ServiceIcon } from './Icons';
 import TenantInfo from './TenantInfo';
+import { getRoleInfo } from '../utils/permissions';
 
 export default function Dashboard() {
   const { bookings, setCurrentView } = useApp();
+  const { user } = useAuth();
+
+  const roleInfo = user ? getRoleInfo(user.role) : null;
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -21,12 +26,15 @@ export default function Dashboard() {
   const confirmedCount = bookings.filter(b => b.status === 'confirmed').length;
   const pendingCount = bookings.filter(b => b.status === 'pending').length;
 
-  const stats = [
-    { label: 'Today\'s Bookings', value: todayBookings.length, icon: <CalendarDays size={20} />, color: 'from-blue-500 to-cyan-500', change: '+12%' },
-    { label: 'Total Revenue', value: `$${totalRevenue.toLocaleString()}`, icon: <DollarSign size={20} />, color: 'from-emerald-500 to-green-500', change: '+8%' },
-    { label: 'Active Customers', value: customers.length, icon: <Users size={20} />, color: 'from-purple-500 to-pink-500', change: '+5%' },
-    { label: 'Staff Members', value: staff.length, icon: <TrendingUp size={20} />, color: 'from-amber-500 to-orange-500', change: '0%' },
+  // Filter stats based on role
+  const allStats = [
+    { label: 'Today\'s Bookings', value: todayBookings.length, icon: <CalendarDays size={20} />, color: 'from-blue-500 to-cyan-500', change: '+12%', roles: ['admin', 'super_admin', 'manager', 'staff', 'client'] },
+    { label: 'Total Revenue', value: `$${totalRevenue.toLocaleString()}`, icon: <DollarSign size={20} />, color: 'from-emerald-500 to-green-500', change: '+8%', roles: ['admin', 'super_admin', 'manager'] },
+    { label: 'Active Customers', value: customers.length, icon: <Users size={20} />, color: 'from-purple-500 to-pink-500', change: '+5%', roles: ['admin', 'super_admin', 'manager'] },
+    { label: 'Staff Members', value: staff.length, icon: <TrendingUp size={20} />, color: 'from-amber-500 to-orange-500', change: '0%', roles: ['admin', 'super_admin', 'manager'] },
   ];
+
+  const stats = user ? allStats.filter(s => s.roles.includes(user.role)) : [];
 
   const container = {
     hidden: { opacity: 0 },
@@ -86,30 +94,54 @@ export default function Dashboard() {
         ))}
       </motion.div>
 
-      {/* Quick Actions */}
+      {/* Welcome Message */}
+      {user && roleInfo && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="p-4 rounded-xl bg-gradient-to-r from-indigo-500/10 to-purple-500/10 border border-indigo-500/20"
+        >
+          <div className="flex items-center gap-3">
+            <div className={`w-12 h-12 rounded-full bg-gradient-to-br ${roleInfo.color} flex items-center justify-center text-2xl`}>
+              {roleInfo.icon}
+            </div>
+            <div>
+              <h2 className="text-lg font-bold text-white">Welcome back, {user.name}!</h2>
+              <p className="text-sm text-slate-400">
+                Logged in as <span className={`font-semibold bg-gradient-to-r ${roleInfo.color} bg-clip-text text-transparent`}>{roleInfo.label}</span>
+              </p>
+            </div>
+          </div>
+        </motion.div>
+      )}
+
+      {/* Quick Actions - Role Based */}
       <motion.div
         variants={container}
         initial="hidden"
         animate="show"
-        className="grid sm:grid-cols-3 gap-4"
+        className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"
       >
-        <motion.button
-          variants={item}
-          whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
-          whileTap={{ scale: 0.98 }}
-          onClick={() => setCurrentView('new-booking')}
-          className="p-4 rounded-xl bg-gradient-to-br from-indigo-600/20 to-purple-600/20 border border-indigo-500/30 hover:border-indigo-500/50 transition-all text-left"
-        >
-          <div className="flex items-center gap-3 mb-2">
-            <div className="w-10 h-10 rounded-lg bg-indigo-500/20 flex items-center justify-center">
-              <CalendarDays size={20} className="text-indigo-400" />
+        {roleInfo?.canCreateBooking && (
+          <motion.button
+            variants={item}
+            whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
+            whileTap={{ scale: 0.98 }}
+            onClick={() => setCurrentView('new-booking')}
+            className="p-4 rounded-xl bg-gradient-to-br from-indigo-600/20 to-purple-600/20 border border-indigo-500/30 hover:border-indigo-500/50 transition-all text-left"
+          >
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-10 h-10 rounded-lg bg-indigo-500/20 flex items-center justify-center">
+                <CalendarDays size={20} className="text-indigo-400" />
+              </div>
+              <div>
+                <div className="font-semibold text-white">Book Appointment</div>
+                <div className="text-xs text-slate-400">Schedule a new service</div>
+              </div>
             </div>
-            <div>
-              <div className="font-semibold text-white">Book Appointment</div>
-              <div className="text-xs text-slate-400">Schedule a new service</div>
-            </div>
-          </div>
-        </motion.button>
+          </motion.button>
+        )}
         <motion.button
           variants={item}
           whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
@@ -127,23 +159,44 @@ export default function Dashboard() {
             </div>
           </div>
         </motion.button>
-        <motion.button
-          variants={item}
-          whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
-          whileTap={{ scale: 0.98 }}
-          onClick={() => setCurrentView('customers')}
-          className="p-4 rounded-xl bg-gradient-to-br from-amber-600/20 to-orange-600/20 border border-amber-500/30 hover:border-amber-500/50 transition-all text-left"
-        >
-          <div className="flex items-center gap-3 mb-2">
-            <div className="w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center">
-              <Users size={20} className="text-amber-400" />
+        {roleInfo?.canViewCustomers && (
+          <motion.button
+            variants={item}
+            whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
+            whileTap={{ scale: 0.98 }}
+            onClick={() => setCurrentView('customers')}
+            className="p-4 rounded-xl bg-gradient-to-br from-amber-600/20 to-orange-600/20 border border-amber-500/30 hover:border-amber-500/50 transition-all text-left"
+          >
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center">
+                <Users size={20} className="text-amber-400" />
+              </div>
+              <div>
+                <div className="font-semibold text-white">Customer CRM</div>
+                <div className="text-xs text-slate-400">Manage client profiles</div>
+              </div>
             </div>
-            <div>
-              <div className="font-semibold text-white">Customer CRM</div>
-              <div className="text-xs text-slate-400">Manage client profiles</div>
+          </motion.button>
+        )}
+        {roleInfo?.canViewAnalytics && (
+          <motion.button
+            variants={item}
+            whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
+            whileTap={{ scale: 0.98 }}
+            onClick={() => setCurrentView('analytics')}
+            className="p-4 rounded-xl bg-gradient-to-br from-cyan-600/20 to-blue-600/20 border border-cyan-500/30 hover:border-cyan-500/50 transition-all text-left"
+          >
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center">
+                <TrendingUp size={20} className="text-cyan-400" />
+              </div>
+              <div>
+                <div className="font-semibold text-white">Analytics</div>
+                <div className="text-xs text-slate-400">View business insights</div>
+              </div>
             </div>
-          </div>
-        </motion.button>
+          </motion.button>
+        )}
       </motion.div>
 
       {/* Today's Schedule & Recent Bookings */}

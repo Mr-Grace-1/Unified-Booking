@@ -18,11 +18,13 @@ import CommandPalette from './components/CommandPalette';
 import AnimatedBackground from './components/AnimatedBackground';
 import AuthPage from './components/AuthPage';
 import OnboardingFlow from './components/OnboardingFlow';
+import AccessDenied from './components/AccessDenied';
 import { motion, AnimatePresence } from 'framer-motion';
+import { canAccessView } from './utils/permissions';
 
 function AppContent() {
   const { currentView } = useApp();
-  const { isAuthenticated, onboardingComplete } = useAuth();
+  const { isAuthenticated, onboardingComplete, user } = useAuth();
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
   const [authMode, setAuthMode] = useState<'login' | 'signup'>('login');
 
@@ -59,7 +61,27 @@ function AppContent() {
     return <OnboardingFlow />;
   }
 
+  // Check if user has access to current view
+  const hasAccess = user ? canAccessView(user.role, currentView) : false;
+
   const renderView = () => {
+    // If no access, show AccessDenied component
+    if (!hasAccess) {
+      const viewNames: Record<string, string> = {
+        'dashboard': 'Dashboard',
+        'bookings': 'All Bookings',
+        'new-booking': 'New Booking',
+        'calendar': 'Calendar',
+        'services': 'Services',
+        'customers': 'Customers',
+        'staff': 'Staff Management',
+        'locations': 'Locations',
+        'integrations': 'Integrations',
+        'analytics': 'Analytics',
+      };
+      return <AccessDenied viewName={viewNames[currentView] || currentView} />;
+    }
+
     switch (currentView) {
       case 'dashboard': return <Dashboard />;
       case 'bookings': return <Bookings />;
