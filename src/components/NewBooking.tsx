@@ -373,7 +373,7 @@ export default function NewBooking() {
             <p className="text-slate-400 mb-6">Review the details before confirming</p>
             <div className="p-6 rounded-xl bg-slate-900/50 border border-white/10 space-y-4">
               <div className="flex items-center gap-4 pb-4 border-b border-white/10">
-                <ServiceIcon icon={service?.icon || 'calendar'} iconUrl={service?.iconUrl} size={40} />
+                <ServiceIcon icon={service?.icon || 'calendar'} iconUrl={service?.iconUrl} size={24} />
                 <div>
                   <div className="text-lg font-bold text-white">{service?.name}</div>
                   <div className="text-sm text-slate-400">{service?.duration} minutes • {categoryLabels[service?.category || 'appointment']?.label}</div>

@@ -102,8 +102,8 @@ export default function Bookings() {
             animate={{ opacity: 1, scale: 1 }}
             className="text-center py-16 text-slate-500"
           >
-            <Clock size={48} className="mx-auto mb-3 opacity-50" />
-            <p className="text-lg">No bookings found</p>
+            <Clock size={32} className="mx-auto mb-3 opacity-50" />
+            <p className="text-base">No bookings found</p>
             <p className="text-sm">Try adjusting your filters</p>
           </motion.div>
         ) : (
@@ -126,8 +126,8 @@ export default function Bookings() {
                 whileHover={{ scale: 1.01, transition: { duration: 0.2 } }}
                 className="p-4 rounded-xl bg-slate-900/50 border border-white/10 hover:border-white/20 transition-all"
               >
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0"><ServiceIcon icon={service?.icon || 'calendar'} iconUrl={service?.iconUrl} size={32} /></div>
+                <div className="flex items-start gap-3">
+                  <div className="flex-shrink-0"><ServiceIcon icon={service?.icon || 'calendar'} iconUrl={service?.iconUrl} size={24} /></div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-2">
                       <div>

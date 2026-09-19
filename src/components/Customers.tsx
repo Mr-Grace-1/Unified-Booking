@@ -158,9 +158,9 @@ export default function Customers() {
             >
               <div className="text-center">
                 <div className="mb-3 flex justify-center">
-                  <IconImage emoji="👤" size={64} />
+                  <IconImage emoji="👤" size={48} />
                 </div>
-                <p className="text-lg">Select a customer to view details</p>
+                <p className="text-base">Select a customer to view details</p>
               </div>
             </motion.div>
           )}

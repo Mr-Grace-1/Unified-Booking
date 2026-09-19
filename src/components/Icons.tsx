@@ -30,14 +30,26 @@ const iconMap: Record<string, React.ComponentType<any>> = {
 };
 
 export function ServiceIcon({ icon, iconUrl, className = '', size = 24 }: ServiceIconProps) {
+  const sizeClasses = {
+    16: 'w-4 h-4',
+    20: 'w-5 h-5',
+    24: 'w-6 h-6',
+    32: 'w-8 h-8',
+    40: 'w-10 h-10',
+    48: 'w-12 h-12',
+  };
+  
+  const containerSize = sizeClasses[size as keyof typeof sizeClasses] || 'w-6 h-6';
+  const iconSize = Math.max(size * 0.6, 12);
+
   // If we have a real image URL, use it
   if (iconUrl) {
     return (
       <motion.img
         src={iconUrl}
         alt={icon}
-        className={`w-12 h-12 rounded-xl object-cover ${className}`}
-        whileHover={{ scale: 1.1, rotate: 5 }}
+        className={`${containerSize} rounded-lg object-cover ${className}`}
+        whileHover={{ scale: 1.05 }}
         transition={{ type: 'spring', stiffness: 300 }}
       />
     );
@@ -49,18 +61,18 @@ export function ServiceIcon({ icon, iconUrl, className = '', size = 24 }: Servic
   if (!Icon) {
     return (
       <div 
-        className={`w-12 h-12 rounded-lg bg-gradient-to-br from-indigo-500/20 to-purple-500/20 flex items-center justify-center ${className}`}
+        className={`${containerSize} rounded-lg bg-gradient-to-br from-indigo-500/20 to-purple-500/20 flex items-center justify-center ${className}`}
       >
-        <Calendar size={size * 0.7} className="text-indigo-400" />
+        <Calendar size={iconSize} className="text-indigo-400" />
       </div>
     );
   }
 
   return (
     <div 
-      className={`w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500/20 to-purple-500/20 flex items-center justify-center ${className}`}
+      className={`${containerSize} rounded-lg bg-gradient-to-br from-indigo-500/20 to-purple-500/20 flex items-center justify-center ${className}`}
     >
-      <Icon size={size * 0.7} className="text-indigo-400" />
+      <Icon size={iconSize} className="text-indigo-400" />
     </div>
   );
 }
@@ -77,12 +89,24 @@ const locationIconMap: Record<string, React.ComponentType<any>> = {
   venue: Castle,
 };
 
-export function LocationIcon({ type, className = '' }: LocationIconProps) {
+export function LocationIcon({ type, className = '', size = 24 }: LocationIconProps & { size?: number }) {
   const Icon = locationIconMap[type] || Building2;
   
+  const sizeClasses = {
+    16: 'w-4 h-4',
+    20: 'w-5 h-5',
+    24: 'w-6 h-6',
+    32: 'w-8 h-8',
+    40: 'w-10 h-10',
+    48: 'w-12 h-12',
+  };
+  
+  const containerSize = sizeClasses[size as keyof typeof sizeClasses] || 'w-6 h-6';
+  const iconSize = Math.max(size * 0.6, 12);
+  
   return (
-    <div className={`w-12 h-12 rounded-xl bg-indigo-500/20 flex items-center justify-center ${className}`}>
-      <Icon size={24} className="text-indigo-400" />
+    <div className={`${containerSize} rounded-lg bg-indigo-500/20 flex items-center justify-center ${className}`}>
+      <Icon size={iconSize} className="text-indigo-400" />
     </div>
   );
 }

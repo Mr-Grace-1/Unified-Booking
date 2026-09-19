@@ -100,15 +100,15 @@ export default function Dashboard() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="p-4 rounded-xl bg-gradient-to-r from-indigo-500/10 to-purple-500/10 border border-indigo-500/20"
+          className="p-3 sm:p-4 rounded-xl bg-gradient-to-r from-indigo-500/10 to-purple-500/10 border border-indigo-500/20"
         >
           <div className="flex items-center gap-3">
-            <div className={`w-12 h-12 rounded-full bg-gradient-to-br ${roleInfo.color} flex items-center justify-center text-2xl`}>
+            <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br ${roleInfo.color} flex items-center justify-center text-xl sm:text-2xl flex-shrink-0`}>
               {roleInfo.icon}
             </div>
-            <div>
-              <h2 className="text-lg font-bold text-white">Welcome back, {user.name}!</h2>
-              <p className="text-sm text-slate-400">
+            <div className="min-w-0 flex-1">
+              <h2 className="text-base sm:text-lg font-bold text-white truncate">Welcome back, {user.name}!</h2>
+              <p className="text-xs sm:text-sm text-slate-400 truncate">
                 Logged in as <span className={`font-semibold bg-gradient-to-r ${roleInfo.color} bg-clip-text text-transparent`}>{roleInfo.label}</span>
               </p>
             </div>
@@ -121,59 +121,59 @@ export default function Dashboard() {
         variants={container}
         initial="hidden"
         animate="show"
-        className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"
+        className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3"
       >
         {roleInfo?.canCreateBooking && (
           <motion.button
             variants={item}
-            whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
+            whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
             whileTap={{ scale: 0.98 }}
             onClick={() => setCurrentView('new-booking')}
-            className="p-4 rounded-xl bg-gradient-to-br from-indigo-600/20 to-purple-600/20 border border-indigo-500/30 hover:border-indigo-500/50 transition-all text-left"
+            className="p-3 rounded-xl bg-gradient-to-br from-indigo-600/20 to-purple-600/20 border border-indigo-500/30 hover:border-indigo-500/50 transition-all text-left"
           >
-            <div className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-10 rounded-lg bg-indigo-500/20 flex items-center justify-center">
-                <CalendarDays size={20} className="text-indigo-400" />
+            <div className="flex items-center gap-2 mb-1">
+              <div className="w-8 h-8 rounded-lg bg-indigo-500/20 flex items-center justify-center flex-shrink-0">
+                <CalendarDays size={16} className="text-indigo-400" />
               </div>
-              <div>
-                <div className="font-semibold text-white">Book Appointment</div>
-                <div className="text-xs text-slate-400">Schedule a new service</div>
+              <div className="min-w-0">
+                <div className="font-semibold text-white text-sm truncate">Book Appointment</div>
+                <div className="text-xs text-slate-400 truncate">Schedule a new service</div>
               </div>
             </div>
           </motion.button>
         )}
         <motion.button
           variants={item}
-          whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
+          whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
           whileTap={{ scale: 0.98 }}
           onClick={() => setCurrentView('calendar')}
-          className="p-4 rounded-xl bg-gradient-to-br from-emerald-600/20 to-teal-600/20 border border-emerald-500/30 hover:border-emerald-500/50 transition-all text-left"
+          className="p-3 rounded-xl bg-gradient-to-br from-emerald-600/20 to-teal-600/20 border border-emerald-500/30 hover:border-emerald-500/50 transition-all text-left"
         >
-          <div className="flex items-center gap-3 mb-2">
-            <div className="w-10 h-10 rounded-lg bg-emerald-500/20 flex items-center justify-center">
-              <Clock size={20} className="text-emerald-400" />
+          <div className="flex items-center gap-2 mb-1">
+            <div className="w-8 h-8 rounded-lg bg-emerald-500/20 flex items-center justify-center flex-shrink-0">
+              <Clock size={16} className="text-emerald-400" />
             </div>
-            <div>
-              <div className="font-semibold text-white">View Schedule</div>
-              <div className="text-xs text-slate-400">Check today's calendar</div>
+            <div className="min-w-0">
+              <div className="font-semibold text-white text-sm truncate">View Schedule</div>
+              <div className="text-xs text-slate-400 truncate">Check today's calendar</div>
             </div>
           </div>
         </motion.button>
         {roleInfo?.canViewCustomers && (
           <motion.button
             variants={item}
-            whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
+            whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
             whileTap={{ scale: 0.98 }}
             onClick={() => setCurrentView('customers')}
-            className="p-4 rounded-xl bg-gradient-to-br from-amber-600/20 to-orange-600/20 border border-amber-500/30 hover:border-amber-500/50 transition-all text-left"
+            className="p-3 rounded-xl bg-gradient-to-br from-amber-600/20 to-orange-600/20 border border-amber-500/30 hover:border-amber-500/50 transition-all text-left"
           >
-            <div className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center">
-                <Users size={20} className="text-amber-400" />
+            <div className="flex items-center gap-2 mb-1">
+              <div className="w-8 h-8 rounded-lg bg-amber-500/20 flex items-center justify-center flex-shrink-0">
+                <Users size={16} className="text-amber-400" />
               </div>
-              <div>
-                <div className="font-semibold text-white">Customer CRM</div>
-                <div className="text-xs text-slate-400">Manage client profiles</div>
+              <div className="min-w-0">
+                <div className="font-semibold text-white text-sm truncate">Customer CRM</div>
+                <div className="text-xs text-slate-400 truncate">Manage client profiles</div>
               </div>
             </div>
           </motion.button>
@@ -181,18 +181,18 @@ export default function Dashboard() {
         {roleInfo?.canViewAnalytics && (
           <motion.button
             variants={item}
-            whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
+            whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
             whileTap={{ scale: 0.98 }}
             onClick={() => setCurrentView('analytics')}
-            className="p-4 rounded-xl bg-gradient-to-br from-cyan-600/20 to-blue-600/20 border border-cyan-500/30 hover:border-cyan-500/50 transition-all text-left"
+            className="p-3 rounded-xl bg-gradient-to-br from-cyan-600/20 to-blue-600/20 border border-cyan-500/30 hover:border-cyan-500/50 transition-all text-left"
           >
-            <div className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center">
-                <TrendingUp size={20} className="text-cyan-400" />
+            <div className="flex items-center gap-2 mb-1">
+              <div className="w-8 h-8 rounded-lg bg-cyan-500/20 flex items-center justify-center flex-shrink-0">
+                <TrendingUp size={16} className="text-cyan-400" />
               </div>
-              <div>
-                <div className="font-semibold text-white">Analytics</div>
-                <div className="text-xs text-slate-400">View business insights</div>
+              <div className="min-w-0">
+                <div className="font-semibold text-white text-sm truncate">Analytics</div>
+                <div className="text-xs text-slate-400 truncate">View business insights</div>
               </div>
             </div>
           </motion.button>

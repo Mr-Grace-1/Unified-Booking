@@ -62,11 +62,11 @@ export default function Services() {
               className="p-5 rounded-xl bg-slate-900/50 border border-white/10 hover:border-white/20 transition-all"
             >
               <div className="flex items-start justify-between mb-3">
-                <div className="flex items-center gap-3">
-                  <ServiceIcon icon={service.icon} iconUrl={service.iconUrl} size={24} />
-                  <div>
-                    <h4 className="font-semibold text-white">{service.name}</h4>
-                    <span className="text-xs px-2 py-0.5 rounded-full" style={{ backgroundColor: `${service.color}20`, color: service.color }}>
+                <div className="flex items-center gap-2">
+                  <ServiceIcon icon={service.icon} iconUrl={service.iconUrl} size={20} />
+                  <div className="min-w-0 flex-1">
+                    <h4 className="font-semibold text-white text-sm truncate">{service.name}</h4>
+                    <span className="inline-block text-xs px-2 py-0.5 rounded-full mt-1" style={{ backgroundColor: `${service.color}20`, color: service.color }}>
                       {categoryLabels[service.category]}
                     </span>
                   </div>
