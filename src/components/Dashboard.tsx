@@ -2,6 +2,7 @@ import { useApp, services, customers, staff } from '../store/AppContext';
 import { CalendarDays, DollarSign, Users, TrendingUp, Clock, CheckCircle, AlertCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { ServiceIcon } from './Icons';
+import TenantInfo from './TenantInfo';
 
 export default function Dashboard() {
   const { bookings, setCurrentView } = useApp();
@@ -292,6 +293,9 @@ export default function Dashboard() {
           <div className="text-xs text-slate-400">Last 30 days</div>
         </motion.div>
       </motion.div>
+
+      {/* Tenant Information */}
+      <TenantInfo />
     </div>
   );
 }
