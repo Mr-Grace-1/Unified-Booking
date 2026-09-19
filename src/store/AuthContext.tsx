@@ -28,6 +28,32 @@ const MOCK_USERS = [
     createdAt: '2024-01-01T00:00:00Z',
     isActive: true,
   },
+  {
+    id: 'user-2',
+    tenantId: 'tenant-1',
+    email: 'customer@demo.com',
+    password: 'customer123',
+    name: 'John Doe',
+    role: 'client' as const,
+    avatar: '/icons/ui/avatar.png',
+    is2FAEnabled: false,
+    lastLogin: new Date().toISOString(),
+    createdAt: '2024-01-15T00:00:00Z',
+    isActive: true,
+  },
+  {
+    id: 'user-3',
+    tenantId: 'tenant-1',
+    email: 'manager@demo.com',
+    password: 'manager123',
+    name: 'Emily Johnson',
+    role: 'manager' as const,
+    avatar: '/icons/ui/avatar.png',
+    is2FAEnabled: false,
+    lastLogin: new Date().toISOString(),
+    createdAt: '2024-02-01T00:00:00Z',
+    isActive: true,
+  },
 ];
 
 const MOCK_TENANTS = [
@@ -53,15 +79,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     user: null,
     tenant: null,
     isAuthenticated: false,
-    isLoading: true,
+    isLoading: false, // Start with false to show login immediately
     onboardingComplete: false,
   });
 
   useEffect(() => {
     // Clear session on mount for demo purposes
-    // In production, you would restore the session here
     localStorage.removeItem('auth');
-    setAuthState(prev => ({ ...prev, isLoading: false }));
   }, []);
 
   const login = async (email: string, password: string) => {

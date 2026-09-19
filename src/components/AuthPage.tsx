@@ -245,9 +245,21 @@ export default function AuthPage({ mode, onToggleMode }: AuthPageProps) {
               transition={{ delay: 0.6 }}
               className="mt-6 p-4 rounded-lg bg-indigo-500/10 border border-indigo-500/20"
             >
-              <p className="text-xs text-indigo-300 font-medium mb-2">Demo Credentials:</p>
-              <p className="text-xs text-slate-400">Email: admin@demo.com</p>
-              <p className="text-xs text-slate-400">Password: demo123</p>
+              <p className="text-xs text-indigo-300 font-medium mb-3">Demo Credentials:</p>
+              <div className="space-y-2">
+                <div className="p-2 rounded bg-slate-800/50">
+                  <p className="text-xs text-white font-medium">👑 Admin</p>
+                  <p className="text-xs text-slate-400">admin@demo.com / demo123</p>
+                </div>
+                <div className="p-2 rounded bg-slate-800/50">
+                  <p className="text-xs text-white font-medium">💼 Manager</p>
+                  <p className="text-xs text-slate-400">manager@demo.com / manager123</p>
+                </div>
+                <div className="p-2 rounded bg-slate-800/50">
+                  <p className="text-xs text-white font-medium">👤 Customer</p>
+                  <p className="text-xs text-slate-400">customer@demo.com / customer123</p>
+                </div>
+              </div>
             </motion.div>
           )}
 
