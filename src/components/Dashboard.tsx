@@ -1,6 +1,7 @@
 import { useApp, services, customers, staff } from '../store/AppContext';
 import { CalendarDays, DollarSign, Users, TrendingUp, Clock, CheckCircle, AlertCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { ServiceIcon } from './Icons';
 
 export default function Dashboard() {
   const { bookings, setCurrentView } = useApp();
@@ -180,7 +181,7 @@ export default function Dashboard() {
                     whileHover={{ x: 5, transition: { duration: 0.2 } }}
                     className="flex items-center gap-3 p-3 rounded-lg bg-slate-800/50 hover:bg-slate-800 transition-colors"
                   >
-                    <div className="text-2xl">{service?.icon}</div>
+                    <ServiceIcon icon={service?.icon || 'calendar'} size={24} />
                     <div className="flex-1 min-w-0">
                       <div className="font-medium text-white text-sm truncate">{service?.name}</div>
                       <div className="text-xs text-slate-400">{customer?.name} • {staffMember?.name}</div>
@@ -228,7 +229,7 @@ export default function Dashboard() {
                   className="flex items-center gap-3 p-3 rounded-lg bg-slate-800/50"
                 >
                   <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-sm">
-                    {customer?.avatar}
+                    <img src={customer?.avatar} alt={customer?.name} className="w-8 h-8 rounded-full" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="text-sm text-white truncate">{customer?.name}</div>

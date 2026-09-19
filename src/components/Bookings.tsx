@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { BookingStatus } from '../types';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useToast } from './Toast';
+import { ServiceIcon } from './Icons';
 
 export default function Bookings() {
   const { bookings, updateBookingStatus } = useApp();
@@ -125,13 +126,13 @@ export default function Bookings() {
                 className="p-4 rounded-xl bg-slate-900/50 border border-white/10 hover:border-white/20 transition-all"
               >
                 <div className="flex items-start gap-4">
-                  <div className="text-3xl flex-shrink-0">{service?.icon}</div>
+                  <div className="flex-shrink-0"><ServiceIcon icon={service?.icon || 'calendar'} size={32} /></div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-2">
                       <div>
                         <h4 className="font-semibold text-white">{service?.name}</h4>
                         <p className="text-sm text-slate-400 mt-0.5">
-                          {customer?.name} • {staffMember?.avatar} {staffMember?.name}
+                          {customer?.name} • <img src={staffMember?.avatar} alt={staffMember?.name} className="w-5 h-5 rounded-full inline-block" /> {staffMember?.name}
                         </p>
                       </div>
                       <div className="flex items-center gap-2">

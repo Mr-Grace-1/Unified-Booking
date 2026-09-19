@@ -2,6 +2,7 @@ import { useApp, services, customers, staff, locations } from '../store/AppConte
 import { TrendingUp, DollarSign, Users, Calendar, BarChart3, PieChart } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { AnimatedBarChart, AnimatedDonutChart } from './Charts';
+import { ServiceIcon } from './Icons';
 
 export default function Analytics() {
   const { bookings } = useApp();
@@ -167,7 +168,7 @@ export default function Analytics() {
             {topServices.map((item, i) => (
               <div key={i} className="flex items-center gap-3 p-3 rounded-lg bg-slate-800/50">
                 <div className="w-8 h-8 rounded-lg flex items-center justify-center text-lg" style={{ backgroundColor: `${item.service?.color}20` }}>
-                  {item.service?.icon}
+                  <ServiceIcon icon={item.service?.icon || 'calendar'} size={20} />
                 </div>
                 <div className="flex-1">
                   <div className="text-sm font-medium text-white">{item.service?.name}</div>
@@ -214,7 +215,7 @@ export default function Analytics() {
           <div className="space-y-3">
             {staffPerformance.map((item, i) => (
               <div key={i} className="flex items-center gap-3 p-3 rounded-lg bg-slate-800/50">
-                <div className="text-2xl">{item.member?.avatar}</div>
+                <img src={item.member?.avatar} alt={item.member?.name} className="w-10 h-10 rounded-full" />
                 <div className="flex-1">
                   <div className="text-sm font-medium text-white">{item.member?.name}</div>
                   <div className="text-xs text-slate-400 capitalize">{item.member?.role}</div>

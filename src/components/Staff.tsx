@@ -33,7 +33,7 @@ export default function Staff() {
             >
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-14 h-14 rounded-full flex items-center justify-center text-3xl" style={{ backgroundColor: `${member.color}20` }}>
-                  {member.avatar}
+                  <img src={member.avatar} alt={member.name} className="w-14 h-14 rounded-full" />
                 </div>
                 <div className="flex-1">
                   <h4 className="font-semibold text-white">{member.name}</h4>

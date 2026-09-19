@@ -2,6 +2,7 @@ import { useApp, customers, services } from '../store/AppContext';
 import { Mail, Phone, Calendar, DollarSign, Tag } from 'lucide-react';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ServiceIcon } from './Icons';
 
 export default function Customers() {
   const { bookings } = useApp();
@@ -46,7 +47,7 @@ export default function Customers() {
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  <div className="text-2xl">{customer.avatar}</div>
+                  <img src={customer.avatar} alt={customer.name} className="w-10 h-10 rounded-full" />
                   <div className="flex-1 min-w-0">
                     <div className="font-medium text-white truncate">{customer.name}</div>
                     <div className="text-xs text-slate-400">{customer.email}</div>
@@ -76,7 +77,7 @@ export default function Customers() {
               {/* Profile Card */}
               <div className="p-6 rounded-xl bg-slate-900/50 border border-white/10">
                 <div className="flex items-start gap-4 mb-4">
-                  <div className="text-5xl">{selected.avatar}</div>
+                  <img src={selected.avatar} alt={selected.name} className="w-20 h-20 rounded-full" />
                   <div className="flex-1">
                     <h3 className="text-xl font-bold text-white">{selected.name}</h3>
                     <div className="flex flex-wrap items-center gap-4 mt-2 text-sm text-slate-400">
@@ -129,7 +130,7 @@ export default function Customers() {
                       const service = services.find(s => s.id === booking.serviceId);
                       return (
                         <div key={booking.id} className="flex items-center gap-3 p-3 rounded-lg bg-slate-800/50">
-                          <span className="text-xl">{service?.icon}</span>
+                          <ServiceIcon icon={service?.icon || 'calendar'} size={24} />
                           <div className="flex-1">
                             <div className="text-sm font-medium text-white">{service?.name}</div>
                             <div className="text-xs text-slate-400">{new Date(booking.startTime).toLocaleDateString()}</div>

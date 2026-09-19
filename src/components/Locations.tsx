@@ -1,12 +1,13 @@
 import { useApp, locations, staff, services } from '../store/AppContext';
 import { MapPin, Phone, Users, Calendar, Building } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { LocationIcon } from './Icons';
 
-const typeLabels: Record<string, { label: string; icon: string }> = {
-  studio: { label: 'Studio', icon: '🏢' },
-  field_hub: { label: 'Field Hub', icon: '🚐' },
-  property: { label: 'Property', icon: '🏨' },
-  venue: { label: 'Venue', icon: '🏛️' },
+const typeLabels: Record<string, { label: string }> = {
+  studio: { label: 'Studio' },
+  field_hub: { label: 'Field Hub' },
+  property: { label: 'Property' },
+  venue: { label: 'Venue' },
 };
 
 export default function Locations() {
@@ -41,9 +42,7 @@ export default function Locations() {
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-xl bg-indigo-500/20 flex items-center justify-center text-2xl">
-                    {typeInfo.icon}
-                  </div>
+                  <LocationIcon type={location.type} />
                   <div>
                     <h4 className="font-semibold text-white">{location.name}</h4>
                     <span className="text-xs px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300">{typeInfo.label}</span>

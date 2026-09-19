@@ -3,6 +3,7 @@ import { ServiceCategory } from '../types';
 import { Clock, DollarSign, Users, MapPin } from 'lucide-react';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { ServiceIcon } from './Icons';
 
 const categoryLabels: Record<ServiceCategory, string> = {
   appointment: 'Appointments',
@@ -63,7 +64,7 @@ export default function Services() {
               <div className="flex items-start justify-between mb-3">
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl" style={{ backgroundColor: `${service.color}20` }}>
-                    {service.icon}
+                    <ServiceIcon icon={service.icon} size={24} />
                   </div>
                   <div>
                     <h4 className="font-semibold text-white">{service.name}</h4>

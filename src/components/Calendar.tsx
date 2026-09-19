@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useApp, services, customers, staff, locations } from '../store/AppContext';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { ServiceIcon } from './Icons';
 
 export default function Calendar() {
   const { bookings } = useApp();
@@ -106,13 +107,13 @@ export default function Calendar() {
                         >
                           <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
-                              <span>{service?.icon}</span>
+                              <ServiceIcon icon={service?.icon || 'calendar'} size={20} />
                               <span className="font-medium text-white text-sm">{service?.name}</span>
                             </div>
                             <span className="text-xs text-slate-400">{formatTime(booking.startTime)} - {formatTime(booking.endTime)}</span>
                           </div>
                           <div className="text-xs text-slate-400 mt-1">
-                            {customer?.avatar} {customer?.name} • {staffMember?.avatar} {staffMember?.name}
+                            <img src={customer?.avatar} alt={customer?.name} className="w-5 h-5 rounded-full inline-block" /> {customer?.name} • <img src={staffMember?.avatar} alt={staffMember?.name} className="w-5 h-5 rounded-full inline-block" /> {staffMember?.name}
                           </div>
                         </motion.div>
                       );
@@ -215,7 +216,7 @@ export default function Calendar() {
                         className="text-xs px-1.5 py-0.5 rounded truncate" 
                         style={{ backgroundColor: `${service?.color}20`, color: service?.color }}
                       >
-                        {service?.icon} {formatTime(b.startTime)}
+                        <ServiceIcon icon={service?.icon || 'calendar'} size={16} className="inline-block mr-1" /> {formatTime(b.startTime)}
                       </motion.div>
                     );
                   })}

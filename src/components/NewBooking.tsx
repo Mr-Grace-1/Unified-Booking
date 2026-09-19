@@ -4,13 +4,14 @@ import { ServiceCategory } from '../types';
 import { ArrowRight, ArrowLeft, Check, Calendar, User, MapPin, CreditCard } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useToast } from './Toast';
+import { ServiceIcon, CategoryIcon } from './Icons';
 
-const categoryLabels: Record<ServiceCategory, { label: string; icon: string }> = {
-  appointment: { label: 'Appointments', icon: '📅' },
-  field: { label: 'Field Services', icon: '🚐' },
-  hospitality: { label: 'Hospitality', icon: '🏨' },
-  class: { label: 'Classes', icon: '🏋️' },
-  tour: { label: 'Tours', icon: '🗺️' },
+const categoryLabels: Record<ServiceCategory, { label: string }> = {
+  appointment: { label: 'Appointments' },
+  field: { label: 'Field Services' },
+  hospitality: { label: 'Hospitality' },
+  class: { label: 'Classes' },
+  tour: { label: 'Tours' },
 };
 
 export default function NewBooking() {
@@ -179,7 +180,7 @@ export default function NewBooking() {
             <h3 className="text-xl font-bold text-white mb-2">What type of service?</h3>
             <p className="text-slate-400 mb-6">Select the category of service you want to book</p>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {(Object.entries(categoryLabels) as [ServiceCategory, { label: string; icon: string }][]).map(([key, val]) => (
+              {(Object.entries(categoryLabels) as [ServiceCategory, { label: string }][]).map(([key, val]) => (
                 <button
                   key={key}
                   onClick={() => { setSelectedCategory(key); setSelectedService(null); }}
@@ -189,7 +190,7 @@ export default function NewBooking() {
                       : 'bg-slate-900/50 border-white/10 hover:border-white/20'
                   }`}
                 >
-                  <span className="text-3xl mb-3 block">{val.icon}</span>
+                  <div className="mb-3"><CategoryIcon category={key} /></div>
                   <span className="font-semibold text-white">{val.label}</span>
                   <p className="text-xs text-slate-400 mt-1">
                     {services.filter(s => s.category === key).length} services available
@@ -371,7 +372,7 @@ export default function NewBooking() {
             <p className="text-slate-400 mb-6">Review the details before confirming</p>
             <div className="p-6 rounded-xl bg-slate-900/50 border border-white/10 space-y-4">
               <div className="flex items-center gap-4 pb-4 border-b border-white/10">
-                <span className="text-4xl">{service?.icon}</span>
+                <ServiceIcon icon={service?.icon || 'calendar'} size={40} />
                 <div>
                   <div className="text-lg font-bold text-white">{service?.name}</div>
                   <div className="text-sm text-slate-400">{service?.duration} minutes • {categoryLabels[service?.category || 'appointment']?.label}</div>
