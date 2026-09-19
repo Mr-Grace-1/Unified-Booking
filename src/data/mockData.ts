@@ -67,16 +67,16 @@ export const bookings: Booking[] = [
 ];
 
 export const integrations: Integration[] = [
-  { id: 'int1', name: 'Stripe', category: 'Payments', icon: '💳', status: 'connected', lastSync: '2 min ago' },
-  { id: 'int2', name: 'Google Calendar', category: 'Calendar', icon: '📅', status: 'connected', lastSync: '30 sec ago' },
-  { id: 'int3', name: 'Twilio SMS', category: 'Communication', icon: '📱', status: 'connected', lastSync: '5 min ago' },
-  { id: 'int4', name: 'SendGrid', category: 'Email', icon: '✉️', status: 'connected', lastSync: '1 min ago' },
-  { id: 'int5', name: 'QuickBooks', category: 'Accounting', icon: '📊', status: 'connected', lastSync: '15 min ago' },
-  { id: 'int6', name: 'Airbnb', category: 'Hospitality', icon: '🏠', status: 'connected', lastSync: '1 hr ago' },
-  { id: 'int7', name: 'Booking.com', category: 'Hospitality', icon: '🌐', status: 'pending', lastSync: undefined },
-  { id: 'int8', name: 'HubSpot', category: 'CRM', icon: '🎯', status: 'disconnected', lastSync: undefined },
-  { id: 'int9', name: 'Zapier', category: 'Automation', icon: '⚡', status: 'connected', lastSync: '10 min ago' },
-  { id: 'int10', name: 'Slack', category: 'Communication', icon: '💬', status: 'disconnected', lastSync: undefined },
-  { id: 'int11', name: 'Mailchimp', category: 'Marketing', icon: '📣', status: 'pending', lastSync: undefined },
-  { id: 'int12', name: 'Square POS', category: 'POS', icon: '🏪', status: 'connected', lastSync: '3 min ago' },
+  { id: 'int1', name: 'Stripe', category: 'Payments', icon: '/icons/integrations/stripe.png', status: 'connected', lastSync: '2 min ago' },
+  { id: 'int2', name: 'Google Calendar', category: 'Calendar', icon: '/icons/integrations/google-calendar.png', status: 'connected', lastSync: '30 sec ago' },
+  { id: 'int3', name: 'Twilio SMS', category: 'Communication', icon: '/icons/integrations/twilio.png', status: 'connected', lastSync: '5 min ago' },
+  { id: 'int4', name: 'SendGrid', category: 'Email', icon: '/icons/integrations/sendgrid.png', status: 'connected', lastSync: '1 min ago' },
+  { id: 'int5', name: 'QuickBooks', category: 'Accounting', icon: '/icons/integrations/quickbooks.png', status: 'connected', lastSync: '15 min ago' },
+  { id: 'int6', name: 'Airbnb', category: 'Hospitality', icon: '/icons/integrations/airbnb.png', status: 'connected', lastSync: '1 hr ago' },
+  { id: 'int7', name: 'Booking.com', category: 'Hospitality', icon: '/icons/integrations/booking.png', status: 'pending', lastSync: undefined },
+  { id: 'int8', name: 'HubSpot', category: 'CRM', icon: '/icons/integrations/hubspot.png', status: 'disconnected', lastSync: undefined },
+  { id: 'int9', name: 'Zapier', category: 'Automation', icon: '/icons/integrations/zapier.png', status: 'connected', lastSync: '10 min ago' },
+  { id: 'int10', name: 'Slack', category: 'Communication', icon: '/icons/integrations/slack.png', status: 'disconnected', lastSync: undefined },
+  { id: 'int11', name: 'Mailchimp', category: 'Marketing', icon: '/icons/integrations/mailchimp.png', status: 'pending', lastSync: undefined },
+  { id: 'int12', name: 'Square POS', category: 'POS', icon: '/icons/integrations/square.png', status: 'connected', lastSync: '3 min ago' },
 ];

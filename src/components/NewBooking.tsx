@@ -5,6 +5,7 @@ import { ArrowRight, ArrowLeft, Check, Calendar, User, MapPin, CreditCard } from
 import { motion, AnimatePresence } from 'framer-motion';
 import { useToast } from './Toast';
 import { ServiceIcon, CategoryIcon } from './Icons';
+import IconImage from './IconImage';
 
 const categoryLabels: Record<ServiceCategory, { label: string }> = {
   appointment: { label: 'Appointments' },
@@ -390,7 +391,7 @@ export default function NewBooking() {
                   <div className="text-2xl font-bold text-emerald-400">${service?.price}</div>
                   {service?.deposit && <div className="text-xs text-slate-500">Deposit: ${service.deposit}</div>}
                 </div>
-                {notes && <div className="text-sm text-slate-400 italic max-w-xs">📝 {notes}</div>}
+                {notes && <div className="text-sm text-slate-400 italic max-w-xs flex items-start gap-2"><IconImage emoji="📝" size={14} className="flex-shrink-0 mt-0.5" /> <span>{notes}</span></div>}
               </div>
             </div>
           </div>

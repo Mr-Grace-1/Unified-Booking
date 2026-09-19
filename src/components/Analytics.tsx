@@ -240,8 +240,12 @@ export default function Analytics() {
             const maxCount = Math.max(...Object.values(locationBookings), 1);
             return (
               <div key={loc.id} className="p-4 rounded-lg bg-slate-800/50 text-center">
-                <div className="text-2xl mb-2">
-                  {loc.type === 'studio' ? '🏢' : loc.type === 'field_hub' ? '🚐' : loc.type === 'property' ? '🏨' : '🏛️'}
+                <div className="mb-2 flex justify-center">
+                  <img 
+                    src={loc.type === 'studio' ? '/icons/ui/office.png' : loc.type === 'field_hub' ? '/icons/ui/minibus.png' : loc.type === 'property' ? '/icons/ui/hotel.png' : '/icons/ui/venue.png'} 
+                    alt={loc.type} 
+                    className="w-8 h-8" 
+                  />
                 </div>
                 <div className="text-lg font-bold text-white">{count}</div>
                 <div className="text-xs text-slate-400 truncate">{loc.name}</div>

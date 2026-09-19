@@ -5,6 +5,7 @@ import { BookingStatus } from '../types';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useToast } from './Toast';
 import { ServiceIcon } from './Icons';
+import IconImage from './IconImage';
 
 export default function Bookings() {
   const { bookings, updateBookingStatus } = useApp();
@@ -143,12 +144,12 @@ export default function Bookings() {
                       </div>
                     </div>
                     <div className="flex flex-wrap items-center gap-4 mt-3 text-sm text-slate-400">
-                      <span>📅 {formatDateTime(booking.startTime)}</span>
-                      <span>📍 {location?.name}</span>
-                      <span>💰 ${booking.amount} {booking.depositPaid > 0 && <span className="text-emerald-400">(${booking.depositPaid} paid)</span>}</span>
+                      <span className="flex items-center gap-1"><IconImage emoji="📅" size={16} /> {formatDateTime(booking.startTime)}</span>
+                      <span className="flex items-center gap-1"><IconImage emoji="📍" size={16} /> {location?.name}</span>
+                      <span className="flex items-center gap-1"><IconImage emoji="💰" size={16} /> ${booking.amount} {booking.depositPaid > 0 && <span className="text-emerald-400">(${booking.depositPaid} paid)</span>}</span>
                     </div>
                     {booking.notes && (
-                      <p className="text-xs text-slate-500 mt-2 italic">📝 {booking.notes}</p>
+                      <p className="text-xs text-slate-500 mt-2 italic flex items-center gap-1"><IconImage emoji="📝" size={14} /> {booking.notes}</p>
                     )}
                     {/* Actions */}
                     <div className="flex items-center gap-2 mt-3">

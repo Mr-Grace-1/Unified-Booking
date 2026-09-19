@@ -76,7 +76,7 @@ export default function Integrations() {
             >
               <div className="flex items-start justify-between mb-3">
                 <div className="flex items-center gap-3">
-                  <div className="text-3xl">{integration.icon}</div>
+                  <img src={integration.icon} alt={integration.name} className="w-10 h-10 rounded-lg object-cover" />
                   <div>
                     <h4 className="font-semibold text-white">{integration.name}</h4>
                     <span className="text-xs text-slate-500">{integration.category}</span>

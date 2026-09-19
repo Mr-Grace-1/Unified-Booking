@@ -105,9 +105,7 @@ export default function Sidebar() {
         {/* User */}
         <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-white/10 bg-slate-950">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-sm">
-              👩‍💼
-            </div>
+            <img src="/icons/ui/avatar.png" alt="User" className="w-9 h-9 rounded-full object-cover" />
             <div className="flex-1 min-w-0">
               <div className="text-sm font-medium text-white truncate">Sarah Chen</div>
               <div className="text-xs text-slate-500">Admin • All Locations</div>

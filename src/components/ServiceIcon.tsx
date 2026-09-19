@@ -28,7 +28,7 @@ export default function ServiceIcon({ iconUrl, size = 'md', className = '' }: Se
 
   return (
     <div className={`${sizeMap[size]} rounded-xl bg-gradient-to-br from-indigo-500/20 to-purple-500/20 flex items-center justify-center ${className}`}>
-      <span className="text-lg">📋</span>
+      <img src="/icons/ui/clipboard.png" alt="Service" className="w-6 h-6" />
     </div>
   );
 }

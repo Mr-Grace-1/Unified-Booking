@@ -3,6 +3,7 @@ import { Mail, Phone, Calendar, DollarSign, Tag } from 'lucide-react';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ServiceIcon } from './Icons';
+import IconImage from './IconImage';
 
 export default function Customers() {
   const { bookings } = useApp();
@@ -94,8 +95,9 @@ export default function Customers() {
                   </div>
                 </div>
                 {selected.notes && (
-                  <div className="p-3 rounded-lg bg-slate-800/50 text-sm text-slate-400 italic">
-                    📝 {selected.notes}
+                  <div className="p-3 rounded-lg bg-slate-800/50 text-sm text-slate-400 italic flex items-start gap-2">
+                    <IconImage emoji="📝" size={16} className="flex-shrink-0 mt-0.5" />
+                    <span>{selected.notes}</span>
                   </div>
                 )}
               </div>
@@ -155,7 +157,9 @@ export default function Customers() {
               className="flex items-center justify-center h-96 text-slate-500"
             >
               <div className="text-center">
-                <div className="text-5xl mb-3">👤</div>
+                <div className="mb-3 flex justify-center">
+                  <IconImage emoji="👤" size={64} />
+                </div>
                 <p className="text-lg">Select a customer to view details</p>
               </div>
             </motion.div>
