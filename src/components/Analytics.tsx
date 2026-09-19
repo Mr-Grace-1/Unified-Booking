@@ -67,7 +67,7 @@ export default function Analytics() {
   };
 
   return (
-    <div className="h-full flex flex-col p-3 sm:p-4 lg:p-5 gap-3 overflow-hidden">
+    <div className="p-4 sm:p-6 space-y-6">
       {/* KPIs */}
       <motion.div
         initial="hidden"
@@ -76,7 +76,7 @@ export default function Analytics() {
           hidden: { opacity: 0 },
           show: { opacity: 1, transition: { staggerChildren: 0.1 } }
         }}
-        className="grid grid-cols-2 lg:grid-cols-4 gap-2 flex-shrink-0"
+        className="grid grid-cols-2 lg:grid-cols-4 gap-4"
       >
         <motion.div
           variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } }}
@@ -116,9 +116,9 @@ export default function Analytics() {
         </motion.div>
       </motion.div>
 
-      <div className="grid lg:grid-cols-2 gap-3 flex-1 min-h-0 overflow-y-auto">
+      <div className="grid lg:grid-cols-2 gap-6">
         {/* Revenue by Category */}
-        <div className="p-3 sm:p-4 rounded-xl bg-slate-900/50 border border-white/10">
+        <div className="p-5 rounded-xl bg-slate-900/50 border border-white/10">
           <h3 className="font-bold text-white mb-4 flex items-center gap-2">
             <PieChart size={18} className="text-indigo-400" />
             Revenue by Category

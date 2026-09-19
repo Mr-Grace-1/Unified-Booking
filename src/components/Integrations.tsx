@@ -18,9 +18,9 @@ export default function Integrations() {
   const totalSynced = integrations.filter(i => i.status === 'connected' && i.lastSync).length;
 
   return (
-    <div className="h-full flex flex-col p-3 sm:p-4 lg:p-5 gap-3 overflow-hidden">
+    <div className="p-4 sm:p-6 space-y-6">
       {/* Stats */}
-      <div className="grid grid-cols-3 gap-2 flex-shrink-0">
+      <div className="grid grid-cols-3 gap-4">
         <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-center">
           <div className="text-2xl font-bold text-white">{connectedCount}</div>
           <div className="text-xs text-slate-400">Connected</div>
@@ -60,7 +60,7 @@ export default function Integrations() {
           hidden: { opacity: 0 },
           show: { opacity: 1, transition: { staggerChildren: 0.08 } }
         }}
-        className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 flex-1 min-h-0 overflow-y-auto"
+        className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"
       >
         {filtered.map(integration => {
           const config = statusConfig[integration.status];

@@ -67,13 +67,13 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="h-full flex flex-col p-3 sm:p-4 lg:p-5 gap-2 sm:gap-3 overflow-hidden">
+    <div className="p-4 sm:p-6 space-y-6">
       {/* Stats Grid */}
       <motion.div
         variants={container}
         initial="hidden"
         animate="show"
-        className="grid grid-cols-2 lg:grid-cols-4 gap-2 flex-shrink-0"
+        className="grid grid-cols-2 lg:grid-cols-4 gap-4"
       >
         {stats.map((stat, i) => (
           <motion.div
@@ -100,7 +100,7 @@ export default function Dashboard() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="p-2 sm:p-3 rounded-xl bg-gradient-to-r from-indigo-500/10 to-purple-500/10 border border-indigo-500/20 flex-shrink-0"
+          className="p-3 sm:p-4 rounded-xl bg-gradient-to-r from-indigo-500/10 to-purple-500/10 border border-indigo-500/20"
         >
           <div className="flex items-center gap-2 sm:gap-3">
             <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br ${roleInfo.color} flex items-center justify-center text-lg sm:text-xl flex-shrink-0`}>
@@ -121,7 +121,7 @@ export default function Dashboard() {
         variants={container}
         initial="hidden"
         animate="show"
-        className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 flex-shrink-0"
+        className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4"
       >
         {roleInfo?.canCreateBooking && (
           <motion.button
@@ -200,22 +200,22 @@ export default function Dashboard() {
       </motion.div>
 
       {/* Today's Schedule & Recent Bookings */}
-      <div className="grid lg:grid-cols-2 gap-3 flex-1 min-h-0">
+      <div className="grid lg:grid-cols-2 gap-6">
         {/* Today's Schedule */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.3, duration: 0.5 }}
-          className="rounded-xl bg-slate-900/50 border border-white/10 p-3 sm:p-4 flex flex-col min-h-0"
+          className="rounded-xl bg-slate-900/50 border border-white/10 p-5"
         >
-          <div className="flex items-center justify-between mb-2 sm:mb-3 flex-shrink-0">
-            <h3 className="font-bold text-white flex items-center gap-2 text-sm sm:text-base">
-              <Clock size={16} className="text-blue-400" />
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="font-bold text-white flex items-center gap-2">
+              <Clock size={18} className="text-blue-400" />
               Today's Schedule
             </h3>
-            <span className="text-xs text-slate-400">{todayBookings.length} bookings</span>
+            <span className="text-sm text-slate-400">{todayBookings.length} bookings</span>
           </div>
-          <div className="space-y-2 flex-1 min-h-0 overflow-y-auto">
+          <div className="space-y-3">
             {todayBookings.length === 0 ? (
               <div className="text-center py-8 text-slate-500">
                 <CalendarDays size={40} className="mx-auto mb-2 opacity-50" />
@@ -258,18 +258,18 @@ export default function Dashboard() {
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.3, duration: 0.5 }}
-          className="rounded-xl bg-slate-900/50 border border-white/10 p-3 sm:p-4 flex flex-col min-h-0"
+          className="rounded-xl bg-slate-900/50 border border-white/10 p-5"
         >
-          <div className="flex items-center justify-between mb-2 sm:mb-3 flex-shrink-0">
-            <h3 className="font-bold text-white flex items-center gap-2 text-sm sm:text-base">
-              <TrendingUp size={16} className="text-emerald-400" />
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="font-bold text-white flex items-center gap-2">
+              <TrendingUp size={18} className="text-emerald-400" />
               Recent Activity
             </h3>
-            <button onClick={() => setCurrentView('bookings')} className="text-xs text-indigo-400 hover:text-indigo-300">
+            <button onClick={() => setCurrentView('bookings')} className="text-sm text-indigo-400 hover:text-indigo-300">
               View all →
             </button>
           </div>
-          <div className="space-y-2 flex-1 min-h-0 overflow-y-auto">
+          <div className="space-y-3">
             {bookings.slice(0, 5).map((booking, i) => {
               const service = services.find(s => s.id === booking.serviceId);
               const customer = customers.find(c => c.id === booking.customerId);
@@ -307,7 +307,7 @@ export default function Dashboard() {
         variants={container}
         initial="hidden"
         animate="show"
-        className="grid sm:grid-cols-3 gap-2 flex-shrink-0"
+        className="grid sm:grid-cols-3 gap-4"
       >
         <motion.div
           variants={item}
@@ -348,9 +348,7 @@ export default function Dashboard() {
       </motion.div>
 
       {/* Tenant Information */}
-      <div className="flex-shrink-0">
-        <TenantInfo />
-      </div>
+      <TenantInfo />
     </div>
   );
 }

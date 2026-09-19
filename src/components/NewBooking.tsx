@@ -155,9 +155,9 @@ export default function NewBooking() {
   }
 
   return (
-    <div className="h-full flex flex-col p-3 sm:p-4 lg:p-5 max-w-4xl mx-auto overflow-hidden">
+    <div className="p-4 sm:p-6 max-w-4xl mx-auto">
       {/* Progress Steps */}
-      <div className="flex items-center justify-between mb-4 overflow-x-auto pb-1 flex-shrink-0">
+      <div className="flex items-center justify-between mb-8 overflow-x-auto pb-2">
         {steps.map((s, i) => (
           <div key={i} className="flex items-center">
             <div className={`flex items-center gap-2 ${i <= step ? 'text-indigo-400' : 'text-slate-600'}`}>
@@ -174,7 +174,7 @@ export default function NewBooking() {
       </div>
 
       {/* Step Content */}
-      <div className="flex-1 min-h-0 overflow-y-auto">
+      <div className="min-h-[400px]">
         {/* Step 0: Category */}
         {step === 0 && (
           <div>

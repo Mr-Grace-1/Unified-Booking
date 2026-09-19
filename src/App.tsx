@@ -98,12 +98,12 @@ function AppContent() {
   };
 
   return (
-    <div className="h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 relative">
       <AnimatedBackground />
       <Sidebar />
-      <div className="lg:ml-64 relative z-10 h-screen flex flex-col">
+      <div className="lg:ml-64 relative z-10">
         <Header />
-        <main className="flex-1 min-h-0 overflow-hidden">
+        <main className="min-h-[calc(100vh-4rem)]">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentView}
@@ -111,7 +111,6 @@ function AppContent() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
-              className="h-full"
             >
               {renderView()}
             </motion.div>

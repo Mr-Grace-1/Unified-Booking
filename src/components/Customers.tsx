@@ -19,11 +19,11 @@ export default function Customers() {
   const customerBookings = selected ? bookings.filter(b => b.customerId === selected.id) : [];
 
   return (
-    <div className="h-full flex flex-col p-3 sm:p-4 lg:p-5 overflow-hidden">
-      <div className="grid lg:grid-cols-3 gap-3 flex-1 min-h-0">
+    <div className="p-4 sm:p-6">
+      <div className="grid lg:grid-cols-3 gap-6">
         {/* Customer List */}
-        <div className="lg:col-span-1 flex flex-col gap-2 min-h-0">
-          <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-900/50 border border-white/10 flex-shrink-0">
+        <div className="lg:col-span-1 space-y-4">
+          <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-900/50 border border-white/10">
             <input
               type="text"
               placeholder="Search customers..."
@@ -32,7 +32,7 @@ export default function Customers() {
               className="bg-transparent outline-none flex-1 text-white text-sm placeholder:text-slate-500"
             />
           </div>
-          <div className="space-y-2 flex-1 min-h-0 overflow-y-auto">
+          <div className="space-y-2 max-h-[600px] overflow-y-auto">
             {filtered.map((customer, i) => (
               <motion.button
                 key={customer.id}
@@ -64,7 +64,7 @@ export default function Customers() {
         </div>
 
         {/* Customer Detail */}
-        <div className="lg:col-span-2 min-h-0 overflow-y-auto">
+        <div className="lg:col-span-2">
           <AnimatePresence mode="wait">
           {selected ? (
             <motion.div
@@ -73,7 +73,7 @@ export default function Customers() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.3 }}
-              className="space-y-3"
+              className="space-y-6"
             >
               {/* Profile Card */}
               <div className="p-6 rounded-xl bg-slate-900/50 border border-white/10">
