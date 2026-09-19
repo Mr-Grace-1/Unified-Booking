@@ -256,13 +256,21 @@ export default function AuthPage({ mode, onToggleMode }: AuthPageProps) {
               className="mt-6 p-4 rounded-lg bg-indigo-500/10 border border-indigo-500/20"
             >
               <p className="text-xs text-indigo-300 font-medium mb-3">Quick Login (Click to fill):</p>
-              <div className="space-y-2">
+              <div className="space-y-2 max-h-64 overflow-y-auto">
+                <button
+                  type="button"
+                  onClick={() => fillDemoCredentials('superadmin@demo.com', 'super123')}
+                  className="w-full p-2 rounded bg-slate-800/50 hover:bg-slate-700/50 transition-colors text-left"
+                >
+                  <p className="text-xs text-white font-medium">👑 Super Admin</p>
+                  <p className="text-xs text-slate-400">superadmin@demo.com / super123</p>
+                </button>
                 <button
                   type="button"
                   onClick={() => fillDemoCredentials('admin@demo.com', 'demo123')}
                   className="w-full p-2 rounded bg-slate-800/50 hover:bg-slate-700/50 transition-colors text-left"
                 >
-                  <p className="text-xs text-white font-medium">👑 Admin</p>
+                  <p className="text-xs text-white font-medium">🛡️ Administrator</p>
                   <p className="text-xs text-slate-400">admin@demo.com / demo123</p>
                 </button>
                 <button
@@ -275,11 +283,27 @@ export default function AuthPage({ mode, onToggleMode }: AuthPageProps) {
                 </button>
                 <button
                   type="button"
+                  onClick={() => fillDemoCredentials('manager2@demo.com', 'manager123')}
+                  className="w-full p-2 rounded bg-slate-800/50 hover:bg-slate-700/50 transition-colors text-left"
+                >
+                  <p className="text-xs text-white font-medium">💼 Manager 2</p>
+                  <p className="text-xs text-slate-400">manager2@demo.com / manager123</p>
+                </button>
+                <button
+                  type="button"
                   onClick={() => fillDemoCredentials('staff@demo.com', 'staff123')}
                   className="w-full p-2 rounded bg-slate-800/50 hover:bg-slate-700/50 transition-colors text-left"
                 >
                   <p className="text-xs text-white font-medium">👷 Staff</p>
                   <p className="text-xs text-slate-400">staff@demo.com / staff123</p>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => fillDemoCredentials('staff2@demo.com', 'staff123')}
+                  className="w-full p-2 rounded bg-slate-800/50 hover:bg-slate-700/50 transition-colors text-left"
+                >
+                  <p className="text-xs text-white font-medium">👷 Staff 2</p>
+                  <p className="text-xs text-slate-400">staff2@demo.com / staff123</p>
                 </button>
                 <button
                   type="button"
