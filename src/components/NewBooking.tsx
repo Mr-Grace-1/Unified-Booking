@@ -82,14 +82,36 @@ export default function NewBooking() {
   if (confirmed) {
     return (
       <div className="p-4 sm:p-6 flex items-center justify-center min-h-[60vh]">
-        <div className="text-center max-w-md">
-          <div className="w-20 h-20 rounded-full bg-gradient-to-br from-emerald-500 to-green-600 flex items-center justify-center mx-auto mb-6">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ type: 'spring', stiffness: 200, damping: 20 }}
+          className="text-center max-w-md"
+        >
+          <motion.div
+            initial={{ scale: 0, rotate: -180 }}
+            animate={{ scale: 1, rotate: 0 }}
+            transition={{ type: 'spring', stiffness: 200, damping: 15, delay: 0.2 }}
+            className="w-20 h-20 rounded-full bg-gradient-to-br from-emerald-500 to-green-600 flex items-center justify-center mx-auto mb-6"
+          >
             <Check size={40} className="text-white" />
-          </div>
-          <h2 className="text-2xl font-bold text-white mb-2">Booking Confirmed!</h2>
-          <p className="text-slate-400 mb-6">
+          </motion.div>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="text-2xl font-bold text-white mb-2"
+          >
+            Booking Confirmed!
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="text-slate-400 mb-6"
+          >
             Your booking has been created successfully. The customer will receive a confirmation email and SMS reminder.
-          </p>
+          </motion.p>
           <div className="p-4 rounded-xl bg-slate-900/50 border border-white/10 text-left mb-6">
             <div className="space-y-2 text-sm">
               <div className="flex justify-between"><span className="text-slate-400">Service:</span><span className="text-white">{service?.name}</span></div>
@@ -99,15 +121,30 @@ export default function NewBooking() {
               <div className="flex justify-between"><span className="text-slate-400">Amount:</span><span className="text-emerald-400 font-semibold">${service?.price}</span></div>
             </div>
           </div>
-          <div className="flex gap-3 justify-center">
-            <button onClick={() => setCurrentView('bookings')} className="px-6 py-2.5 rounded-lg bg-indigo-600 text-white font-medium hover:bg-indigo-700 transition-colors">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+            className="flex gap-3 justify-center"
+          >
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setCurrentView('bookings')}
+              className="px-6 py-2.5 rounded-lg bg-indigo-600 text-white font-medium hover:bg-indigo-700 transition-colors"
+            >
               View Bookings
-            </button>
-            <button onClick={() => { setStep(0); setConfirmed(false); setSelectedCategory(null); setSelectedService(null); setSelectedCustomer(null); setSelectedStaff(null); setSelectedLocation(null); setSelectedDate(''); setSelectedTime(''); setNotes(''); }} className="px-6 py-2.5 rounded-lg bg-white/10 text-white font-medium hover:bg-white/20 transition-colors">
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => { setStep(0); setConfirmed(false); setSelectedCategory(null); setSelectedService(null); setSelectedCustomer(null); setSelectedStaff(null); setSelectedLocation(null); setSelectedDate(''); setSelectedTime(''); setNotes(''); }}
+              className="px-6 py-2.5 rounded-lg bg-white/10 text-white font-medium hover:bg-white/20 transition-colors"
+            >
               New Booking
-            </button>
-          </div>
-        </div>
+            </motion.button>
+          </motion.div>
+        </motion.div>
       </div>
     );
   }

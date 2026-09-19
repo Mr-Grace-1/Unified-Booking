@@ -65,7 +65,7 @@ export default function Sidebar() {
 
         {/* Navigation */}
         <nav className="p-3 space-y-1 overflow-y-auto h-[calc(100vh-4rem)]">
-          {navItems.map((item) => {
+          {navItems.map((item, i) => {
             let sectionHeader = null;
             if (item.section && item.section !== lastSection) {
               lastSection = item.section;
@@ -76,9 +76,16 @@ export default function Sidebar() {
               );
             }
             return (
-              <div key={item.id}>
+              <motion.div
+                key={item.id}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.05 }}
+              >
                 {sectionHeader}
-                <button
+                <motion.button
+                  whileHover={{ x: 4 }}
+                  whileTap={{ scale: 0.98 }}
                   onClick={() => handleNav(item.id)}
                   className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all ${
                     currentView === item.id
@@ -89,8 +96,8 @@ export default function Sidebar() {
                   {item.icon}
                   <span>{item.label}</span>
                   {currentView === item.id && <ChevronRight size={14} className="ml-auto" />}
-                </button>
-              </div>
+                </motion.button>
+              </motion.div>
             );
           })}
         </nav>

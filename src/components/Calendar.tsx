@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useApp, services, customers, staff, locations } from '../store/AppContext';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function Calendar() {
   const { bookings } = useApp();
@@ -40,24 +41,43 @@ export default function Calendar() {
     return (
       <div className="p-4 sm:p-6">
         {/* Header */}
-        <div className="flex items-center justify-between mb-6">
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="flex items-center justify-between mb-6"
+        >
           <div className="flex items-center gap-4">
-            <button onClick={() => navigate(-1)} className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-colors">
+            <motion.button 
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => navigate(-1)} 
+              className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-colors"
+            >
               <ChevronLeft size={20} />
-            </button>
-            <h3 className="text-lg font-bold text-white">
+            </motion.button>
+            <motion.h3 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.1 }}
+              className="text-lg font-bold text-white"
+            >
               {currentDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}
-            </h3>
-            <button onClick={() => navigate(1)} className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-colors">
+            </motion.h3>
+            <motion.button 
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => navigate(1)} 
+              className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-colors"
+            >
               <ChevronRight size={20} />
-            </button>
+            </motion.button>
           </div>
           <div className="flex items-center gap-2">
             <button onClick={() => setViewMode('day')} className="px-3 py-1.5 rounded-lg bg-indigo-500/20 text-indigo-300 text-sm font-medium">Day</button>
             <button onClick={() => setViewMode('week')} className="px-3 py-1.5 rounded-lg bg-white/5 text-slate-400 text-sm font-medium hover:text-white">Week</button>
             <button onClick={() => setCurrentDate(new Date())} className="px-3 py-1.5 rounded-lg bg-white/5 text-slate-400 text-sm font-medium hover:text-white">Today</button>
           </div>
-        </div>
+        </motion.div>
 
         {/* Day Timeline */}
         <div className="rounded-xl bg-slate-900/50 border border-white/10 overflow-hidden">
@@ -70,14 +90,18 @@ export default function Calendar() {
                     {hour > 12 ? hour - 12 : hour}:00 {hour >= 12 ? 'PM' : 'AM'}
                   </div>
                   <div className="flex-1 p-2 relative">
-                    {hourBookings.map(booking => {
+                    {hourBookings.map((booking, idx) => {
                       const service = services.find(s => s.id === booking.serviceId);
                       const customer = customers.find(c => c.id === booking.customerId);
                       const staffMember = staff.find(s => s.id === booking.staffId);
                       return (
-                        <div
+                        <motion.div
                           key={booking.id}
-                          className="p-3 rounded-lg border-l-4 mb-2"
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: idx * 0.1 }}
+                          whileHover={{ scale: 1.02, x: 5 }}
+                          className="p-3 rounded-lg border-l-4 mb-2 cursor-pointer"
                           style={{ borderLeftColor: service?.color || '#6366f1', backgroundColor: `${service?.color}15` || '#6366f115' }}
                         >
                           <div className="flex items-center justify-between">
@@ -90,7 +114,7 @@ export default function Calendar() {
                           <div className="text-xs text-slate-400 mt-1">
                             {customer?.avatar} {customer?.name} • {staffMember?.avatar} {staffMember?.name}
                           </div>
-                        </div>
+                        </motion.div>
                       );
                     })}
                   </div>
@@ -118,22 +142,43 @@ export default function Calendar() {
   return (
     <div className="p-4 sm:p-6">
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
+      <motion.div 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="flex items-center justify-between mb-6"
+      >
         <div className="flex items-center gap-4">
-          <button onClick={() => navigate(-1)} className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-colors">
+          <motion.button 
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => navigate(-1)} 
+            className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-colors"
+          >
             <ChevronLeft size={20} />
-          </button>
-          <h3 className="text-lg font-bold text-white">{monthName}</h3>
-          <button onClick={() => navigate(1)} className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-colors">
+          </motion.button>
+          <motion.h3 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.1 }}
+            className="text-lg font-bold text-white"
+          >
+            {monthName}
+          </motion.h3>
+          <motion.button 
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => navigate(1)} 
+            className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-colors"
+          >
             <ChevronRight size={20} />
-          </button>
+          </motion.button>
         </div>
         <div className="flex items-center gap-2">
           <button onClick={() => setViewMode('day')} className="px-3 py-1.5 rounded-lg bg-white/5 text-slate-400 text-sm font-medium hover:text-white">Day</button>
           <button onClick={() => setViewMode('week')} className="px-3 py-1.5 rounded-lg bg-indigo-500/20 text-indigo-300 text-sm font-medium">Month</button>
           <button onClick={() => setCurrentDate(new Date())} className="px-3 py-1.5 rounded-lg bg-white/5 text-slate-400 text-sm font-medium hover:text-white">Today</button>
         </div>
-      </div>
+      </motion.div>
 
       {/* Month Grid */}
       <div className="rounded-xl bg-slate-900/50 border border-white/10 overflow-hidden">
@@ -146,28 +191,39 @@ export default function Calendar() {
             const dayBookings = getBookingsForDate(day);
             const isToday = day.toDateString() === today.toDateString();
             return (
-              <div
+              <motion.div
                 key={i}
-                className={`p-2 min-h-[100px] border-b border-r border-white/5 cursor-pointer hover:bg-white/5 transition-colors ${isToday ? 'bg-indigo-500/5' : ''}`}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: i * 0.02 }}
+                whileHover={{ scale: 1.05, backgroundColor: 'rgba(255,255,255,0.05)' }}
+                className={`p-2 min-h-[100px] border-b border-r border-white/5 cursor-pointer transition-colors ${isToday ? 'bg-indigo-500/5' : ''}`}
                 onClick={() => { setCurrentDate(day); setViewMode('day'); }}
               >
                 <div className={`text-sm font-medium mb-1 ${isToday ? 'text-indigo-400' : 'text-slate-400'}`}>
                   {day.getDate()}
                 </div>
                 <div className="space-y-1">
-                  {dayBookings.slice(0, 3).map(b => {
+                  {dayBookings.slice(0, 3).map((b, idx) => {
                     const service = services.find(s => s.id === b.serviceId);
                     return (
-                      <div key={b.id} className="text-xs px-1.5 py-0.5 rounded truncate" style={{ backgroundColor: `${service?.color}20`, color: service?.color }}>
+                      <motion.div 
+                        key={b.id}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: i * 0.02 + idx * 0.05 }}
+                        className="text-xs px-1.5 py-0.5 rounded truncate" 
+                        style={{ backgroundColor: `${service?.color}20`, color: service?.color }}
+                      >
                         {service?.icon} {formatTime(b.startTime)}
-                      </div>
+                      </motion.div>
                     );
                   })}
                   {dayBookings.length > 3 && (
                     <div className="text-xs text-slate-500">+{dayBookings.length - 3} more</div>
                   )}
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>

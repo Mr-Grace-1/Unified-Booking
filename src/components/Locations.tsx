@@ -72,10 +72,10 @@ export default function Locations() {
                   <div className="text-xs text-slate-500 flex items-center justify-center gap-1"><Calendar size={10} /> Bookings</div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           );
         })}
-      </div>
+      </motion.div>
     </div>
   );
 }
