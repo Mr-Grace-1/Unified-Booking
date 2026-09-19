@@ -16,7 +16,7 @@ export const ROLE_PERMISSIONS: Record<UserRole, {
   icon: string;
 }> = {
   super_admin: {
-    views: ['dashboard', 'new-booking', 'bookings', 'calendar', 'services', 'customers', 'staff', 'locations', 'integrations', 'analytics'],
+    views: ['dashboard', 'new-booking', 'bookings', 'calendar', 'services', 'customers', 'staff', 'staff-schedule', 'locations', 'integrations', 'analytics'],
     canCreateBooking: true,
     canViewAllBookings: true,
     canManageServices: true,
@@ -30,7 +30,7 @@ export const ROLE_PERMISSIONS: Record<UserRole, {
     icon: '👑',
   },
   admin: {
-    views: ['dashboard', 'new-booking', 'bookings', 'calendar', 'services', 'customers', 'staff', 'locations', 'integrations', 'analytics'],
+    views: ['dashboard', 'new-booking', 'bookings', 'calendar', 'services', 'customers', 'staff', 'staff-schedule', 'locations', 'integrations', 'analytics'],
     canCreateBooking: true,
     canViewAllBookings: true,
     canManageServices: true,
@@ -44,7 +44,7 @@ export const ROLE_PERMISSIONS: Record<UserRole, {
     icon: '🛡️',
   },
   manager: {
-    views: ['dashboard', 'new-booking', 'bookings', 'calendar', 'services', 'customers', 'staff', 'analytics'],
+    views: ['dashboard', 'new-booking', 'bookings', 'calendar', 'services', 'customers', 'staff', 'staff-schedule', 'analytics'],
     canCreateBooking: true,
     canViewAllBookings: true,
     canManageServices: true,
@@ -58,7 +58,7 @@ export const ROLE_PERMISSIONS: Record<UserRole, {
     icon: '💼',
   },
   staff: {
-    views: ['dashboard', 'new-booking', 'bookings', 'calendar', 'services', 'locations'],
+    views: ['dashboard', 'new-booking', 'bookings', 'calendar', 'services', 'staff-schedule', 'locations'],
     canCreateBooking: true,
     canViewAllBookings: false,
     canManageServices: false,

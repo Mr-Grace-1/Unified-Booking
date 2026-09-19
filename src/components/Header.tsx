@@ -16,6 +16,7 @@ const viewTitles: Record<string, string> = {
   'services': 'Services',
   'customers': 'Customers',
   'staff': 'Staff',
+  'staff-schedule': 'Staff Schedule',
   'locations': 'Locations',
   'integrations': 'Integrations',
   'analytics': 'Analytics',

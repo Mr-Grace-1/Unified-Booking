@@ -14,6 +14,7 @@ const navItems: { id: ViewType; label: string; icon: React.ReactNode; section?: 
   { id: 'services', label: 'Services', icon: <List size={20} />, section: 'Manage' },
   { id: 'customers', label: 'Customers', icon: <Users size={20} />, roles: ['admin', 'super_admin', 'manager'] },
   { id: 'staff', label: 'Staff', icon: <UserCog size={20} />, roles: ['admin', 'super_admin', 'manager'] },
+  { id: 'staff-schedule', label: 'Staff Schedule', icon: <CalendarDays size={20} />, roles: ['admin', 'super_admin', 'manager', 'staff'] },
   { id: 'locations', label: 'Locations', icon: <MapPin size={20} />, roles: ['admin', 'super_admin', 'staff'] },
   { id: 'integrations', label: 'Integrations', icon: <Plug size={20} />, section: 'System', roles: ['admin', 'super_admin'] },
   { id: 'analytics', label: 'Analytics', icon: <BarChart3 size={20} />, roles: ['admin', 'super_admin', 'manager'] },

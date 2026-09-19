@@ -17,6 +17,7 @@ import Calendar from './components/Calendar';
 import Services from './components/Services';
 import Customers from './components/Customers';
 import Staff from './components/Staff';
+import StaffSchedule from './components/StaffSchedule';
 import Locations from './components/Locations';
 import Integrations from './components/Integrations';
 import Analytics from './components/Analytics';
@@ -27,6 +28,7 @@ import OnboardingFlow from './components/OnboardingFlow';
 import AccessDenied from './components/AccessDenied';
 import KeyboardShortcuts from './components/KeyboardShortcuts';
 import OnboardingTour from './components/OnboardingTour';
+import MobileBottomNav from './components/MobileBottomNav';
 import { motion, AnimatePresence } from 'framer-motion';
 import { canAccessView } from './utils/permissions';
 
@@ -83,6 +85,7 @@ function AppContent() {
         'services': 'Services',
         'customers': 'Customers',
         'staff': 'Staff Management',
+        'staff-schedule': 'Staff Schedule',
         'locations': 'Locations',
         'integrations': 'Integrations',
         'analytics': 'Analytics',
@@ -98,6 +101,7 @@ function AppContent() {
       case 'services': return <Services />;
       case 'customers': return <Customers />;
       case 'staff': return <Staff />;
+      case 'staff-schedule': return <StaffSchedule />;
       case 'locations': return <Locations />;
       case 'integrations': return <Integrations />;
       case 'analytics': return <Analytics />;
@@ -111,7 +115,7 @@ function AppContent() {
       <Sidebar />
       <div className="lg:ml-64 relative z-10">
         <Header />
-        <main className="min-h-[calc(100vh-4rem)]">
+        <main className="min-h-[calc(100vh-4rem)] pb-20 lg:pb-0">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentView}
@@ -128,6 +132,7 @@ function AppContent() {
       <CommandPalette isOpen={commandPaletteOpen} onClose={() => setCommandPaletteOpen(false)} />
       <KeyboardShortcuts />
       <OnboardingTour />
+      <MobileBottomNav />
     </div>
   );
 }
