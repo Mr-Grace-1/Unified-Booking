@@ -58,25 +58,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   });
 
   useEffect(() => {
-    // Check for existing session
-    const stored = localStorage.getItem('auth');
-    if (stored) {
-      try {
-        const { user, tenant, onboardingComplete } = JSON.parse(stored);
-        setAuthState({
-          user,
-          tenant,
-          isAuthenticated: true,
-          isLoading: false,
-          onboardingComplete,
-        });
-      } catch (e) {
-        localStorage.removeItem('auth');
-        setAuthState(prev => ({ ...prev, isLoading: false }));
-      }
-    } else {
-      setAuthState(prev => ({ ...prev, isLoading: false }));
-    }
+    // Clear session on mount for demo purposes
+    // In production, you would restore the session here
+    localStorage.removeItem('auth');
+    setAuthState(prev => ({ ...prev, isLoading: false }));
   }, []);
 
   const login = async (email: string, password: string) => {
