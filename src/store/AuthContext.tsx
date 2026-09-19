@@ -54,6 +54,19 @@ const MOCK_USERS = [
     createdAt: '2024-02-01T00:00:00Z',
     isActive: true,
   },
+  {
+    id: 'user-4',
+    tenantId: 'tenant-1',
+    email: 'staff@demo.com',
+    password: 'staff123',
+    name: 'Mike Wilson',
+    role: 'staff' as const,
+    avatar: '/icons/ui/avatar.png',
+    is2FAEnabled: false,
+    lastLogin: new Date().toISOString(),
+    createdAt: '2024-03-01T00:00:00Z',
+    isActive: true,
+  },
 ];
 
 const MOCK_TENANTS = [
@@ -94,11 +107,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1500));
     
-    const user = MOCK_USERS.find(u => u.email === email && u.password === password);
+    // Trim and normalize inputs
+    const normalizedEmail = email.trim().toLowerCase();
+    const normalizedPassword = password.trim();
+    
+    console.log('Login attempt:', { email: normalizedEmail, password: normalizedPassword });
+    console.log('Available users:', MOCK_USERS.map(u => ({ email: u.email, password: u.password })));
+    
+    const user = MOCK_USERS.find(u => 
+      u.email.toLowerCase() === normalizedEmail && 
+      u.password === normalizedPassword
+    );
+    
+    console.log('Found user:', user);
     
     if (!user) {
       setAuthState(prev => ({ ...prev, isLoading: false }));
-      throw new Error('Invalid email or password');
+      throw new Error('Invalid email or password. Please check your credentials and try again.');
     }
     
     const tenant = MOCK_TENANTS.find(t => t.id === user.tenantId);

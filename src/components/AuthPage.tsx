@@ -21,14 +21,24 @@ export default function AuthPage({ mode, onToggleMode }: AuthPageProps) {
     setError('');
 
     try {
+      // Trim whitespace from inputs
+      const trimmedEmail = email.trim();
+      const trimmedPassword = password.trim();
+      
       if (mode === 'login') {
-        await login(email, password);
+        await login(trimmedEmail, trimmedPassword);
       } else {
-        await signup(email, password, name);
+        await signup(trimmedEmail, trimmedPassword, name.trim());
       }
     } catch (err: any) {
       setError(err.message || 'An error occurred');
     }
+  };
+
+  const fillDemoCredentials = (email: string, password: string) => {
+    setEmail(email);
+    setPassword(password);
+    setError('');
   };
 
   const getPasswordStrength = (pwd: string) => {
@@ -245,20 +255,40 @@ export default function AuthPage({ mode, onToggleMode }: AuthPageProps) {
               transition={{ delay: 0.6 }}
               className="mt-6 p-4 rounded-lg bg-indigo-500/10 border border-indigo-500/20"
             >
-              <p className="text-xs text-indigo-300 font-medium mb-3">Demo Credentials:</p>
+              <p className="text-xs text-indigo-300 font-medium mb-3">Quick Login (Click to fill):</p>
               <div className="space-y-2">
-                <div className="p-2 rounded bg-slate-800/50">
+                <button
+                  type="button"
+                  onClick={() => fillDemoCredentials('admin@demo.com', 'demo123')}
+                  className="w-full p-2 rounded bg-slate-800/50 hover:bg-slate-700/50 transition-colors text-left"
+                >
                   <p className="text-xs text-white font-medium">👑 Admin</p>
                   <p className="text-xs text-slate-400">admin@demo.com / demo123</p>
-                </div>
-                <div className="p-2 rounded bg-slate-800/50">
+                </button>
+                <button
+                  type="button"
+                  onClick={() => fillDemoCredentials('manager@demo.com', 'manager123')}
+                  className="w-full p-2 rounded bg-slate-800/50 hover:bg-slate-700/50 transition-colors text-left"
+                >
                   <p className="text-xs text-white font-medium">💼 Manager</p>
                   <p className="text-xs text-slate-400">manager@demo.com / manager123</p>
-                </div>
-                <div className="p-2 rounded bg-slate-800/50">
+                </button>
+                <button
+                  type="button"
+                  onClick={() => fillDemoCredentials('staff@demo.com', 'staff123')}
+                  className="w-full p-2 rounded bg-slate-800/50 hover:bg-slate-700/50 transition-colors text-left"
+                >
+                  <p className="text-xs text-white font-medium">👷 Staff</p>
+                  <p className="text-xs text-slate-400">staff@demo.com / staff123</p>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => fillDemoCredentials('customer@demo.com', 'customer123')}
+                  className="w-full p-2 rounded bg-slate-800/50 hover:bg-slate-700/50 transition-colors text-left"
+                >
                   <p className="text-xs text-white font-medium">👤 Customer</p>
                   <p className="text-xs text-slate-400">customer@demo.com / customer123</p>
-                </div>
+                </button>
               </div>
             </motion.div>
           )}
