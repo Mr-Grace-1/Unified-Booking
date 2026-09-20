@@ -18,6 +18,10 @@ import CustomerSatisfactionSurvey from './components/CustomerSatisfactionSurvey'
 import LoyaltyProgram from './components/LoyaltyProgram';
 import AppointmentReminders from './components/AppointmentReminders';
 import EnhancedCustomerPortal from './components/EnhancedCustomerPortal';
+import ServicePackages from './components/ServicePackages';
+import CustomerCommunication from './components/CustomerCommunication';
+import PWAInstallPrompt from './components/PWAInstallPrompt';
+import QuickActionsPanel from './components/QuickActionsPanel';
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import Dashboard from './components/Dashboard';
@@ -181,6 +185,8 @@ function AppContent() {
       case 'loyalty-program': return <LoyaltyProgram />;
       case 'appointment-reminders': return <AppointmentReminders />;
       case 'enhanced-customer-portal': return <EnhancedCustomerPortal />;
+      case 'service-packages': return <ServicePackages />;
+      case 'customer-communication': return <CustomerCommunication />;
       default: return <Dashboard />;
     }
   };
@@ -210,6 +216,8 @@ function AppContent() {
       <KeyboardShortcuts />
       <OnboardingTour />
       <MobileBottomNav />
+      <PWAInstallPrompt />
+      <QuickActionsPanel />
     </div>
   );
 }

@@ -37,6 +37,8 @@ const viewTitles: Record<string, string> = {
   'loyalty-program': 'Loyalty Program',
   'appointment-reminders': 'Appointment Reminders',
   'enhanced-customer-portal': 'My Bookings',
+  'service-packages': 'Service Packages',
+  'customer-communication': 'Customer Communication',
   'settings': 'Settings',
 };
 
