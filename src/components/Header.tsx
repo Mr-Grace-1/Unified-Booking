@@ -32,6 +32,8 @@ const viewTitles: Record<string, string> = {
   'gift-cards': 'Gift Cards',
   'reviews': 'Customer Reviews',
   'templates': 'Booking Templates',
+  'customer-account': 'My Account',
+  'staff-availability': 'Staff Availability',
   'settings': 'Settings',
 };
 

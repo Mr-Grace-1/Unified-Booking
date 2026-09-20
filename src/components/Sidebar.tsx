@@ -2,7 +2,7 @@ import { useApp } from '../store/AppContext';
 import { useAuth } from '../store/AuthContext';
 import { ViewType } from '../types';
 import { UserRole } from '../types/auth';
-import { LayoutDashboard, CalendarDays, PlusCircle, List, Users, UserCog, MapPin, Plug, BarChart3, X, ChevronRight, Gift, Star, FileText, Clock } from 'lucide-react';
+import { LayoutDashboard, CalendarDays, PlusCircle, List, Users, UserCog, MapPin, Plug, BarChart3, X, ChevronRight, Gift, Star, FileText, Clock, UserCircle, CalendarCheck } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { canAccessView, getRoleInfo } from '../utils/permissions';
 
@@ -29,6 +29,8 @@ const navItems: { id: ViewType; label: string; icon: React.ReactNode; section?: 
   { id: 'analytics', label: 'Analytics', icon: <BarChart3 size={20} />, roles: ['admin', 'super_admin', 'manager'] },
   { id: 'advanced-analytics', label: 'Advanced Analytics', icon: <BarChart3 size={20} />, roles: ['admin', 'super_admin'] },
   { id: 'customer-portal', label: 'Customer Portal', icon: <Users size={20} />, roles: ['admin', 'super_admin', 'manager', 'staff', 'client'] },
+  { id: 'customer-account', label: 'My Account', icon: <UserCircle size={20} />, roles: ['client'] },
+  { id: 'staff-availability', label: 'Staff Availability', icon: <CalendarCheck size={20} />, roles: ['admin', 'super_admin', 'manager'] },
   { id: 'settings', label: 'Settings', icon: <UserCog size={20} />, section: 'System' },
 ];
 

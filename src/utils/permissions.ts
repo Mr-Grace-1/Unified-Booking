@@ -16,7 +16,7 @@ export const ROLE_PERMISSIONS: Record<UserRole, {
   icon: string;
 }> = {
   super_admin: {
-    views: ['dashboard', 'new-booking', 'bookings', 'calendar', 'calendar-drag', 'recurring', 'waitlist', 'services', 'customers', 'staff', 'staff-schedule', 'time-off', 'locations', 'invoices', 'notifications', 'integrations', 'analytics', 'advanced-analytics', 'customer-portal', 'settings', 'gift-cards', 'reviews', 'templates'],
+    views: ['dashboard', 'new-booking', 'bookings', 'calendar', 'calendar-drag', 'recurring', 'waitlist', 'services', 'customers', 'staff', 'staff-schedule', 'staff-availability', 'time-off', 'locations', 'invoices', 'notifications', 'integrations', 'analytics', 'advanced-analytics', 'customer-portal', 'settings', 'gift-cards', 'reviews', 'templates'],
     canCreateBooking: true,
     canViewAllBookings: true,
     canManageServices: true,
@@ -30,7 +30,7 @@ export const ROLE_PERMISSIONS: Record<UserRole, {
     icon: '👑',
   },
   admin: {
-    views: ['dashboard', 'new-booking', 'bookings', 'calendar', 'calendar-drag', 'recurring', 'waitlist', 'services', 'customers', 'staff', 'staff-schedule', 'time-off', 'locations', 'invoices', 'notifications', 'integrations', 'analytics', 'advanced-analytics', 'customer-portal', 'settings', 'gift-cards', 'reviews', 'templates'],
+    views: ['dashboard', 'new-booking', 'bookings', 'calendar', 'calendar-drag', 'recurring', 'waitlist', 'services', 'customers', 'staff', 'staff-schedule', 'staff-availability', 'time-off', 'locations', 'invoices', 'notifications', 'integrations', 'analytics', 'advanced-analytics', 'customer-portal', 'settings', 'gift-cards', 'reviews', 'templates'],
     canCreateBooking: true,
     canViewAllBookings: true,
     canManageServices: true,
@@ -44,7 +44,7 @@ export const ROLE_PERMISSIONS: Record<UserRole, {
     icon: '🛡️',
   },
   manager: {
-    views: ['dashboard', 'new-booking', 'bookings', 'calendar', 'calendar-drag', 'recurring', 'waitlist', 'services', 'customers', 'staff', 'staff-schedule', 'time-off', 'analytics', 'customer-portal', 'settings', 'gift-cards', 'reviews', 'templates'],
+    views: ['dashboard', 'new-booking', 'bookings', 'calendar', 'calendar-drag', 'recurring', 'waitlist', 'services', 'customers', 'staff', 'staff-schedule', 'staff-availability', 'time-off', 'analytics', 'customer-portal', 'settings', 'gift-cards', 'reviews', 'templates'],
     canCreateBooking: true,
     canViewAllBookings: true,
     canManageServices: true,
@@ -72,7 +72,7 @@ export const ROLE_PERMISSIONS: Record<UserRole, {
     icon: '👷',
   },
   client: {
-    views: ['dashboard', 'new-booking', 'bookings', 'calendar', 'services', 'reviews'],
+    views: ['dashboard', 'new-booking', 'bookings', 'calendar', 'services', 'reviews', 'customer-account'],
     canCreateBooking: true,
     canViewAllBookings: false,
     canManageServices: false,
@@ -97,7 +97,7 @@ export function getRoleInfo(role: UserRole) {
 }
 
 export function getRestrictedViews(role: UserRole): string[] {
-  const allViews = ['dashboard', 'new-booking', 'bookings', 'calendar', 'calendar-drag', 'recurring', 'waitlist', 'services', 'customers', 'staff', 'staff-schedule', 'locations', 'invoices', 'notifications', 'integrations', 'analytics', 'advanced-analytics', 'customer-portal', 'settings'];
+  const allViews = ['dashboard', 'new-booking', 'bookings', 'calendar', 'calendar-drag', 'recurring', 'waitlist', 'services', 'customers', 'staff', 'staff-schedule', 'staff-availability', 'time-off', 'locations', 'invoices', 'notifications', 'integrations', 'analytics', 'advanced-analytics', 'customer-portal', 'customer-account', 'settings', 'gift-cards', 'reviews', 'templates'];
   const allowed = ROLE_PERMISSIONS[role].views;
   return allViews.filter(v => !allowed.includes(v));
 }

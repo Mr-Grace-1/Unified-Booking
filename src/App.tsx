@@ -44,6 +44,10 @@ import KeyboardShortcuts from './components/KeyboardShortcuts';
 import OnboardingTour from './components/OnboardingTour';
 import MobileBottomNav from './components/MobileBottomNav';
 import BookingPortal from './components/BookingPortal';
+import CustomerAccount from './components/CustomerAccount';
+import GlobalSearch from './components/GlobalSearch';
+import StaffAvailability from './components/StaffAvailability';
+import { UndoProvider } from './components/UndoProvider';
 import { motion, AnimatePresence } from 'framer-motion';
 import { canAccessView } from './utils/permissions';
 
@@ -152,6 +156,8 @@ function AppContent() {
       case 'gift-cards': return <GiftCards />;
       case 'reviews': return <CustomerReviews />;
       case 'templates': return <BookingTemplates />;
+      case 'customer-account': return <CustomerAccount />;
+      case 'staff-availability': return <StaffAvailability />;
       default: return <Dashboard />;
     }
   };
@@ -177,6 +183,7 @@ function AppContent() {
         </main>
       </div>
       <CommandPalette isOpen={commandPaletteOpen} onClose={() => setCommandPaletteOpen(false)} />
+      <GlobalSearch />
       <KeyboardShortcuts />
       <OnboardingTour />
       <MobileBottomNav />
@@ -197,7 +204,9 @@ export default function App() {
                     <AuthProvider>
                       <AppProvider>
                         <ToastProvider>
-                          <AppContent />
+                          <UndoProvider>
+                            <AppContent />
+                          </UndoProvider>
                         </ToastProvider>
                       </AppProvider>
                     </AuthProvider>

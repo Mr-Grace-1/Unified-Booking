@@ -160,4 +160,4 @@ export interface Integration {
   lastSync?: string;
 }
 
-export type ViewType = 'dashboard' | 'bookings' | 'new-booking' | 'calendar' | 'calendar-drag' | 'services' | 'customers' | 'staff' | 'staff-schedule' | 'time-off' | 'locations' | 'integrations' | 'analytics' | 'notifications' | 'invoices' | 'customer-portal' | 'advanced-analytics' | 'recurring' | 'waitlist' | 'settings' | 'gift-cards' | 'reviews' | 'templates';
+export type ViewType = 'dashboard' | 'bookings' | 'new-booking' | 'calendar' | 'calendar-drag' | 'services' | 'customers' | 'staff' | 'staff-schedule' | 'staff-availability' | 'time-off' | 'locations' | 'integrations' | 'analytics' | 'notifications' | 'invoices' | 'customer-portal' | 'customer-account' | 'advanced-analytics' | 'recurring' | 'waitlist' | 'settings' | 'gift-cards' | 'reviews' | 'templates';
