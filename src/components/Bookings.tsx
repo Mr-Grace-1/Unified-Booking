@@ -1,11 +1,12 @@
 import { useApp, services, customers, staff, locations } from '../store/AppContext';
-import { Filter, Search, MoreVertical, CheckCircle, XCircle, Clock, PlayCircle } from 'lucide-react';
+import { Filter, Search, MoreVertical, CheckCircle, XCircle, Clock, PlayCircle, Download } from 'lucide-react';
 import { useState } from 'react';
 import { BookingStatus } from '../types';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useToast } from './Toast';
 import { ServiceIcon } from './Icons';
 import IconImage from './IconImage';
+import { exportBookings } from '../utils/export';
 
 export default function Bookings() {
   const { bookings, updateBookingStatus } = useApp();
@@ -62,6 +63,11 @@ export default function Bookings() {
     { value: 'cancelled', label: 'Cancelled' },
   ];
 
+  const handleExport = (format: 'csv' | 'json') => {
+    exportBookings(filtered, { format, includeHeaders: true });
+    addToast('success', 'Export Successful', `Bookings exported as ${format.toUpperCase()}`);
+  };
+
   return (
     <div className="p-4 sm:p-6 space-y-6">
       {/* Filters */}
@@ -91,6 +97,26 @@ export default function Bookings() {
               {f.label}
             </button>
           ))}
+        </div>
+        <div className="flex items-center gap-2">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => handleExport('csv')}
+            className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 text-xs font-medium border border-emerald-500/20 hover:bg-emerald-500/20"
+          >
+            <Download size={14} />
+            CSV
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => handleExport('json')}
+            className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-blue-500/10 text-blue-400 text-xs font-medium border border-blue-500/20 hover:bg-blue-500/20"
+          >
+            <Download size={14} />
+            JSON
+          </motion.button>
         </div>
       </div>
 

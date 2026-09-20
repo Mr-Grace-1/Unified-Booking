@@ -4,6 +4,7 @@ import { CalendarDays, DollarSign, Users, TrendingUp, Clock, CheckCircle, AlertC
 import { motion } from 'framer-motion';
 import { ServiceIcon } from './Icons';
 import TenantInfo from './TenantInfo';
+import QuickBookingWidget from './QuickBookingWidget';
 import { getRoleInfo } from '../utils/permissions';
 
 export default function Dashboard() {
@@ -114,6 +115,17 @@ export default function Dashboard() {
               </p>
             </div>
           </div>
+        </motion.div>
+      )}
+
+      {/* Quick Booking Widget - Only for roles that can create bookings */}
+      {roleInfo?.canCreateBooking && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+        >
+          <QuickBookingWidget />
         </motion.div>
       )}
 

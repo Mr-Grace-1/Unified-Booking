@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { getRoleInfo } from '../utils/permissions';
 import NotificationPanel from './NotificationPanel';
 import LanguageSelector from './LanguageSelector';
+import ShareBookingLink from './ShareBookingLink';
 
 const viewTitles: Record<string, string> = {
   'dashboard': 'Dashboard',
@@ -94,6 +95,7 @@ export default function Header() {
         </motion.button>
 
         <LanguageSelector />
+        <ShareBookingLink />
 
         {canCreateBooking && (
           <motion.button
