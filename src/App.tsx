@@ -27,6 +27,10 @@ import NotificationManager from './components/NotificationManager';
 import InvoiceManager from './components/InvoiceManager';
 import CustomerPortal from './components/CustomerPortal';
 import AdvancedAnalytics from './components/AdvancedAnalytics';
+import DragDropCalendar from './components/DragDropCalendar';
+import RecurringBookings from './components/RecurringBookings';
+import Waitlist from './components/Waitlist';
+import Settings from './components/Settings';
 import CommandPalette from './components/CommandPalette';
 import AnimatedBackground from './components/AnimatedBackground';
 import AuthPage from './components/AuthPage';
@@ -88,6 +92,7 @@ function AppContent() {
         'bookings': 'All Bookings',
         'new-booking': 'New Booking',
         'calendar': 'Calendar',
+        'calendar-drag': 'Drag & Drop Calendar',
         'services': 'Services',
         'customers': 'Customers',
         'staff': 'Staff Management',
@@ -99,6 +104,9 @@ function AppContent() {
         'invoices': 'Invoices',
         'customer-portal': 'Customer Portal',
         'advanced-analytics': 'Advanced Analytics',
+        'recurring': 'Recurring Bookings',
+        'waitlist': 'Waitlist',
+        'settings': 'Settings',
       };
       return <AccessDenied viewName={viewNames[currentView] || currentView} />;
     }
@@ -119,6 +127,10 @@ function AppContent() {
       case 'invoices': return <InvoiceManager />;
       case 'customer-portal': return <CustomerPortal />;
       case 'advanced-analytics': return <AdvancedAnalytics />;
+      case 'calendar-drag': return <DragDropCalendar />;
+      case 'recurring': return <RecurringBookings />;
+      case 'waitlist': return <Waitlist />;
+      case 'settings': return <Settings />;
       default: return <Dashboard />;
     }
   };

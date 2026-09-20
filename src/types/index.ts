@@ -84,4 +84,4 @@ export interface Integration {
   lastSync?: string;
 }
 
-export type ViewType = 'dashboard' | 'bookings' | 'new-booking' | 'calendar' | 'services' | 'customers' | 'staff' | 'staff-schedule' | 'locations' | 'integrations' | 'analytics' | 'notifications' | 'invoices' | 'customer-portal' | 'advanced-analytics';
+export type ViewType = 'dashboard' | 'bookings' | 'new-booking' | 'calendar' | 'calendar-drag' | 'services' | 'customers' | 'staff' | 'staff-schedule' | 'locations' | 'integrations' | 'analytics' | 'notifications' | 'invoices' | 'customer-portal' | 'advanced-analytics' | 'recurring' | 'waitlist' | 'settings';

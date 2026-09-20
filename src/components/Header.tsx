@@ -13,6 +13,7 @@ const viewTitles: Record<string, string> = {
   'bookings': 'All Bookings',
   'new-booking': 'New Booking',
   'calendar': 'Calendar',
+  'calendar-drag': 'Drag & Drop Calendar',
   'services': 'Services',
   'customers': 'Customers',
   'staff': 'Staff',
@@ -24,6 +25,9 @@ const viewTitles: Record<string, string> = {
   'invoices': 'Invoices',
   'customer-portal': 'Customer Portal',
   'advanced-analytics': 'Advanced Analytics',
+  'recurring': 'Recurring Bookings',
+  'waitlist': 'Waitlist',
+  'settings': 'Settings',
 };
 
 export default function Header() {

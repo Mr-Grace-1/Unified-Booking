@@ -8,6 +8,7 @@ interface AppState {
   bookings: Booking[];
   addBooking: (booking: Booking) => void;
   updateBookingStatus: (id: string, status: Booking['status']) => void;
+  updateBooking: (id: string, updates: Partial<Booking>) => void;
   sidebarOpen: boolean;
   setSidebarOpen: (open: boolean) => void;
   selectedBookingId: string | null;
@@ -30,10 +31,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setBookings(prev => prev.map(b => b.id === id ? { ...b, status } : b));
   };
 
+  const updateBooking = (id: string, updates: Partial<Booking>) => {
+    setBookings(prev => prev.map(b => b.id === id ? { ...b, ...updates } : b));
+  };
+
   return (
     <AppContext.Provider value={{
       currentView, setCurrentView,
-      bookings, addBooking, updateBookingStatus,
+      bookings, addBooking, updateBookingStatus, updateBooking,
       sidebarOpen, setSidebarOpen,
       selectedBookingId, setSelectedBookingId,
     }}>

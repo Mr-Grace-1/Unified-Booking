@@ -11,6 +11,9 @@ const navItems: { id: ViewType; label: string; icon: React.ReactNode; section?: 
   { id: 'new-booking', label: 'New Booking', icon: <PlusCircle size={20} />, section: 'Bookings' },
   { id: 'bookings', label: 'All Bookings', icon: <List size={20} /> },
   { id: 'calendar', label: 'Calendar', icon: <CalendarDays size={20} /> },
+  { id: 'calendar-drag', label: 'Drag & Drop', icon: <CalendarDays size={20} />, roles: ['admin', 'super_admin', 'manager'] },
+  { id: 'recurring', label: 'Recurring', icon: <CalendarDays size={20} />, roles: ['admin', 'super_admin', 'manager'] },
+  { id: 'waitlist', label: 'Waitlist', icon: <Users size={20} />, roles: ['admin', 'super_admin', 'manager'] },
   { id: 'services', label: 'Services', icon: <List size={20} />, section: 'Manage' },
   { id: 'customers', label: 'Customers', icon: <Users size={20} />, roles: ['admin', 'super_admin', 'manager'] },
   { id: 'staff', label: 'Staff', icon: <UserCog size={20} />, roles: ['admin', 'super_admin', 'manager'] },
@@ -22,6 +25,7 @@ const navItems: { id: ViewType; label: string; icon: React.ReactNode; section?: 
   { id: 'analytics', label: 'Analytics', icon: <BarChart3 size={20} />, roles: ['admin', 'super_admin', 'manager'] },
   { id: 'advanced-analytics', label: 'Advanced Analytics', icon: <BarChart3 size={20} />, roles: ['admin', 'super_admin'] },
   { id: 'customer-portal', label: 'Customer Portal', icon: <Users size={20} />, roles: ['admin', 'super_admin', 'manager', 'staff', 'client'] },
+  { id: 'settings', label: 'Settings', icon: <UserCog size={20} />, section: 'System' },
 ];
 
 export default function Sidebar() {
