@@ -43,6 +43,7 @@ import AccessDenied from './components/AccessDenied';
 import KeyboardShortcuts from './components/KeyboardShortcuts';
 import OnboardingTour from './components/OnboardingTour';
 import MobileBottomNav from './components/MobileBottomNav';
+import BookingPortal from './components/BookingPortal';
 import { motion, AnimatePresence } from 'framer-motion';
 import { canAccessView } from './utils/permissions';
 
@@ -51,6 +52,9 @@ function AppContent() {
   const { isAuthenticated, onboardingComplete, user } = useAuth();
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
   const [authMode, setAuthMode] = useState<'login' | 'signup'>('login');
+
+  // Check if we're on the public booking portal route
+  const isPublicBookingPortal = window.location.pathname === '/portal' || window.location.pathname === '/book';
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -62,6 +66,11 @@ function AppContent() {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
+
+  // Public booking portal - no auth required
+  if (isPublicBookingPortal) {
+    return <BookingPortal />;
+  }
 
   // Not authenticated - show login/signup
   if (!isAuthenticated) {

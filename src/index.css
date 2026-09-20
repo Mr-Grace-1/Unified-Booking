@@ -22,6 +22,54 @@
   --border-color: #334155;
 }
 
+/* Apply theme variables to body */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Light theme specific overrides */
+:root.light body {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+}
+
+:root.light .bg-slate-950 {
+  background-color: #ffffff !important;
+}
+
+:root.light .bg-slate-900\/50 {
+  background-color: rgba(241, 245, 249, 0.8) !important;
+}
+
+:root.light .bg-slate-800\/50 {
+  background-color: rgba(226, 232, 240, 0.6) !important;
+}
+
+:root.light .text-white {
+  color: #0f172a !important;
+}
+
+:root.light .text-slate-400 {
+  color: #64748b !important;
+}
+
+:root.light .text-slate-500 {
+  color: #94a3b8 !important;
+}
+
+:root.light .border-white\/10 {
+  border-color: rgba(226, 232, 240, 0.5) !important;
+}
+
+:root.light .bg-white\/5 {
+  background-color: rgba(241, 245, 249, 0.5) !important;
+}
+
+:root.light .hover\:bg-white\/10:hover {
+  background-color: rgba(226, 232, 240, 0.8) !important;
+}
+
 /* Custom scrollbar styling - visible but subtle */
 * {
   /* Firefox */

@@ -1,5 +1,5 @@
 import { useApp, services, customers, staff, locations } from '../store/AppContext';
-import { Filter, Search, MoreVertical, CheckCircle, XCircle, Clock, PlayCircle, Download } from 'lucide-react';
+import { Filter, Search, MoreVertical, CheckCircle, XCircle, Clock, PlayCircle, Download, MessageSquare, CheckSquare } from 'lucide-react';
 import { useState } from 'react';
 import { BookingStatus } from '../types';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -7,12 +7,16 @@ import { useToast } from './Toast';
 import { ServiceIcon } from './Icons';
 import IconImage from './IconImage';
 import { exportBookings } from '../utils/export';
+import BookingComments from './BookingComments';
+import BulkOperations from './BulkOperations';
 
 export default function Bookings() {
   const { bookings, updateBookingStatus } = useApp();
   const { addToast } = useToast();
   const [filterStatus, setFilterStatus] = useState<BookingStatus | 'all'>('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [showBulkOps, setShowBulkOps] = useState(false);
+  const [commentBookingId, setCommentBookingId] = useState<string | null>(null);
 
   const handleStatusUpdate = (id: string, status: BookingStatus) => {
     updateBookingStatus(id, status);
@@ -117,6 +121,15 @@ export default function Bookings() {
             <Download size={14} />
             JSON
           </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setShowBulkOps(true)}
+            className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-purple-500/10 text-purple-400 text-xs font-medium border border-purple-500/20 hover:bg-purple-500/20"
+          >
+            <CheckSquare size={14} />
+            Bulk
+          </motion.button>
         </div>
       </div>
 
@@ -211,6 +224,13 @@ export default function Bookings() {
                           Cancel
                         </button>
                       )}
+                      <button
+                        onClick={() => setCommentBookingId(booking.id)}
+                        className="px-3 py-1.5 rounded-lg bg-white/5 text-slate-400 text-xs font-medium hover:bg-white/10 transition-colors flex items-center gap-1"
+                      >
+                        <MessageSquare size={12} />
+                        Comments {booking.comments?.length ? `(${booking.comments.length})` : ''}
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -220,6 +240,16 @@ export default function Bookings() {
           </AnimatePresence>
         )}
       </div>
+
+      {/* Bulk Operations Modal */}
+      <BulkOperations isOpen={showBulkOps} onClose={() => setShowBulkOps(false)} />
+
+      {/* Booking Comments Modal */}
+      <BookingComments
+        bookingId={commentBookingId || ''}
+        isOpen={!!commentBookingId}
+        onClose={() => setCommentBookingId(null)}
+      />
     </div>
   );
 }

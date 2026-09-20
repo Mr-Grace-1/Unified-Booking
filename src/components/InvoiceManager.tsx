@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FileText, Plus, Eye, Download, Send, CheckCircle, Clock, AlertCircle } from 'lucide-react';
 import { useInvoices, Invoice } from '../store/InvoiceContext';
 import { useToast } from './Toast';
+import { jsPDF } from 'jspdf';
 
 export default function InvoiceManager() {
   const { invoices, createInvoice, markAsPaid, markAsSent, deleteInvoice } = useInvoices();
@@ -74,8 +75,97 @@ export default function InvoiceManager() {
   };
 
   const handleDownloadPDF = (invoice: Invoice) => {
-    // In production, this would generate a real PDF
-    addToast('info', 'PDF Download', `Invoice ${invoice.invoiceNumber} would be downloaded as PDF`);
+    try {
+      const doc = new jsPDF();
+      
+      // Header
+      doc.setFontSize(24);
+      doc.setTextColor(99, 102, 241);
+      doc.text('INVOICE', 20, 30);
+      
+      // Invoice number
+      doc.setFontSize(12);
+      doc.setTextColor(100, 116, 139);
+      doc.text(invoice.invoiceNumber, 20, 40);
+      
+      // Date
+      doc.text(`Issued: ${new Date(invoice.issuedDate).toLocaleDateString()}`, 20, 48);
+      doc.text(`Due: ${new Date(invoice.dueDate).toLocaleDateString()}`, 20, 56);
+      
+      // Customer info
+      doc.setFontSize(14);
+      doc.setTextColor(15, 23, 42);
+      doc.text('Bill To:', 20, 75);
+      doc.setFontSize(11);
+      doc.text(invoice.customerName, 20, 83);
+      doc.text(invoice.customerEmail, 20, 90);
+      
+      // Line items header
+      doc.setFontSize(10);
+      doc.setTextColor(100, 116, 139);
+      doc.text('Description', 20, 110);
+      doc.text('Amount', 170, 110);
+      
+      // Line items
+      doc.setDrawColor(226, 232, 240);
+      doc.line(20, 113, 190, 113);
+      
+      let yPos = 120;
+      doc.setTextColor(15, 23, 42);
+      invoice.bookings.forEach((booking, idx) => {
+        doc.text(`Service Booking #${booking.id}`, 20, yPos);
+        if (booking.notes) {
+          doc.setFontSize(9);
+          doc.setTextColor(100, 116, 139);
+          doc.text(booking.notes, 25, yPos + 5);
+          doc.setFontSize(10);
+          doc.setTextColor(15, 23, 42);
+          yPos += 5;
+        }
+        doc.text(`$${booking.amount.toFixed(2)}`, 170, yPos);
+        yPos += 10;
+      });
+      
+      // Totals
+      doc.setDrawColor(226, 232, 240);
+      doc.line(20, yPos, 190, yPos);
+      yPos += 10;
+      
+      doc.setTextColor(100, 116, 139);
+      doc.text('Subtotal:', 140, yPos);
+      doc.setTextColor(15, 23, 42);
+      doc.text(`$${invoice.subtotal.toFixed(2)}`, 170, yPos);
+      yPos += 7;
+      
+      doc.setTextColor(100, 116, 139);
+      doc.text(`Tax (${(invoice.taxRate * 100).toFixed(0)}%):`, 140, yPos);
+      doc.setTextColor(15, 23, 42);
+      doc.text(`$${invoice.tax.toFixed(2)}`, 170, yPos);
+      yPos += 10;
+      
+      doc.setDrawColor(99, 102, 241);
+      doc.line(130, yPos - 3, 190, yPos - 3);
+      
+      doc.setFontSize(14);
+      doc.setTextColor(15, 23, 42);
+      doc.text('Total:', 140, yPos);
+      doc.setTextColor(99, 102, 241);
+      doc.text(`$${invoice.total.toFixed(2)}`, 170, yPos);
+      
+      // Footer
+      yPos += 30;
+      doc.setFontSize(9);
+      doc.setTextColor(100, 116, 139);
+      doc.text('Thank you for your business!', 20, yPos);
+      doc.text('Payment is due within 30 days.', 20, yPos + 5);
+      
+      // Save
+      doc.save(`invoice-${invoice.invoiceNumber}.pdf`);
+      addToast('success', 'PDF Downloaded', `Invoice ${invoice.invoiceNumber} downloaded successfully`);
+    } catch (error) {
+      addToast('error', 'PDF Error', 'Failed to generate PDF');
+      console.error(error);
+    }
   };
 
   const handleSendInvoice = (invoice: Invoice) => {
