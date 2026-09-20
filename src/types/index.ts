@@ -46,6 +46,17 @@ export interface Service {
   color: string;
 }
 
+export interface ServiceAddon {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  duration: number; // in minutes
+  category: string;
+  icon: string;
+  isActive: boolean;
+}
+
 export interface Customer {
   id: string;
   name: string;
@@ -160,4 +171,4 @@ export interface Integration {
   lastSync?: string;
 }
 
-export type ViewType = 'dashboard' | 'bookings' | 'new-booking' | 'calendar' | 'calendar-drag' | 'services' | 'customers' | 'staff' | 'staff-schedule' | 'staff-availability' | 'time-off' | 'locations' | 'integrations' | 'analytics' | 'notifications' | 'invoices' | 'customer-portal' | 'customer-account' | 'advanced-analytics' | 'recurring' | 'waitlist' | 'settings' | 'gift-cards' | 'reviews' | 'templates';
+export type ViewType = 'dashboard' | 'bookings' | 'new-booking' | 'calendar' | 'calendar-drag' | 'services' | 'customers' | 'staff' | 'staff-schedule' | 'staff-availability' | 'time-off' | 'locations' | 'integrations' | 'analytics' | 'notifications' | 'invoices' | 'customer-portal' | 'customer-account' | 'advanced-analytics' | 'recurring' | 'waitlist' | 'settings' | 'gift-cards' | 'reviews' | 'templates' | 'data-import' | 'booking-confirmation' | 'service-addons' | 'data-backup' | 'customer-survey';

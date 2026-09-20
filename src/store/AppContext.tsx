@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
-import { Booking, ViewType, TimeOff, GiftCard, Package, Review, BookingTemplate } from '../types';
+import { Booking, ViewType, TimeOff, GiftCard, Package, Review, BookingTemplate, ServiceAddon } from '../types';
 import { bookings as initialBookings, services, customers, staff, locations, integrations } from '../data/mockData';
 
 interface AppState {
@@ -20,6 +20,8 @@ interface AppState {
   addReview: (review: Review) => void;
   bookingTemplates: BookingTemplate[];
   addBookingTemplate: (template: BookingTemplate) => void;
+  addons: ServiceAddon[];
+  setAddons: (addons: ServiceAddon[]) => void;
   sidebarOpen: boolean;
   setSidebarOpen: (open: boolean) => void;
   selectedBookingId: string | null;
@@ -36,6 +38,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [packages, setPackages] = useState<Package[]>([]);
   const [reviews, setReviews] = useState<Review[]>([]);
   const [bookingTemplates, setBookingTemplates] = useState<BookingTemplate[]>([]);
+  const [addons, setAddons] = useState<ServiceAddon[]>([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [selectedBookingId, setSelectedBookingId] = useState<string | null>(null);
 
@@ -84,6 +87,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       packages, addPackage,
       reviews, addReview,
       bookingTemplates, addBookingTemplate,
+      addons, setAddons,
       sidebarOpen, setSidebarOpen,
       selectedBookingId, setSelectedBookingId,
     }}>
