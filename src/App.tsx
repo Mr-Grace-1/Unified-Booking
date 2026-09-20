@@ -15,6 +15,9 @@ import BookingConfirmation from './components/BookingConfirmation';
 import ServiceAddons from './components/ServiceAddons';
 import DataBackup from './components/DataBackup';
 import CustomerSatisfactionSurvey from './components/CustomerSatisfactionSurvey';
+import LoyaltyProgram from './components/LoyaltyProgram';
+import AppointmentReminders from './components/AppointmentReminders';
+import EnhancedCustomerPortal from './components/EnhancedCustomerPortal';
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import Dashboard from './components/Dashboard';
@@ -175,6 +178,9 @@ function AppContent() {
       case 'service-addons': return <ServiceAddons />;
       case 'data-backup': return <DataBackup />;
       case 'customer-survey': return <CustomerSatisfactionSurvey bookingId={selectedBookingId || ''} onClose={() => setSelectedBookingId(null)} />;
+      case 'loyalty-program': return <LoyaltyProgram />;
+      case 'appointment-reminders': return <AppointmentReminders />;
+      case 'enhanced-customer-portal': return <EnhancedCustomerPortal />;
       default: return <Dashboard />;
     }
   };

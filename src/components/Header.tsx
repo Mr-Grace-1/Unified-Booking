@@ -34,6 +34,9 @@ const viewTitles: Record<string, string> = {
   'templates': 'Booking Templates',
   'customer-account': 'My Account',
   'staff-availability': 'Staff Availability',
+  'loyalty-program': 'Loyalty Program',
+  'appointment-reminders': 'Appointment Reminders',
+  'enhanced-customer-portal': 'My Bookings',
   'settings': 'Settings',
 };
 
