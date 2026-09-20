@@ -22,6 +22,11 @@ import ServicePackages from './components/ServicePackages';
 import CustomerCommunication from './components/CustomerCommunication';
 import PWAInstallPrompt from './components/PWAInstallPrompt';
 import QuickActionsPanel from './components/QuickActionsPanel';
+import ServiceAvailabilityCalendar from './components/ServiceAvailabilityCalendar';
+import CustomerFeedbackSystem from './components/CustomerFeedbackSystem';
+import StaffPerformanceDashboard from './components/StaffPerformanceDashboard';
+import AutomatedReports from './components/AutomatedReports';
+import BookingTimeline from './components/BookingTimeline';
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import Dashboard from './components/Dashboard';
@@ -187,6 +192,11 @@ function AppContent() {
       case 'enhanced-customer-portal': return <EnhancedCustomerPortal />;
       case 'service-packages': return <ServicePackages />;
       case 'customer-communication': return <CustomerCommunication />;
+      case 'service-availability': return <ServiceAvailabilityCalendar />;
+      case 'customer-feedback': return <CustomerFeedbackSystem />;
+      case 'staff-performance': return <StaffPerformanceDashboard />;
+      case 'automated-reports': return <AutomatedReports />;
+      case 'booking-timeline': return <BookingTimeline />;
       default: return <Dashboard />;
     }
   };

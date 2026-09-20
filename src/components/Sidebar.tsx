@@ -2,7 +2,7 @@ import { useApp } from '../store/AppContext';
 import { useAuth } from '../store/AuthContext';
 import { ViewType } from '../types';
 import { UserRole } from '../types/auth';
-import { LayoutDashboard, CalendarDays, PlusCircle, List, Users, UserCog, MapPin, Plug, BarChart3, X, ChevronRight, Gift, Star, FileText, Clock, UserCircle, CalendarCheck, Package, MessageSquare } from 'lucide-react';
+import { LayoutDashboard, CalendarDays, PlusCircle, List, Users, UserCog, MapPin, Plug, BarChart3, X, ChevronRight, Gift, Star, FileText, Clock, UserCircle, CalendarCheck, Package, MessageSquare, Calendar, TrendingUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { canAccessView, getRoleInfo } from '../utils/permissions';
 
@@ -28,7 +28,12 @@ const navItems: { id: ViewType; label: string; icon: React.ReactNode; section?: 
   { id: 'notifications', label: 'Notifications', icon: <Plug size={20} />, section: 'System', roles: ['admin', 'super_admin'] },
   { id: 'appointment-reminders', label: 'Reminders', icon: <Clock size={20} />, roles: ['admin', 'super_admin', 'manager', 'staff'] },
   { id: 'service-packages', label: 'Packages', icon: <Package size={20} />, roles: ['admin', 'super_admin', 'manager'] },
+  { id: 'service-availability', label: 'Availability', icon: <Calendar size={20} />, roles: ['admin', 'super_admin', 'manager', 'staff'] },
   { id: 'customer-communication', label: 'Communication', icon: <MessageSquare size={20} />, roles: ['admin', 'super_admin', 'manager', 'staff'] },
+  { id: 'customer-feedback', label: 'Feedback', icon: <Star size={20} />, roles: ['admin', 'super_admin', 'manager', 'staff'] },
+  { id: 'staff-performance', label: 'Performance', icon: <TrendingUp size={20} />, roles: ['admin', 'super_admin', 'manager'] },
+  { id: 'automated-reports', label: 'Reports', icon: <FileText size={20} />, roles: ['admin', 'super_admin'] },
+  { id: 'booking-timeline', label: 'Timeline', icon: <Clock size={20} />, roles: ['admin', 'super_admin', 'manager', 'staff'] },
   { id: 'integrations', label: 'Integrations', icon: <Plug size={20} />, roles: ['admin', 'super_admin'] },
   { id: 'analytics', label: 'Analytics', icon: <BarChart3 size={20} />, roles: ['admin', 'super_admin', 'manager'] },
   { id: 'advanced-analytics', label: 'Advanced Analytics', icon: <BarChart3 size={20} />, roles: ['admin', 'super_admin'] },

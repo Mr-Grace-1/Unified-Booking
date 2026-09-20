@@ -38,7 +38,12 @@ const viewTitles: Record<string, string> = {
   'appointment-reminders': 'Appointment Reminders',
   'enhanced-customer-portal': 'My Bookings',
   'service-packages': 'Service Packages',
+  'service-availability': 'Service Availability',
   'customer-communication': 'Customer Communication',
+  'customer-feedback': 'Customer Feedback',
+  'staff-performance': 'Staff Performance',
+  'automated-reports': 'Automated Reports',
+  'booking-timeline': 'Booking Timeline',
   'settings': 'Settings',
 };
 
