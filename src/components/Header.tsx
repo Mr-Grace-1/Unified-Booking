@@ -19,6 +19,7 @@ const viewTitles: Record<string, string> = {
   'customers': 'Customers',
   'staff': 'Staff',
   'staff-schedule': 'Staff Schedule',
+  'time-off': 'Time Off Management',
   'locations': 'Locations',
   'integrations': 'Integrations',
   'analytics': 'Analytics',
@@ -28,6 +29,9 @@ const viewTitles: Record<string, string> = {
   'advanced-analytics': 'Advanced Analytics',
   'recurring': 'Recurring Bookings',
   'waitlist': 'Waitlist',
+  'gift-cards': 'Gift Cards',
+  'reviews': 'Customer Reviews',
+  'templates': 'Booking Templates',
   'settings': 'Settings',
 };
 

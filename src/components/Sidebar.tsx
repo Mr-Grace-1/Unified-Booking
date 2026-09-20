@@ -2,7 +2,7 @@ import { useApp } from '../store/AppContext';
 import { useAuth } from '../store/AuthContext';
 import { ViewType } from '../types';
 import { UserRole } from '../types/auth';
-import { LayoutDashboard, CalendarDays, PlusCircle, List, Users, UserCog, MapPin, Plug, BarChart3, X, ChevronRight } from 'lucide-react';
+import { LayoutDashboard, CalendarDays, PlusCircle, List, Users, UserCog, MapPin, Plug, BarChart3, X, ChevronRight, Gift, Star, FileText, Clock } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { canAccessView, getRoleInfo } from '../utils/permissions';
 
@@ -14,12 +14,16 @@ const navItems: { id: ViewType; label: string; icon: React.ReactNode; section?: 
   { id: 'calendar-drag', label: 'Drag & Drop', icon: <CalendarDays size={20} />, roles: ['admin', 'super_admin', 'manager'] },
   { id: 'recurring', label: 'Recurring', icon: <CalendarDays size={20} />, roles: ['admin', 'super_admin', 'manager'] },
   { id: 'waitlist', label: 'Waitlist', icon: <Users size={20} />, roles: ['admin', 'super_admin', 'manager'] },
+  { id: 'templates', label: 'Templates', icon: <FileText size={20} />, roles: ['admin', 'super_admin', 'manager', 'staff'] },
   { id: 'services', label: 'Services', icon: <List size={20} />, section: 'Manage' },
   { id: 'customers', label: 'Customers', icon: <Users size={20} />, roles: ['admin', 'super_admin', 'manager'] },
+  { id: 'reviews', label: 'Reviews', icon: <Star size={20} />, roles: ['admin', 'super_admin', 'manager', 'staff', 'client'] },
   { id: 'staff', label: 'Staff', icon: <UserCog size={20} />, roles: ['admin', 'super_admin', 'manager'] },
   { id: 'staff-schedule', label: 'Staff Schedule', icon: <CalendarDays size={20} />, roles: ['admin', 'super_admin', 'manager', 'staff'] },
+  { id: 'time-off', label: 'Time Off', icon: <Clock size={20} />, roles: ['admin', 'super_admin', 'manager', 'staff'] },
   { id: 'locations', label: 'Locations', icon: <MapPin size={20} />, roles: ['admin', 'super_admin', 'staff'] },
   { id: 'invoices', label: 'Invoices', icon: <List size={20} />, section: 'Finance', roles: ['admin', 'super_admin'] },
+  { id: 'gift-cards', label: 'Gift Cards', icon: <Gift size={20} />, roles: ['admin', 'super_admin', 'manager'] },
   { id: 'notifications', label: 'Notifications', icon: <Plug size={20} />, section: 'System', roles: ['admin', 'super_admin'] },
   { id: 'integrations', label: 'Integrations', icon: <Plug size={20} />, roles: ['admin', 'super_admin'] },
   { id: 'analytics', label: 'Analytics', icon: <BarChart3 size={20} />, roles: ['admin', 'super_admin', 'manager'] },

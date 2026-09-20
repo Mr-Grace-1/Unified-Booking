@@ -31,6 +31,10 @@ import DragDropCalendar from './components/DragDropCalendar';
 import RecurringBookings from './components/RecurringBookings';
 import Waitlist from './components/Waitlist';
 import Settings from './components/Settings';
+import TimeOffManagement from './components/TimeOffManagement';
+import GiftCards from './components/GiftCards';
+import CustomerReviews from './components/CustomerReviews';
+import BookingTemplates from './components/BookingTemplates';
 import CommandPalette from './components/CommandPalette';
 import AnimatedBackground from './components/AnimatedBackground';
 import AuthPage from './components/AuthPage';
@@ -97,6 +101,7 @@ function AppContent() {
         'customers': 'Customers',
         'staff': 'Staff Management',
         'staff-schedule': 'Staff Schedule',
+        'time-off': 'Time Off Management',
         'locations': 'Locations',
         'integrations': 'Integrations',
         'analytics': 'Analytics',
@@ -107,6 +112,9 @@ function AppContent() {
         'recurring': 'Recurring Bookings',
         'waitlist': 'Waitlist',
         'settings': 'Settings',
+        'gift-cards': 'Gift Cards',
+        'reviews': 'Customer Reviews',
+        'templates': 'Booking Templates',
       };
       return <AccessDenied viewName={viewNames[currentView] || currentView} />;
     }
@@ -131,6 +139,10 @@ function AppContent() {
       case 'recurring': return <RecurringBookings />;
       case 'waitlist': return <Waitlist />;
       case 'settings': return <Settings />;
+      case 'time-off': return <TimeOffManagement />;
+      case 'gift-cards': return <GiftCards />;
+      case 'reviews': return <CustomerReviews />;
+      case 'templates': return <BookingTemplates />;
       default: return <Dashboard />;
     }
   };

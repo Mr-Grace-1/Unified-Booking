@@ -16,7 +16,7 @@ export const ROLE_PERMISSIONS: Record<UserRole, {
   icon: string;
 }> = {
   super_admin: {
-    views: ['dashboard', 'new-booking', 'bookings', 'calendar', 'calendar-drag', 'recurring', 'waitlist', 'services', 'customers', 'staff', 'staff-schedule', 'locations', 'invoices', 'notifications', 'integrations', 'analytics', 'advanced-analytics', 'customer-portal', 'settings'],
+    views: ['dashboard', 'new-booking', 'bookings', 'calendar', 'calendar-drag', 'recurring', 'waitlist', 'services', 'customers', 'staff', 'staff-schedule', 'time-off', 'locations', 'invoices', 'notifications', 'integrations', 'analytics', 'advanced-analytics', 'customer-portal', 'settings', 'gift-cards', 'reviews', 'templates'],
     canCreateBooking: true,
     canViewAllBookings: true,
     canManageServices: true,
@@ -30,7 +30,7 @@ export const ROLE_PERMISSIONS: Record<UserRole, {
     icon: '👑',
   },
   admin: {
-    views: ['dashboard', 'new-booking', 'bookings', 'calendar', 'calendar-drag', 'recurring', 'waitlist', 'services', 'customers', 'staff', 'staff-schedule', 'locations', 'invoices', 'notifications', 'integrations', 'analytics', 'advanced-analytics', 'customer-portal', 'settings'],
+    views: ['dashboard', 'new-booking', 'bookings', 'calendar', 'calendar-drag', 'recurring', 'waitlist', 'services', 'customers', 'staff', 'staff-schedule', 'time-off', 'locations', 'invoices', 'notifications', 'integrations', 'analytics', 'advanced-analytics', 'customer-portal', 'settings', 'gift-cards', 'reviews', 'templates'],
     canCreateBooking: true,
     canViewAllBookings: true,
     canManageServices: true,
@@ -44,7 +44,7 @@ export const ROLE_PERMISSIONS: Record<UserRole, {
     icon: '🛡️',
   },
   manager: {
-    views: ['dashboard', 'new-booking', 'bookings', 'calendar', 'calendar-drag', 'recurring', 'waitlist', 'services', 'customers', 'staff', 'staff-schedule', 'analytics', 'customer-portal', 'settings'],
+    views: ['dashboard', 'new-booking', 'bookings', 'calendar', 'calendar-drag', 'recurring', 'waitlist', 'services', 'customers', 'staff', 'staff-schedule', 'time-off', 'analytics', 'customer-portal', 'settings', 'gift-cards', 'reviews', 'templates'],
     canCreateBooking: true,
     canViewAllBookings: true,
     canManageServices: true,
@@ -58,7 +58,7 @@ export const ROLE_PERMISSIONS: Record<UserRole, {
     icon: '💼',
   },
   staff: {
-    views: ['dashboard', 'new-booking', 'bookings', 'calendar', 'services', 'staff-schedule', 'locations', 'customer-portal', 'settings'],
+    views: ['dashboard', 'new-booking', 'bookings', 'calendar', 'services', 'staff-schedule', 'time-off', 'locations', 'customer-portal', 'settings', 'reviews', 'templates'],
     canCreateBooking: true,
     canViewAllBookings: false,
     canManageServices: false,
@@ -72,7 +72,7 @@ export const ROLE_PERMISSIONS: Record<UserRole, {
     icon: '👷',
   },
   client: {
-    views: ['dashboard', 'new-booking', 'bookings', 'calendar', 'services'],
+    views: ['dashboard', 'new-booking', 'bookings', 'calendar', 'services', 'reviews'],
     canCreateBooking: true,
     canViewAllBookings: false,
     canManageServices: false,
