@@ -20,6 +20,8 @@ interface AppState {
   addReview: (review: Review) => void;
   bookingTemplates: BookingTemplate[];
   addBookingTemplate: (template: BookingTemplate) => void;
+  updateBookingTemplate: (id: string, updates: Partial<BookingTemplate>) => void;
+  deleteBookingTemplate: (id: string) => void;
   addons: ServiceAddon[];
   setAddons: (addons: ServiceAddon[]) => void;
   policies: CancellationPolicy[];
@@ -93,6 +95,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setBookingTemplates(prev => [template, ...prev]);
   };
 
+  const updateBookingTemplate = (id: string, updates: Partial<BookingTemplate>) => {
+    setBookingTemplates(prev => prev.map(t => t.id === id ? { ...t, ...updates } : t));
+  };
+
+  const deleteBookingTemplate = (id: string) => {
+    setBookingTemplates(prev => prev.filter(t => t.id !== id));
+  };
+
   const addPolicy = (policy: CancellationPolicy) => {
     setPolicies(prev => [policy, ...prev]);
   };
@@ -137,7 +147,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       giftCards, addGiftCard,
       packages, addPackage,
       reviews, addReview,
-      bookingTemplates, addBookingTemplate,
+      bookingTemplates, addBookingTemplate, updateBookingTemplate, deleteBookingTemplate,
       addons, setAddons,
       policies, addPolicy, updatePolicy, deletePolicy,
       campaigns, addCampaign, updateCampaign, deleteCampaign,

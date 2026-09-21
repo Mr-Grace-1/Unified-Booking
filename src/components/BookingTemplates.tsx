@@ -1,16 +1,15 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FileText, Plus, X, Copy, Trash2, Play } from 'lucide-react';
+import { Copy, Plus, Edit2, Trash2, X, Check, FileText, User, MapPin } from 'lucide-react';
 import { useApp, services, staff, locations } from '../store/AppContext';
-import { useAuth } from '../store/AuthContext';
 import { useToast } from './Toast';
 import { BookingTemplate } from '../types';
 
 export default function BookingTemplates() {
-  const { bookingTemplates, addBookingTemplate } = useApp();
-  const { user } = useAuth();
+  const { bookingTemplates, addBookingTemplate, updateBookingTemplate, deleteBookingTemplate } = useApp();
   const { addToast } = useToast();
   const [showForm, setShowForm] = useState(false);
+  const [editingTemplate, setEditingTemplate] = useState<BookingTemplate | null>(null);
   const [formData, setFormData] = useState({
     name: '',
     serviceId: '',
@@ -27,23 +26,26 @@ export default function BookingTemplates() {
       return;
     }
 
-    const template: BookingTemplate = {
-      id: `template-${Date.now()}`,
-      name: formData.name,
-      serviceId: formData.serviceId,
-      staffId: formData.staffId || undefined,
-      locationId: formData.locationId,
-      duration: formData.duration,
-      price: formData.price,
-      notes: formData.notes || undefined,
-      createdBy: user?.id || 'unknown',
-      createdAt: new Date().toISOString(),
-      usageCount: 0,
-    };
+    if (editingTemplate) {
+      updateBookingTemplate(editingTemplate.id, formData);
+      addToast('success', 'Template Updated', 'Booking template has been updated');
+    } else {
+      addBookingTemplate({
+        ...formData,
+        id: `template-${Date.now()}`,
+        createdBy: 'user-1',
+        createdAt: new Date().toISOString(),
+        usageCount: 0,
+      });
+      addToast('success', 'Template Created', 'Booking template has been created');
+    }
 
-    addBookingTemplate(template);
-    addToast('success', 'Template Created', 'Booking template has been created');
+    handleClose();
+  };
+
+  const handleClose = () => {
     setShowForm(false);
+    setEditingTemplate(null);
     setFormData({
       name: '',
       serviceId: '',
@@ -55,20 +57,31 @@ export default function BookingTemplates() {
     });
   };
 
-  const getServiceName = (serviceId: string) => {
-    const service = services.find(s => s.id === serviceId);
-    return service?.name || 'Unknown Service';
+  const handleEdit = (template: BookingTemplate) => {
+    setEditingTemplate(template);
+    setFormData({
+      name: template.name,
+      serviceId: template.serviceId,
+      staffId: template.staffId || '',
+      locationId: template.locationId,
+      duration: template.duration,
+      price: template.price,
+      notes: template.notes || '',
+    });
+    setShowForm(true);
   };
 
-  const getStaffName = (staffId?: string) => {
-    if (!staffId) return 'Any Staff';
-    const staffMember = staff.find(s => s.id === staffId);
-    return staffMember?.name || 'Unknown Staff';
+  const handleDelete = (id: string) => {
+    if (confirm('Are you sure you want to delete this template?')) {
+      deleteBookingTemplate(id);
+      addToast('success', 'Template Deleted', 'Booking template has been deleted');
+    }
   };
 
-  const getLocationName = (locationId: string) => {
-    const location = locations.find(l => l.id === locationId);
-    return location?.name || 'Unknown Location';
+  const handleUse = (template: BookingTemplate) => {
+    // In real app, this would open the booking form with template data pre-filled
+    updateBookingTemplate(template.id, { usageCount: template.usageCount + 1 });
+    addToast('success', 'Template Applied', 'Template data has been applied to new booking');
   };
 
   return (
@@ -90,7 +103,29 @@ export default function BookingTemplates() {
         </motion.button>
       </div>
 
-      {/* Templates List */}
+      {/* Stats */}
+      <div className="grid grid-cols-3 gap-4">
+        <div className="p-4 rounded-xl bg-slate-900/50 border border-white/10">
+          <div className="text-2xl font-bold text-white">{bookingTemplates.length}</div>
+          <div className="text-sm text-slate-400">Total Templates</div>
+        </div>
+        <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
+          <div className="text-2xl font-bold text-emerald-400">
+            {bookingTemplates.reduce((sum, t) => sum + t.usageCount, 0)}
+          </div>
+          <div className="text-sm text-slate-400">Total Uses</div>
+        </div>
+        <div className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/20">
+          <div className="text-2xl font-bold text-blue-400">
+            {bookingTemplates.length > 0
+              ? Math.round(bookingTemplates.reduce((sum, t) => sum + t.usageCount, 0) / bookingTemplates.length)
+              : 0}
+          </div>
+          <div className="text-sm text-slate-400">Avg Uses/Template</div>
+        </div>
+      </div>
+
+      {/* Templates Grid */}
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {bookingTemplates.length === 0 ? (
           <div className="col-span-full text-center py-12 text-slate-500">
@@ -99,79 +134,89 @@ export default function BookingTemplates() {
             <p className="text-sm">Create your first booking template to get started</p>
           </div>
         ) : (
-          bookingTemplates.map((template) => (
-            <motion.div
-              key={template.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              whileHover={{ scale: 1.02 }}
-              className="p-5 rounded-xl bg-slate-900/50 border border-white/10 hover:border-white/20 transition-all"
-            >
-              <div className="flex items-start justify-between mb-3">
-                <div className="flex-1">
-                  <h3 className="font-semibold text-white mb-1">{template.name}</h3>
-                  <p className="text-sm text-slate-400">{getServiceName(template.serviceId)}</p>
-                </div>
-                <div className="text-right">
-                  <div className="text-lg font-bold text-white">${template.price}</div>
-                  <div className="text-xs text-slate-500">{template.duration} min</div>
-                </div>
-              </div>
+          bookingTemplates.map((template) => {
+            const service = services.find(s => s.id === template.serviceId);
+            const staffMember = template.staffId ? staff.find(s => s.id === template.staffId) : null;
+            const location = locations.find(l => l.id === template.locationId);
 
-              <div className="space-y-2 text-xs text-slate-400 mb-3">
-                <div className="flex items-center gap-2">
-                  <span className="text-slate-500">Staff:</span>
-                  <span>{getStaffName(template.staffId)}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-slate-500">Location:</span>
-                  <span>{getLocationName(template.locationId)}</span>
-                </div>
-                {template.notes && (
-                  <div className="pt-2 border-t border-white/5">
-                    <span className="text-slate-500">Notes:</span>
-                    <p className="text-slate-400 mt-1">{template.notes}</p>
+            return (
+              <motion.div
+                key={template.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="p-5 rounded-xl bg-slate-900/50 border border-white/10 hover:border-white/20 transition-all"
+              >
+                <div className="flex items-start justify-between mb-3">
+                  <div className="flex-1">
+                    <h3 className="font-bold text-white mb-1">{template.name}</h3>
+                    <p className="text-sm text-slate-400">{service?.name}</p>
                   </div>
-                )}
-              </div>
+                  <div className="text-right">
+                    <div className="text-lg font-bold text-white">${template.price}</div>
+                    <div className="text-xs text-slate-500">{template.duration} min</div>
+                  </div>
+                </div>
 
-              <div className="flex items-center justify-between pt-3 border-t border-white/5">
-                <div className="text-xs text-slate-500">
-                  Used {template.usageCount} time{template.usageCount !== 1 ? 's' : ''}
+                <div className="space-y-2 text-xs text-slate-400 mb-3">
+                  {staffMember && (
+                    <div className="flex items-center gap-2">
+                      <User size={12} />
+                      <span>{staffMember.name}</span>
+                    </div>
+                  )}
+                  <div className="flex items-center gap-2">
+                    <MapPin size={12} />
+                    <span>{location?.name}</span>
+                  </div>
+                  {template.notes && (
+                    <div className="pt-2 border-t border-white/5">
+                      <span className="text-slate-500">Notes:</span>
+                      <p className="text-slate-400 mt-1">{template.notes}</p>
+                    </div>
+                  )}
                 </div>
-                <div className="flex items-center gap-2">
-                  <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    className="p-1.5 rounded-lg bg-indigo-500/10 text-indigo-400 hover:bg-indigo-500/20"
-                    title="Use template"
-                  >
-                    <Play size={14} />
-                  </motion.button>
-                  <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    className="p-1.5 rounded-lg bg-white/5 text-slate-400 hover:bg-white/10"
-                    title="Duplicate"
-                  >
-                    <Copy size={14} />
-                  </motion.button>
-                  <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    className="p-1.5 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500/20"
-                    title="Delete"
-                  >
-                    <Trash2 size={14} />
-                  </motion.button>
+
+                <div className="flex items-center justify-between pt-3 border-t border-white/5">
+                  <div className="text-xs text-slate-500">
+                    Used {template.usageCount} time{template.usageCount !== 1 ? 's' : ''}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <motion.button
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                      onClick={() => handleUse(template)}
+                      className="p-1.5 rounded-lg bg-indigo-500/10 text-indigo-400 hover:bg-indigo-500/20"
+                      title="Use template"
+                    >
+                      <Copy size={14} />
+                    </motion.button>
+                    <motion.button
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                      onClick={() => handleEdit(template)}
+                      className="p-1.5 rounded-lg bg-white/5 text-slate-400 hover:bg-white/10"
+                      title="Edit"
+                    >
+                      <Edit2 size={14} />
+                    </motion.button>
+                    <motion.button
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                      onClick={() => handleDelete(template.id)}
+                      className="p-1.5 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500/20"
+                      title="Delete"
+                    >
+                      <Trash2 size={14} />
+                    </motion.button>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-          ))
+              </motion.div>
+            );
+          })
         )}
       </div>
 
-      {/* Create Form Modal */}
+      {/* Create/Edit Modal */}
       <AnimatePresence>
         {showForm && (
           <motion.div
@@ -179,7 +224,7 @@ export default function BookingTemplates() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-            onClick={() => setShowForm(false)}
+            onClick={handleClose}
           >
             <motion.div
               initial={{ scale: 0.9, y: 20 }}
@@ -189,11 +234,10 @@ export default function BookingTemplates() {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-xl font-bold text-white">Create Booking Template</h3>
-                <button
-                  onClick={() => setShowForm(false)}
-                  className="p-2 text-slate-400 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-                >
+                <h3 className="text-xl font-bold text-white">
+                  {editingTemplate ? 'Edit Template' : 'Create Template'}
+                </h3>
+                <button onClick={handleClose} className="p-2 text-slate-400 hover:text-white">
                   <X size={20} />
                 </button>
               </div>
@@ -205,7 +249,7 @@ export default function BookingTemplates() {
                     type="text"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="e.g., Weekly Haircut"
+                    placeholder="e.g., Weekly Haircut, Monthly Massage"
                     className="w-full px-4 py-2 rounded-lg bg-slate-800/50 border border-white/10 text-white"
                   />
                 </div>
@@ -293,7 +337,7 @@ export default function BookingTemplates() {
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    onClick={() => setShowForm(false)}
+                    onClick={handleClose}
                     className="flex-1 px-4 py-2 rounded-lg bg-white/5 text-slate-300 font-medium"
                   >
                     Cancel
@@ -304,7 +348,7 @@ export default function BookingTemplates() {
                     onClick={handleSubmit}
                     className="flex-1 px-4 py-2 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium"
                   >
-                    Create Template
+                    {editingTemplate ? 'Update' : 'Create'} Template
                   </motion.button>
                 </div>
               </div>

@@ -1,10 +1,10 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
-import { Language, Translation, translations } from '../i18n/translations';
+import { Language, TranslationKey, translations } from '../i18n/translations';
 
 interface I18nContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
-  t: (key: keyof Translation) => string;
+  t: (key: TranslationKey) => string;
   availableLanguages: { code: Language; name: string; flag: string }[];
 }
 
@@ -31,8 +31,10 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     document.documentElement.lang = lang;
   };
 
-  const t = (key: keyof Translation): string => {
-    return translations[language][key] || translations.en[key] || key;
+  const t = (key: TranslationKey): string => {
+    const langTranslations = translations[language] as Record<string, string>;
+    const enTranslations = translations.en as Record<string, string>;
+    return langTranslations[key] || enTranslations[key] || key;
   };
 
   return (
