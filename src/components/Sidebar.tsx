@@ -2,7 +2,7 @@ import { useApp } from '../store/AppContext';
 import { useAuth } from '../store/AuthContext';
 import { ViewType } from '../types';
 import { UserRole } from '../types/auth';
-import { LayoutDashboard, CalendarDays, PlusCircle, List, Users, UserCog, MapPin, Plug, BarChart3, X, ChevronRight, Gift, Star, FileText, Clock, UserCircle, CalendarCheck, Package, MessageSquare, Calendar, TrendingUp, DollarSign, XCircle, MessageSquare as NoteIcon, Clock as ShiftIcon, ShoppingBag } from 'lucide-react';
+import { LayoutDashboard, CalendarDays, PlusCircle, List, Users, UserCog, MapPin, Plug, BarChart3, X, ChevronRight, Gift, Star, FileText, Clock, UserCircle, CalendarCheck, Package, MessageSquare, Calendar, TrendingUp, DollarSign, XCircle, MessageSquare as NoteIcon, Clock as ShiftIcon, ShoppingBag, QrCode, Megaphone, Zap } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { canAccessView, getRoleInfo } from '../utils/permissions';
 
@@ -37,6 +37,10 @@ const navItems: { id: ViewType; label: string; icon: React.ReactNode; section?: 
   { id: 'staff-shifts', label: 'Shifts', icon: <ShiftIcon size={20} />, roles: ['admin', 'super_admin', 'manager'] },
   { id: 'automated-reports', label: 'Reports', icon: <FileText size={20} />, roles: ['admin', 'super_admin'] },
   { id: 'booking-timeline', label: 'Timeline', icon: <Clock size={20} />, roles: ['admin', 'super_admin', 'manager', 'staff'] },
+  { id: 'booking-qr-code', label: 'QR Codes', icon: <QrCode size={20} />, roles: ['admin', 'super_admin', 'manager', 'staff'] },
+  { id: 'deposit-management', label: 'Deposits', icon: <DollarSign size={20} />, roles: ['admin', 'super_admin'] },
+  { id: 'marketing-campaigns', label: 'Campaigns', icon: <Megaphone size={20} />, roles: ['admin', 'super_admin'] },
+  { id: 'waitlist-auto-fill', label: 'Auto-Fill', icon: <Zap size={20} />, roles: ['admin', 'super_admin', 'manager'] },
   { id: 'booking-deposits', label: 'Deposits', icon: <DollarSign size={20} />, roles: ['admin', 'super_admin'] },
   { id: 'cancellation-policies', label: 'Cancellation', icon: <XCircle size={20} />, roles: ['admin', 'super_admin'] },
   { id: 'integrations', label: 'Integrations', icon: <Plug size={20} />, roles: ['admin', 'super_admin'] },

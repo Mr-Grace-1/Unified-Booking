@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
-import { Booking, ViewType, TimeOff, GiftCard, Package, Review, BookingTemplate, ServiceAddon } from '../types';
+import { Booking, ViewType, TimeOff, GiftCard, Package, Review, BookingTemplate, ServiceAddon, CancellationPolicy, MarketingCampaign, WaitlistEntry } from '../types';
 import { bookings as initialBookings, services, customers, staff, locations, integrations } from '../data/mockData';
 
 interface AppState {
@@ -22,6 +22,18 @@ interface AppState {
   addBookingTemplate: (template: BookingTemplate) => void;
   addons: ServiceAddon[];
   setAddons: (addons: ServiceAddon[]) => void;
+  policies: CancellationPolicy[];
+  addPolicy: (policy: CancellationPolicy) => void;
+  updatePolicy: (id: string, updates: Partial<CancellationPolicy>) => void;
+  deletePolicy: (id: string) => void;
+  campaigns: MarketingCampaign[];
+  addCampaign: (campaign: MarketingCampaign) => void;
+  updateCampaign: (id: string, updates: Partial<MarketingCampaign>) => void;
+  deleteCampaign: (id: string) => void;
+  waitlist: WaitlistEntry[];
+  addToWaitlist: (entry: WaitlistEntry) => void;
+  updateWaitlistEntry: (id: string, updates: Partial<WaitlistEntry>) => void;
+  removeFromWaitlist: (id: string) => void;
   sidebarOpen: boolean;
   setSidebarOpen: (open: boolean) => void;
   selectedBookingId: string | null;
@@ -39,6 +51,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [bookingTemplates, setBookingTemplates] = useState<BookingTemplate[]>([]);
   const [addons, setAddons] = useState<ServiceAddon[]>([]);
+  const [policies, setPolicies] = useState<CancellationPolicy[]>([]);
+  const [campaigns, setCampaigns] = useState<MarketingCampaign[]>([]);
+  const [waitlist, setWaitlist] = useState<WaitlistEntry[]>([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [selectedBookingId, setSelectedBookingId] = useState<string | null>(null);
 
@@ -78,6 +93,42 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setBookingTemplates(prev => [template, ...prev]);
   };
 
+  const addPolicy = (policy: CancellationPolicy) => {
+    setPolicies(prev => [policy, ...prev]);
+  };
+
+  const updatePolicy = (id: string, updates: Partial<CancellationPolicy>) => {
+    setPolicies(prev => prev.map(p => p.id === id ? { ...p, ...updates } : p));
+  };
+
+  const deletePolicy = (id: string) => {
+    setPolicies(prev => prev.filter(p => p.id !== id));
+  };
+
+  const addCampaign = (campaign: MarketingCampaign) => {
+    setCampaigns(prev => [campaign, ...prev]);
+  };
+
+  const updateCampaign = (id: string, updates: Partial<MarketingCampaign>) => {
+    setCampaigns(prev => prev.map(c => c.id === id ? { ...c, ...updates } : c));
+  };
+
+  const deleteCampaign = (id: string) => {
+    setCampaigns(prev => prev.filter(c => c.id !== id));
+  };
+
+  const addToWaitlist = (entry: WaitlistEntry) => {
+    setWaitlist(prev => [entry, ...prev]);
+  };
+
+  const updateWaitlistEntry = (id: string, updates: Partial<WaitlistEntry>) => {
+    setWaitlist(prev => prev.map(w => w.id === id ? { ...w, ...updates } : w));
+  };
+
+  const removeFromWaitlist = (id: string) => {
+    setWaitlist(prev => prev.filter(w => w.id !== id));
+  };
+
   return (
     <AppContext.Provider value={{
       currentView, setCurrentView,
@@ -88,6 +139,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
       reviews, addReview,
       bookingTemplates, addBookingTemplate,
       addons, setAddons,
+      policies, addPolicy, updatePolicy, deletePolicy,
+      campaigns, addCampaign, updateCampaign, deleteCampaign,
+      waitlist, addToWaitlist, updateWaitlistEntry, removeFromWaitlist,
       sidebarOpen, setSidebarOpen,
       selectedBookingId, setSelectedBookingId,
     }}>

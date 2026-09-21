@@ -27,6 +27,10 @@ import CustomerFeedbackSystem from './components/CustomerFeedbackSystem';
 import StaffPerformanceDashboard from './components/StaffPerformanceDashboard';
 import AutomatedReports from './components/AutomatedReports';
 import BookingTimeline from './components/BookingTimeline';
+import BookingQRCode from './components/BookingQRCode';
+import DepositManagement from './components/DepositManagement';
+import BulkMarketingCampaigns from './components/BulkMarketingCampaigns';
+import WaitlistAutoFill from './components/WaitlistAutoFill';
 import BookingDeposits from './components/BookingDeposits';
 import CancellationPolicies from './components/CancellationPolicies';
 import CustomerNotes from './components/CustomerNotes';
@@ -207,6 +211,10 @@ function AppContent() {
       case 'customer-notes': return <CustomerNotes />;
       case 'staff-shifts': return <StaffShifts />;
       case 'service-addons-booking': return <ServiceAddonsDuringBooking />;
+      case 'booking-qr-code': return <BookingQRCode bookingId="" isOpen={false} onClose={() => {}} />;
+      case 'deposit-management': return <DepositManagement />;
+      case 'marketing-campaigns': return <BulkMarketingCampaigns />;
+      case 'waitlist-auto-fill': return <WaitlistAutoFill />;
       default: return <Dashboard />;
     }
   };

@@ -1,20 +1,7 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
+import { WaitlistEntry } from '../types';
 
-export interface WaitlistEntry {
-  id: string;
-  customerId: string;
-  serviceId: string;
-  staffId?: string;
-  locationId: string;
-  preferredDate?: string;
-  preferredTime?: string;
-  notes?: string;
-  priority: 'low' | 'medium' | 'high';
-  status: 'waiting' | 'notified' | 'booked' | 'cancelled';
-  createdAt: string;
-  notifiedAt?: string;
-  bookedAt?: string;
-}
+export type { WaitlistEntry };
 
 interface WaitlistContextType {
   waitlist: WaitlistEntry[];

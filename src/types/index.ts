@@ -162,6 +162,49 @@ export interface BookingTemplate {
   usageCount: number;
 }
 
+export interface CancellationPolicy {
+  id: string;
+  name: string;
+  description: string;
+  hoursBefore: number;
+  feePercentage: number;
+  feeType: 'percentage' | 'fixed' | 'free';
+  fixedAmount?: number;
+  isActive: boolean;
+  createdAt: string;
+}
+
+export interface MarketingCampaign {
+  id: string;
+  name: string;
+  type: 'email' | 'sms' | 'push';
+  subject?: string;
+  message: string;
+  targetAudience: 'all' | 'customers' | 'staff' | 'specific';
+  targetIds?: string[];
+  scheduledFor?: string;
+  status: 'draft' | 'scheduled' | 'sent' | 'failed';
+  sentCount: number;
+  createdAt: string;
+  sentAt?: string;
+}
+
+export interface WaitlistEntry {
+  id: string;
+  customerId: string;
+  serviceId: string;
+  staffId?: string;
+  locationId: string;
+  preferredDate?: string;
+  preferredTime?: string;
+  notes?: string;
+  priority: 'low' | 'medium' | 'high';
+  status: 'waiting' | 'notified' | 'booked' | 'cancelled';
+  createdAt: string;
+  notifiedAt?: string;
+  bookedAt?: string;
+}
+
 export interface Integration {
   id: string;
   name: string;
@@ -171,4 +214,4 @@ export interface Integration {
   lastSync?: string;
 }
 
-export type ViewType = 'dashboard' | 'bookings' | 'new-booking' | 'calendar' | 'calendar-drag' | 'services' | 'service-packages' | 'service-availability' | 'customers' | 'customer-communication' | 'customer-feedback' | 'customer-notes' | 'staff' | 'staff-schedule' | 'staff-availability' | 'staff-performance' | 'staff-shifts' | 'time-off' | 'locations' | 'integrations' | 'analytics' | 'automated-reports' | 'notifications' | 'invoices' | 'customer-portal' | 'customer-account' | 'advanced-analytics' | 'recurring' | 'waitlist' | 'settings' | 'gift-cards' | 'reviews' | 'templates' | 'data-import' | 'booking-confirmation' | 'booking-timeline' | 'booking-deposits' | 'cancellation-policies' | 'service-addons' | 'service-addons-booking' | 'data-backup' | 'customer-survey' | 'loyalty-program' | 'appointment-reminders' | 'enhanced-customer-portal';
+export type ViewType = 'dashboard' | 'bookings' | 'new-booking' | 'calendar' | 'calendar-drag' | 'services' | 'service-packages' | 'service-availability' | 'customers' | 'customer-communication' | 'customer-feedback' | 'customer-notes' | 'staff' | 'staff-schedule' | 'staff-availability' | 'staff-performance' | 'staff-shifts' | 'time-off' | 'locations' | 'integrations' | 'analytics' | 'automated-reports' | 'notifications' | 'invoices' | 'customer-portal' | 'customer-account' | 'advanced-analytics' | 'recurring' | 'waitlist' | 'waitlist-auto-fill' | 'settings' | 'gift-cards' | 'reviews' | 'templates' | 'data-import' | 'booking-confirmation' | 'booking-timeline' | 'booking-qr-code' | 'booking-deposits' | 'deposit-management' | 'cancellation-policies' | 'marketing-campaigns' | 'service-addons' | 'service-addons-booking' | 'data-backup' | 'customer-survey' | 'loyalty-program' | 'appointment-reminders' | 'enhanced-customer-portal';
