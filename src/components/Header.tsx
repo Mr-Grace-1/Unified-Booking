@@ -8,6 +8,7 @@ import { getRoleInfo } from '../utils/permissions';
 import NotificationPanel from './NotificationPanel';
 import LanguageSelector from './LanguageSelector';
 import ShareBookingLink from './ShareBookingLink';
+import NotificationCenter from './NotificationCenter';
 
 const viewTitles: Record<string, string> = {
   'dashboard': 'Dashboard',
@@ -97,6 +98,7 @@ export default function Header() {
           <kbd className="px-1.5 py-0.5 text-xs bg-white/10 rounded text-slate-500">⌘K</kbd>
         </div>
         <NotificationPanel />
+        <NotificationCenter />
         
         {/* Theme Toggle */}
         <motion.button

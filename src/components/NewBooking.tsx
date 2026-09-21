@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useToast } from './Toast';
 import { ServiceIcon, CategoryIcon } from './Icons';
 import IconImage from './IconImage';
+import BookingConflictDetector from './BookingConflictDetector';
 
 const categoryLabels: Record<ServiceCategory, { label: string }> = {
   appointment: { label: 'Appointments' },
@@ -28,6 +29,8 @@ export default function NewBooking() {
   const [selectedTime, setSelectedTime] = useState('');
   const [notes, setNotes] = useState('');
   const [confirmed, setConfirmed] = useState(false);
+  const [showConflictDetector, setShowConflictDetector] = useState(false);
+  const [pendingBooking, setPendingBooking] = useState<any>(null);
 
   const filteredServices = selectedCategory ? services.filter(s => s.category === selectedCategory) : [];
   const service = services.find(s => s.id === selectedService);
@@ -44,14 +47,54 @@ export default function NewBooking() {
     const startTime = new Date(`${selectedDate}T${convertTime(selectedTime)}`);
     const endTime = new Date(startTime.getTime() + (service?.duration || 60) * 60000);
 
-    addBooking({
-      id: `bk${Date.now()}`,
+    const newBooking = {
       serviceId: selectedService,
       customerId: selectedCustomer,
       staffId: selectedStaff,
       locationId: selectedLocation,
       startTime: startTime.toISOString(),
       endTime: endTime.toISOString(),
+    };
+
+    // Check for conflicts
+    const hasConflict = checkForConflicts(newBooking);
+    
+    if (hasConflict) {
+      setPendingBooking(newBooking);
+      setShowConflictDetector(true);
+    } else {
+      createBooking(newBooking);
+    }
+  };
+
+  const checkForConflicts = (booking: any) => {
+    const { bookings } = useApp();
+    const newStart = new Date(booking.startTime);
+    const newEnd = new Date(booking.endTime);
+
+    return bookings.some(existing => {
+      const existingStart = new Date(existing.startTime);
+      const existingEnd = new Date(existing.endTime);
+      
+      // Check if times overlap
+      const timesOverlap = newStart < existingEnd && newEnd > existingStart;
+      if (!timesOverlap) return false;
+
+      // Check for staff, location, or customer conflicts
+      return (
+        existing.staffId === booking.staffId ||
+        existing.locationId === booking.locationId ||
+        existing.customerId === booking.customerId
+      );
+    });
+  };
+
+  const createBooking = (bookingData: any) => {
+    const { addBooking } = useApp();
+    
+    addBooking({
+      id: `bk${Date.now()}`,
+      ...bookingData,
       status: 'confirmed',
       paymentStatus: service?.deposit ? 'deposit_paid' : 'paid',
       amount: service?.price || 0,
@@ -62,6 +105,14 @@ export default function NewBooking() {
 
     addToast('success', 'Booking Created!', `${service?.name} for ${customers.find(c => c.id === selectedCustomer)?.name}`);
     setConfirmed(true);
+  };
+
+  const handleConflictResolve = () => {
+    if (pendingBooking) {
+      createBooking(pendingBooking);
+      setShowConflictDetector(false);
+      setPendingBooking(null);
+    }
   };
 
   const convertTime = (time: string) => {
@@ -430,6 +481,24 @@ export default function NewBooking() {
           </motion.button>
         )}
       </div>
+
+      {/* Booking Conflict Detector */}
+      <BookingConflictDetector
+        isOpen={showConflictDetector}
+        onClose={() => {
+          setShowConflictDetector(false);
+          setPendingBooking(null);
+        }}
+        newBooking={pendingBooking || {
+          serviceId: selectedService || '',
+          customerId: selectedCustomer || '',
+          staffId: selectedStaff || '',
+          locationId: selectedLocation || '',
+          startTime: '',
+          endTime: '',
+        }}
+        onResolve={handleConflictResolve}
+      />
     </div>
   );
 }
