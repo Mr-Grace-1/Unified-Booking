@@ -27,6 +27,11 @@ import CustomerFeedbackSystem from './components/CustomerFeedbackSystem';
 import StaffPerformanceDashboard from './components/StaffPerformanceDashboard';
 import AutomatedReports from './components/AutomatedReports';
 import BookingTimeline from './components/BookingTimeline';
+import BookingDeposits from './components/BookingDeposits';
+import CancellationPolicies from './components/CancellationPolicies';
+import CustomerNotes from './components/CustomerNotes';
+import StaffShifts from './components/StaffShifts';
+import ServiceAddonsDuringBooking from './components/ServiceAddonsDuringBooking';
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import Dashboard from './components/Dashboard';
@@ -197,6 +202,11 @@ function AppContent() {
       case 'staff-performance': return <StaffPerformanceDashboard />;
       case 'automated-reports': return <AutomatedReports />;
       case 'booking-timeline': return <BookingTimeline />;
+      case 'booking-deposits': return <BookingDeposits />;
+      case 'cancellation-policies': return <CancellationPolicies />;
+      case 'customer-notes': return <CustomerNotes />;
+      case 'staff-shifts': return <StaffShifts />;
+      case 'service-addons-booking': return <ServiceAddonsDuringBooking />;
       default: return <Dashboard />;
     }
   };

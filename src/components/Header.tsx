@@ -44,6 +44,11 @@ const viewTitles: Record<string, string> = {
   'staff-performance': 'Staff Performance',
   'automated-reports': 'Automated Reports',
   'booking-timeline': 'Booking Timeline',
+  'booking-deposits': 'Booking Deposits',
+  'cancellation-policies': 'Cancellation Policies',
+  'customer-notes': 'Customer Notes',
+  'staff-shifts': 'Staff Shifts',
+  'service-addons-booking': 'Service Add-ons',
   'settings': 'Settings',
 };
 
