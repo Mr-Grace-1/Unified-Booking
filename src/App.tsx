@@ -41,6 +41,11 @@ import BookingConflictDetector from './components/BookingConflictDetector';
 import CustomerSelfServicePortal from './components/CustomerSelfServicePortal';
 import BookingTemplates from './components/BookingTemplates';
 import GlobalSearch from './components/GlobalSearch';
+import BookingComments from './components/BookingComments';
+import CustomerTags from './components/CustomerTags';
+import StaffPerformance from './components/StaffPerformance';
+import BookingRecurrence from './components/BookingRecurrence';
+import CustomerSatisfactionSurveys from './components/CustomerSatisfactionSurveys';
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import Dashboard from './components/Dashboard';
@@ -141,9 +146,11 @@ function AppContent() {
         'calendar-drag': 'Drag & Drop Calendar',
         'services': 'Services',
         'customers': 'Customers',
+        'customer-tags': 'Customer Tags',
         'staff': 'Staff Management',
         'staff-schedule': 'Staff Schedule',
         'staff-availability': 'Staff Availability',
+        'staff-performance': 'Staff Performance',
         'time-off': 'Time Off Management',
         'locations': 'Locations',
         'integrations': 'Integrations',
@@ -154,16 +161,37 @@ function AppContent() {
         'customer-account': 'My Account',
         'advanced-analytics': 'Advanced Analytics',
         'recurring': 'Recurring Bookings',
+        'booking-recurrence': 'Booking Recurrence',
         'waitlist': 'Waitlist',
+        'waitlist-auto-fill': 'Waitlist Auto-Fill',
         'settings': 'Settings',
         'gift-cards': 'Gift Cards',
         'reviews': 'Customer Reviews',
         'templates': 'Booking Templates',
         'data-import': 'Import Data',
         'booking-confirmation': 'Booking Confirmation',
+        'booking-comments': 'Booking Comments',
+        'booking-qr-code': 'Booking QR Codes',
         'service-addons': 'Service Add-ons',
         'data-backup': 'Data Backup',
         'customer-survey': 'Customer Survey',
+        'customer-satisfaction-surveys': 'Customer Satisfaction Surveys',
+        'loyalty-program': 'Loyalty Program',
+        'appointment-reminders': 'Appointment Reminders',
+        'enhanced-customer-portal': 'My Bookings',
+        'service-packages': 'Service Packages',
+        'service-availability': 'Service Availability',
+        'customer-communication': 'Customer Communication',
+        'customer-feedback': 'Customer Feedback',
+        'customer-notes': 'Customer Notes',
+        'automated-reports': 'Automated Reports',
+        'booking-timeline': 'Booking Timeline',
+        'booking-deposits': 'Booking Deposits',
+        'deposit-management': 'Deposit Management',
+        'cancellation-policies': 'Cancellation Policies',
+        'marketing-campaigns': 'Marketing Campaigns',
+        'staff-shifts': 'Staff Shifts',
+        'service-addons-booking': 'Service Add-ons During Booking',
       };
       return <AccessDenied viewName={viewNames[currentView] || currentView} />;
     }
@@ -218,6 +246,11 @@ function AppContent() {
       case 'deposit-management': return <DepositManagement />;
       case 'marketing-campaigns': return <BulkMarketingCampaigns />;
       case 'waitlist-auto-fill': return <WaitlistAutoFill />;
+      case 'booking-comments': return <BookingComments bookingId="" isOpen={false} onClose={() => {}} />;
+      case 'customer-tags': return <CustomerTags />;
+      case 'staff-performance': return <StaffPerformance />;
+      case 'booking-recurrence': return <BookingRecurrence />;
+      case 'customer-satisfaction-surveys': return <CustomerSatisfactionSurveys />;
       default: return <Dashboard />;
     }
   };

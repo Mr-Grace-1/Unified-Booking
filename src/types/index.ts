@@ -205,6 +205,20 @@ export interface WaitlistEntry {
   bookedAt?: string;
 }
 
+export interface RecurringBooking {
+  id: string;
+  templateBooking: Omit<Booking, 'id'>;
+  pattern: 'daily' | 'weekly' | 'biweekly' | 'monthly' | 'yearly';
+  interval: number;
+  startDate: string;
+  endDate?: string;
+  occurrences: number;
+  daysOfWeek?: number[];
+  dayOfMonth?: number;
+  isActive: boolean;
+  createdAt: string;
+}
+
 export interface Integration {
   id: string;
   name: string;
@@ -214,4 +228,4 @@ export interface Integration {
   lastSync?: string;
 }
 
-export type ViewType = 'dashboard' | 'bookings' | 'new-booking' | 'calendar' | 'calendar-drag' | 'services' | 'service-packages' | 'service-availability' | 'customers' | 'customer-communication' | 'customer-feedback' | 'customer-notes' | 'staff' | 'staff-schedule' | 'staff-availability' | 'staff-performance' | 'staff-shifts' | 'time-off' | 'locations' | 'integrations' | 'analytics' | 'automated-reports' | 'notifications' | 'invoices' | 'customer-portal' | 'customer-account' | 'advanced-analytics' | 'recurring' | 'waitlist' | 'waitlist-auto-fill' | 'settings' | 'gift-cards' | 'reviews' | 'templates' | 'data-import' | 'booking-confirmation' | 'booking-timeline' | 'booking-qr-code' | 'booking-deposits' | 'deposit-management' | 'cancellation-policies' | 'marketing-campaigns' | 'service-addons' | 'service-addons-booking' | 'data-backup' | 'customer-survey' | 'loyalty-program' | 'appointment-reminders' | 'enhanced-customer-portal';
+export type ViewType = 'dashboard' | 'bookings' | 'new-booking' | 'calendar' | 'calendar-drag' | 'services' | 'service-packages' | 'service-availability' | 'customers' | 'customer-communication' | 'customer-feedback' | 'customer-notes' | 'customer-tags' | 'staff' | 'staff-schedule' | 'staff-availability' | 'staff-performance' | 'staff-shifts' | 'time-off' | 'locations' | 'integrations' | 'analytics' | 'automated-reports' | 'notifications' | 'invoices' | 'customer-portal' | 'customer-account' | 'advanced-analytics' | 'recurring' | 'booking-recurrence' | 'waitlist' | 'waitlist-auto-fill' | 'settings' | 'gift-cards' | 'reviews' | 'templates' | 'data-import' | 'booking-confirmation' | 'booking-timeline' | 'booking-qr-code' | 'booking-deposits' | 'deposit-management' | 'cancellation-policies' | 'marketing-campaigns' | 'service-addons' | 'service-addons-booking' | 'data-backup' | 'customer-survey' | 'customer-satisfaction-surveys' | 'loyalty-program' | 'appointment-reminders' | 'enhanced-customer-portal' | 'booking-comments';

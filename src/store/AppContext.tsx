@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
-import { Booking, ViewType, TimeOff, GiftCard, Package, Review, BookingTemplate, ServiceAddon, CancellationPolicy, MarketingCampaign, WaitlistEntry } from '../types';
+import { Booking, ViewType, TimeOff, GiftCard, Package, Review, BookingTemplate, ServiceAddon, CancellationPolicy, MarketingCampaign, WaitlistEntry, RecurringBooking } from '../types';
 import { bookings as initialBookings, services, customers, staff, locations, integrations } from '../data/mockData';
 
 interface AppState {
@@ -36,6 +36,11 @@ interface AppState {
   addToWaitlist: (entry: WaitlistEntry) => void;
   updateWaitlistEntry: (id: string, updates: Partial<WaitlistEntry>) => void;
   removeFromWaitlist: (id: string) => void;
+  customerTags: Record<string, string[]>;
+  updateCustomerTags: (customerId: string, tags: string[]) => void;
+  recurringBookings: RecurringBooking[];
+  createRecurringBooking: (booking: RecurringBooking) => void;
+  deleteRecurringBooking: (id: string) => void;
   sidebarOpen: boolean;
   setSidebarOpen: (open: boolean) => void;
   selectedBookingId: string | null;
@@ -56,6 +61,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [policies, setPolicies] = useState<CancellationPolicy[]>([]);
   const [campaigns, setCampaigns] = useState<MarketingCampaign[]>([]);
   const [waitlist, setWaitlist] = useState<WaitlistEntry[]>([]);
+  const [customerTags, setCustomerTags] = useState<Record<string, string[]>>({});
+  const [recurringBookings, setRecurringBookings] = useState<RecurringBooking[]>([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [selectedBookingId, setSelectedBookingId] = useState<string | null>(null);
 
@@ -139,6 +146,18 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setWaitlist(prev => prev.filter(w => w.id !== id));
   };
 
+  const updateCustomerTags = (customerId: string, tags: string[]) => {
+    setCustomerTags(prev => ({ ...prev, [customerId]: tags }));
+  };
+
+  const createRecurringBooking = (booking: RecurringBooking) => {
+    setRecurringBookings(prev => [booking, ...prev]);
+  };
+
+  const deleteRecurringBooking = (id: string) => {
+    setRecurringBookings(prev => prev.filter(r => r.id !== id));
+  };
+
   return (
     <AppContext.Provider value={{
       currentView, setCurrentView,
@@ -152,6 +171,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
       policies, addPolicy, updatePolicy, deletePolicy,
       campaigns, addCampaign, updateCampaign, deleteCampaign,
       waitlist, addToWaitlist, updateWaitlistEntry, removeFromWaitlist,
+      customerTags, updateCustomerTags,
+      recurringBookings, createRecurringBooking, deleteRecurringBooking,
       sidebarOpen, setSidebarOpen,
       selectedBookingId, setSelectedBookingId,
     }}>
