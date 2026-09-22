@@ -1,0 +1,102 @@
+@import "tailwindcss";
+
+/* Light theme variables */
+:root.light {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-tertiary: #f1f5f9;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  --border-color: #e2e8f0;
+}
+
+/* Dark theme variables (default) */
+:root.dark {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-tertiary: #334155;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #64748b;
+  --border-color: #334155;
+}
+
+/* Apply theme variables to body */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Light theme specific overrides */
+:root.light body {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+}
+
+:root.light .bg-slate-950 {
+  background-color: #ffffff !important;
+}
+
+:root.light .bg-slate-900\/50 {
+  background-color: rgba(241, 245, 249, 0.8) !important;
+}
+
+:root.light .bg-slate-800\/50 {
+  background-color: rgba(226, 232, 240, 0.6) !important;
+}
+
+:root.light .text-white {
+  color: #0f172a !important;
+}
+
+:root.light .text-slate-400 {
+  color: #64748b !important;
+}
+
+:root.light .text-slate-500 {
+  color: #94a3b8 !important;
+}
+
+:root.light .border-white\/10 {
+  border-color: rgba(226, 232, 240, 0.5) !important;
+}
+
+:root.light .bg-white\/5 {
+  background-color: rgba(241, 245, 249, 0.5) !important;
+}
+
+:root.light .hover\:bg-white\/10:hover {
+  background-color: rgba(226, 232, 240, 0.8) !important;
+}
+
+/* Custom scrollbar styling - visible but subtle */
+* {
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+/* Chrome, Safari and Opera */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+*::-webkit-scrollbar-corner {
+  background: transparent;
+}
